@@ -49,11 +49,11 @@ class App extends Component<Props> {
                             if (lightContentScenes.indexOf(currentScene) >= 0) {
                                 StatusBar.setBarStyle('light-content');
                                 this.props.platform==='android'?StatusBar.setBackgroundColor(colors.blue):'';
-                                StatusBar.setHidden(true)
+                                // StatusBar.setHidden(true)
                             } else {
                                 StatusBar.setBarStyle('dark-content');
                                 this.props.platform==='android'?StatusBar.setBackgroundColor(colors.primary):'';
-                                StatusBar.setHidden(false)
+                                // StatusBar.setHidden(false)
                             }
                         }
                     }

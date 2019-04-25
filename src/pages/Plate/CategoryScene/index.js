@@ -58,7 +58,7 @@ class CategoryScene extends PureComponent<Props>{
                 activeOpacity={1}
                 onPress={() => this.rehref(item)}
             >
-                <ExImage style={{width:50,height:50}}/>
+                <ExImage style={{width:50,height:50}} uri={'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=583188744,2516998128&fm=15&gp=0.jpg'}/>
                 <View>
                     <Heading2>{item.title}</Heading2>
                     <Paragraph style={{ color:  '#555555' }}>
@@ -133,8 +133,8 @@ const styles = StyleSheet.create({
     childItem:{
         height:70,
         width:'100%',
-        paddingTop:10,
-        paddingBottom:10,
+        paddingTop:5,
+        paddingBottom:5,
         flexDirection:'row',
         justifyContent:'space-around',
         alignItems:'center'

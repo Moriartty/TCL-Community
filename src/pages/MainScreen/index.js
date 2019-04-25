@@ -1,5 +1,5 @@
 import React,{PureComponent} from 'react';
-import {TouchableOpacity,StyleSheet,Image,View,Alert} from 'react-native';
+import {TouchableOpacity,StyleSheet,Image,View,Alert,Text} from 'react-native';
 import {createBottomTabNavigator, TabBarBottom,SafeAreaView,createStackNavigator} from "react-navigation";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import {Heading3} from "../../components/Text";
@@ -9,11 +9,13 @@ import Plate from '../Plate';
 import {colors} from "../../config";
 import Home from "../Home";
 import MyTCL from "../MyTCL";
+import Release from '../Release';
 
 const Tab = createBottomTabNavigator(
     {
         Explore:{screen:createStackNavigator({Explore:Explore})},
         Community:{screen:Home},
+        Release:{screen:createStackNavigator({Release:Release})},
         // Message:Message,
         Plate:{screen:createStackNavigator({Plate:Plate})},
         MyTCL:MyTCL
@@ -23,6 +25,7 @@ const Tab = createBottomTabNavigator(
                 const { routeName } = navigation.state;
                 let IconComponent = Ionicons;
                 let iconName;
+                let size = 25,color = tintColor;
                 switch(routeName){
                     case 'Community':
                         iconName = `ios-home${focused ? '' : ''}`;
@@ -33,6 +36,11 @@ const Tab = createBottomTabNavigator(
                     case 'Message':
                         iconName = `ios-at${focused ? '' : ''}`;
                         break;
+                    case 'Release':
+                        iconName = `ios-add-circle${focused ? '' : ''}`;
+                        size = 50;
+                        color = colors.blue;
+                        break;
                     case 'Plate':
                         iconName = `ios-flag${focused ? '' : ''}`;
                         break;
@@ -40,8 +48,14 @@ const Tab = createBottomTabNavigator(
                         iconName = `ios-person${focused ? '' : ''}`;
                         break;
                 }
-                return <IconComponent name={iconName} size={25} color={tintColor} />;
+                return <IconComponent name={iconName} size={size} color={color} />;
             },
+            tabBarLabel:({ focused, horizontal, tintColor }) => {
+                const { routeName } = navigation.state;
+                if(routeName!=='Release'){
+                    return <Text style={{color:tintColor,fontSize:12,textAlign:'center'}}>{routeName}</Text>
+                }
+            }
         }),
         tabBarOptions: {
             labelStyle: {
