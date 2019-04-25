@@ -3,6 +3,7 @@ import React from 'react';
 import {colors} from '../../config';
 import {Heading3} from "../../components/Text";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import ExImage from '../../components/ExImage';
 
 import Carousel from 'react-native-looped-carousel';
 import NewsList from './NewsList';
@@ -89,7 +90,7 @@ class Explore extends React.PureComponent<Props>{
                     {React.Children.map(imgUrls, (child, index) => {
                         return (
                             <View style={{width:'100%',height:'100%',flex:1,justifyContent:'center',alignItems:'center'}}>
-                                <Image source={{uri:child}} style={{width:'100%',height:'100%'}}/>
+                                <ExImage uri={child} style={{width:'100%',height:'100%'}}/>
                                 {/*<Text style={{color:'black'}}>{child + ',' + index}</Text>*/}
                             </View>
                         )

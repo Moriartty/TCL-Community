@@ -5,6 +5,7 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import {Heading3} from "../../components/Text";
 import Message from "../Message";
 import Explore from "../Explore";
+import Plate from '../Plate';
 import {colors} from "../../config";
 import Home from "../Home";
 import MyTCL from "../MyTCL";
@@ -14,6 +15,7 @@ const Tab = createBottomTabNavigator(
         Explore:{screen:createStackNavigator({Explore:Explore})},
         Community:{screen:Home},
         // Message:Message,
+        Plate:{screen:createStackNavigator({Plate:Plate})},
         MyTCL:MyTCL
     },{
         defaultNavigationOptions: ({ navigation }) => ({
@@ -30,6 +32,9 @@ const Tab = createBottomTabNavigator(
                         break;
                     case 'Message':
                         iconName = `ios-at${focused ? '' : ''}`;
+                        break;
+                    case 'Plate':
+                        iconName = `ios-flag${focused ? '' : ''}`;
                         break;
                     case 'MyTCL':
                         iconName = `ios-person${focused ? '' : ''}`;

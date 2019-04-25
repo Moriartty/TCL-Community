@@ -7,6 +7,7 @@
  */
 
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
 import {Alert, Platform, StyleSheet, Text, View,TouchableOpacity,Image} from 'react-native';
 import { StatusBar } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator, createAppContainer, TabBarBottom } from 'react-navigation';
@@ -27,14 +28,14 @@ function getCurrentRouteName(navigationState: any) {
     }
     return route.routeName
 }
-const lightContentScenes = [];
+const lightContentScenes = ['MyTCL'];
 
 type Props = {};
 class App extends Component<Props> {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         StatusBar.setBarStyle('dark-content');
-        StatusBar.setBackgroundColor(colors.primary)
+        props.platform==='android'? StatusBar.setBackgroundColor(colors.primary):'';
     }
 
     render() {
@@ -47,10 +48,12 @@ class App extends Component<Props> {
                         if (previousScene !== currentScene) {
                             if (lightContentScenes.indexOf(currentScene) >= 0) {
                                 StatusBar.setBarStyle('light-content');
-                                StatusBar.setBackgroundColor(colors.primary)
+                                this.props.platform==='android'?StatusBar.setBackgroundColor(colors.blue):'';
+                                StatusBar.setHidden(true)
                             } else {
                                 StatusBar.setBarStyle('dark-content');
-                                StatusBar.setBackgroundColor(colors.primary)
+                                this.props.platform==='android'?StatusBar.setBackgroundColor(colors.primary):'';
+                                StatusBar.setHidden(false)
                             }
                         }
                     }
@@ -82,6 +85,11 @@ const AppNavigator = createStackNavigator(
 
 
 const AppContainer = createAppContainer(AppNavigator);
+
+App = connect(state=>{
+    const {platform} = state['app'];
+    return {platform};
+},null)(App);
 
 export default App
 

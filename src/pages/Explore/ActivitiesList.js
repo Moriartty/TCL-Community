@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import {Heading3} from "../../components/Text";
 import action from '../../actions/explore';
 import Ionicons from "react-native-vector-icons/Ionicons";
+import ExImage from '../../components/ExImage';
 
 class ActivitiesList extends PureComponent<Props>{
     constructor(props){
@@ -18,7 +19,7 @@ class ActivitiesList extends PureComponent<Props>{
     _renderItem = (rowData: any) => {
         return (
             <View style={styles.activitiesItem}>
-                <Image source={{uri:rowData.item.imgUrl}} style={styles.pic}/>
+                <ExImage uri={rowData.item.imgUrl} style={styles.pic}/>
                 <Heading3>{rowData.item.title}</Heading3>
             </View>
         )

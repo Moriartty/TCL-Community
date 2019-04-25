@@ -7,6 +7,7 @@ import { screen, system } from '../../utils';
 import {colors} from '../../config';
 import Ionicons from "react-native-vector-icons/Ionicons";
 import ActionIcon from '../../components/ActionIcon';
+import ExImage from '../../components/ExImage';
 
 
 type Props = {
@@ -27,7 +28,7 @@ function itemWithMultiImg(info){
                     renderItem={(rowData)=>{
                         return (
                             <View>
-                                <Image source={{uri:rowData.item}} style={styles.pic}/>
+                                <ExImage uri={rowData.item} style={styles.pic}/>
                             </View>
                         )
                     }}
@@ -42,7 +43,7 @@ function itemWithSingleImg(info){
         <React.Fragment>
             <View style={styles.singlePicContent}>
                 <Heading2>{info.title}</Heading2>
-                <Image source={{uri:info.imageUrls[0]}} resizeMode='contain' style={styles.pic} />
+                <ExImage uri={info.imageUrls[0]} resizeMode='contain' style={styles.pic} />
             </View>
         </React.Fragment>
     )

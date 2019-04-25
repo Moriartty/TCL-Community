@@ -1,13 +1,15 @@
 import {objectAppend} from "../utils";
-import {Platform} from 'react-native';
 
 const defaultState = {
-    platform:Platform.OS==='ios'?'ios':'android'
+    categoryList:[]
 };
 
 export default (state,action) => {
     let newState = {};
     switch(action.type){
+        case 'PLATE_CATEGORY_LIST_LOAD':
+            newState.categoryList = action.data;
+            break;
         default:return state||defaultState;
     }
     return objectAppend(newState,state);
