@@ -6,6 +6,7 @@ import {Heading2, Paragraph} from "../../../components/Text";
 import {screen} from "../../../utils";
 import Separator from '../../../components/Separator';
 import ExImage from '../../../components/ExImage';
+import {withNavigation} from 'react-navigation';
 
 function getChilds(list,selected){
     return list.find(o=>{
@@ -29,7 +30,7 @@ class CategoryScene extends PureComponent<Props>{
                 style={[{
                     backgroundColor: this.state.selected == item.id ? 'white' : colors.gray ,
                 }, styles.parentItem]}
-                onPress={() => this.handleSelect(item)}>
+                onPress={() => this.handleParentSelect(item)}>
                 <Paragraph style={{
                     color: this.state.selected == item.id ? colors.blue : '#555555' ,
                     fontWeight:this.state.selected == item.id ? 'bold':'normal'
@@ -39,24 +40,13 @@ class CategoryScene extends PureComponent<Props>{
             </TouchableOpacity>
         )
     }
-    handleSelect = (item) => {
-        this.setState({
-            selected:item.id,
-            childs:getChilds(this.props.categoryList,item.id)
-        });
-    }
-    renderSeparator = (color) => {
-        return (
-            <Separator style={{backgroundColor:color}}/>
-        )
-    }
     _renderChildItem = (rowData:any) => {
         const item = rowData.item;
         return (
             <TouchableOpacity
                 style={styles.childItem}
                 activeOpacity={1}
-                onPress={() => this.rehref(item)}
+                onPress={() => this.reHref(item)}
             >
                 <ExImage style={{width:50,height:50}} uri={'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=583188744,2516998128&fm=15&gp=0.jpg'}/>
                 <View>
@@ -69,8 +59,19 @@ class CategoryScene extends PureComponent<Props>{
             </TouchableOpacity>
         )
     }
-    rehref = (item) => {
-
+    handleParentSelect = (item) => {
+        this.setState({
+            selected:item.id,
+            childs:getChilds(this.props.categoryList,item.id)
+        });
+    }
+    renderSeparator = (color) => {
+        return (
+            <Separator style={{backgroundColor:color}}/>
+        )
+    }
+    reHref = (item) => {
+        this.props.navigation.navigate('TopicDetailPage',{title:item.title});
     }
     componentDidUpdate() {
         if(this.props.categoryList.length>0)
@@ -154,4 +155,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default CategoryScene;
+export default withNavigation(CategoryScene);

@@ -9,6 +9,7 @@ class ExImage extends PureComponent<Props>{
                 source={{uri}}
                 style={style}
                 defaultSource={require('../img/default.jpg')}
+                {...this.props}
             />
         )
     }

@@ -17,6 +17,7 @@ import Tab from './pages/MainScreen';
 import {colors} from './config';
 import DetailsPage from "./pages/DetailsPage";
 import Rewards from './pages/Rewards';
+import TopicDetailPage from "./pages/Plate/TopicDetailPage";
 
 function getCurrentRouteName(navigationState: any) {
     if (!navigationState) {
@@ -35,10 +36,12 @@ class App extends Component<Props> {
     constructor(props) {
         super(props);
         StatusBar.setBarStyle('dark-content');
-        props.platform==='android'? StatusBar.setBackgroundColor(colors.primary):'';
+        // props.platform==='android'? StatusBar.setBackgroundColor(colors.primary):'';
     }
 
     render() {
+        // StatusBar.setTranslucent(true);
+        StatusBar.setBackgroundColor('transparent');
         return (
             <AppContainer
                 onNavigationStateChange={
@@ -48,11 +51,11 @@ class App extends Component<Props> {
                         if (previousScene !== currentScene) {
                             if (lightContentScenes.indexOf(currentScene) >= 0) {
                                 StatusBar.setBarStyle('light-content');
-                                this.props.platform==='android'?StatusBar.setBackgroundColor(colors.blue):'';
+                                // this.props.platform==='android'?StatusBar.setBackgroundColor(colors.blue):'';
                                 // StatusBar.setHidden(true)
                             } else {
                                 StatusBar.setBarStyle('dark-content');
-                                this.props.platform==='android'?StatusBar.setBackgroundColor(colors.primary):'';
+                                // this.props.platform==='android'?StatusBar.setBackgroundColor(colors.primary):'';
                                 // StatusBar.setHidden(false)
                             }
                         }
@@ -69,7 +72,8 @@ const AppNavigator = createStackNavigator(
     {
         Tab: { screen: Tab },
         DetailsPage: { screen: DetailsPage },
-        Rewards:{screen:Rewards}
+        Rewards:{screen:Rewards},
+        TopicDetailPage:{screen:TopicDetailPage}
 
         // GroupPurchase: { screen: GroupPurchaseScene },
     },
