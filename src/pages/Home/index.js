@@ -71,7 +71,7 @@ class Home extends PureComponent<Props>{
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: colors.paper
+        backgroundColor: colors.paper,
     },
     searchBar: {
         width: screen.width * 0.65,

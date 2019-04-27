@@ -6,6 +6,8 @@ import TrendingListItem from './TrendingListItem';
 import Separator from '../../components/Separator';
 import {withNavigation} from 'react-navigation';
 import TrendingHeaderView from './TrendingHeaderView';
+import NestedScrollView from 'react-native-nested-scroll-view';
+
 
 import action from '../../actions/trending';
 
@@ -58,6 +60,11 @@ class TrendingListScene extends PureComponent<Props,State>{
             />
         )
     }
+    renderScroll(props) {
+        return (
+            <NestedScrollView {...props} />
+        )
+    }
 
     render() {
         return (
@@ -70,6 +77,7 @@ class TrendingListScene extends PureComponent<Props,State>{
                 refreshState={this.props.refreshState}
                 onHeaderRefresh={this.props.requestFirstPage}
                 onFooterRefresh={this.props.requestNextPage}
+                renderScrollComponent={this.renderScroll}
             />
         )
     }

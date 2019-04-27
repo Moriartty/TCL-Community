@@ -58,7 +58,7 @@ class TopicDetailPage extends PureComponent<Props>{
                 {
                     platform==='android'?
                         <CoordinatorLayout>
-                            <AppBarLayout style={{height: 200}}>
+                            <AppBarLayout style={{height: 250}}>
                                 <CollapsingToolbarLayout
                                     title={navigation.getParam('title')}
                                     contentScrimColor='#ffffff'
@@ -74,9 +74,9 @@ class TopicDetailPage extends PureComponent<Props>{
                                         | AppBarLayout.SCROLL_FLAG_SNAP
                                     }>
                                     <CollapsingParallax parallaxMultiplier={0.6}>
-                                        <View collapsable={false} style={{height: 200, justifyContent: 'center' }}>
+                                        <View collapsable={false} style={{height: 250, justifyContent: 'center' }}>
                                             <ExImage
-                                                style={{width:'100%',height:200,opacity:(0,0,0,0.6)}}
+                                                style={{width:'100%',height:250,opacity:(0,0,0,0.6)}}
                                                 uri={'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=583188744,2516998128&fm=15&gp=0.jpg'}
                                                 resizeMode={'cover'}
                                             />
@@ -87,7 +87,7 @@ class TopicDetailPage extends PureComponent<Props>{
                             </AppBarLayout>
                             <NestedScrollView style={{width:'100%',height:'100%'}}>
                                 <ScrollableTabView
-                                    style={{height:screen.height+100}}
+                                    style={{height:screen.height-40}}
                                     tabBarBackgroundColor='white'
                                     tabBarActiveTextColor={colors.blue}
                                     tabBarInactiveTextColor='#555555'
