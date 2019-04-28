@@ -1,13 +1,14 @@
 import React,{PureComponent} from 'react';
 import {connect} from 'react-redux';
-import {View} from 'react-native';
+import {InteractionManager, View} from 'react-native';
 import RefreshListView, { RefreshState } from 'react-native-refresh-list-view';
-import TrendingListItem from './TrendingListItem';
-import Separator from '../../components/Separator';
+import CommonListItem from './CommonListItem';
+import Separator from '../../../components/Separator';
 import {withNavigation} from 'react-navigation';
-import TrendingHeaderView from '../Home/ListHeaderView';
+import TrendingHeaderView from '../../Home/ListHeaderView';
+import NestedScrollView from 'react-native-nested-scroll-view';
 
-import action from '../../actions/trending';
+import action from '../../../actions/trending';
 
 type Props = {
     types: Array<string>,
@@ -20,17 +21,22 @@ type State = {
     refreshState: number,
 }
 
-class TrendingListScene extends PureComponent<Props,State>{
+class CommonListScene extends PureComponent<Props,State>{
     constructor(props: Object) {
         super(props);
         this.state = {
             typeIndex: 'tutorials'
         }
     }
+    componentDidMount() {
+        InteractionManager.runAfterInteractions(() => {
+            this.props.init();
+        })
+    }
 
     renderCell = (rowData: any) => {
         return (
-            <TrendingListItem
+            <CommonListItem
                 info={rowData.item}
                 onPress={() => {
                     this.props.navigation.navigate('DetailsPage', { info: rowData.item })
@@ -61,6 +67,11 @@ class TrendingListScene extends PureComponent<Props,State>{
             />
         )
     }
+    renderScroll(props) {
+        return (
+            <NestedScrollView {...props} />
+        )
+    }
 
     render() {
         return (
@@ -73,21 +84,25 @@ class TrendingListScene extends PureComponent<Props,State>{
                 refreshState={this.props.refreshState}
                 onHeaderRefresh={this.props.requestFirstPage}
                 onFooterRefresh={this.props.requestNextPage}
+                renderScrollComponent={this.renderScroll}
             />
         )
     }
 }
 
-TrendingListScene = connect(state=>{
+CommonListScene = connect(state=>{
     const {data,refreshState} = state['trending'];
     return {data,refreshState};
 },dispatch=>({
+    init(){
+        dispatch(action.loadData());
+    },
     requestFirstPage(){
         dispatch(action.loadFirstPage());
     },
     requestNextPage(){
         dispatch(action.loadNextPage());
     }
-}))(TrendingListScene);
+}))(CommonListScene);
 
-export default withNavigation(TrendingListScene);
+export default withNavigation(CommonListScene);

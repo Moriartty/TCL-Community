@@ -14,9 +14,10 @@ type Props = {
 }
 
 
-class TrendingHeaderView extends PureComponent<Props> {
+class ListHeaderView extends PureComponent<Props> {
     static defaultProps = {
-        onSelected: () => { }
+        onSelected: () => { },
+        onMoreIconClicked:()=>{}
     }
     _renderItem = (rowData:any) => {
         const item = rowData.item;
@@ -42,9 +43,12 @@ class TrendingHeaderView extends PureComponent<Props> {
                     renderItem={this._renderItem}
                     showsHorizontalScrollIndicator = {false}
                 />
-                <View style={styles.moreItem}>
+                <TouchableOpacity
+                    style={styles.moreItem}
+                    onPress={this.props.onMoreIconClicked}
+                >
                     <ActionIcon name={'ios-more'} size={20}/>
-                </View>
+                </TouchableOpacity>
             </View>
         )
     }
@@ -91,4 +95,4 @@ const styles = StyleSheet.create({
 })
 
 
-export default TrendingHeaderView
+export default ListHeaderView

@@ -14,20 +14,10 @@ import {connect} from 'react-redux';
 import ScrollableTabView, { DefaultTabBar } from 'react-native-scrollable-tab-view';
 import {screen} from '../../../utils';
 
-import Trending from '../../Trending';
-import Forum from '../../Forum';
-import Gallery from '../../Gallery';
+import CommonListScene from './CommonListScene';
 
 import Home from '../../Home';
 
-function getScene(key,props) {
-    const compMap = {
-        Trending:<Trending {...props}/>,
-        Forum:<Forum {...props}/>,
-        Gallery:<Gallery {...props}/>
-    }
-    return compMap[key];
-}
 
 class TopicDetailPage extends PureComponent<Props>{
     static navigationOptions = ({navigation}) => {
@@ -39,15 +29,26 @@ class TopicDetailPage extends PureComponent<Props>{
             headerTransparent:true
         }
     }
+
     constructor(props){
         super(props);
         this.state = {
-            curScene:<Trending/>
+            curScene:<CommonListScene/>
         }
     }
+
+    getScene = (key,props) => {
+        const compMap = {
+            '热帖':<CommonListScene {...props}/>,
+            '最新':<CommonListScene {...props}/>,
+            '精华':<CommonListScene {...props}/>
+        }
+        return compMap[key];
+    }
+
     render(){
         const {platform,navigation} = this.props;
-        let titles = ['Trending', 'Forum', 'Gallery'];
+        let titles = ['热帖', '最新', '精华'];
         let types = [
             ['tutorials', 'Unboxing', 'T1 pro', 'App Recommends','moriarty'],
             ['tutorials', 'Unboxing', 'T1 pro', 'App Recommends'],
@@ -93,11 +94,9 @@ class TopicDetailPage extends PureComponent<Props>{
                                     tabBarInactiveTextColor='#555555'
                                     tabBarTextStyle={styles.tabBarText}
                                     tabBarUnderlineStyle={styles.tabBarUnderline}
-                                    // tabBarPosition={'bottom'}
-                                    // renderTabBar={() => <DefaultTabBar />}
                                 >
                                     {titles.map((title, i) => (
-                                        getScene(title,{
+                                        this.getScene(title,{
                                             tabLabel:titles[i],
                                             key:i,
                                             types:types[i],
