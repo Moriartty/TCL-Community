@@ -58,7 +58,7 @@ class Explore extends React.PureComponent<Props>{
         this.props.navigation.setParams({
             handleNavClick:this.handleNavClick,
             handleRewardClick:this.handleRewardClick,
-            title:'Hello Moriarty'
+            title:'Hello,Moriarty'
         })
     }
 

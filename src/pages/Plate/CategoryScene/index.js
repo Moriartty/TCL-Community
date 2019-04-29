@@ -67,7 +67,7 @@ class CategoryScene extends PureComponent<Props>{
     }
     renderSeparator = (color) => {
         return (
-            <Separator style={{backgroundColor:color}}/>
+            <Separator style={{backgroundColor:color,height:1}}/>
         )
     }
     reHref = (item) => {
@@ -87,7 +87,7 @@ class CategoryScene extends PureComponent<Props>{
                         keyExtractor={(item, index) => index.toString()}
                         renderItem={this._renderParentItem}
                         ItemSeparatorComponent={this.renderSeparator.bind(this,'white')}
-                        showsHorizontalScrollIndicator = {false}
+                        showsVerticalScrollIndicator={false}
                     />
                 </View>
                 <View style={styles.rightView}>
@@ -96,8 +96,8 @@ class CategoryScene extends PureComponent<Props>{
                         extraData={this.state}
                         keyExtractor={(item, index) => index.toString()}
                         renderItem={this._renderChildItem}
-                        ItemSeparatorComponent={this.renderSeparator.bind(this,colors.gray)}
-                        showsHorizontalScrollIndicator = {false}
+                        // ItemSeparatorComponent={this.renderSeparator.bind(this,colors.gray)}
+                        showsVerticalScrollIndicator = {false}
                     />
                 </View>
             </View>

@@ -1,24 +1,25 @@
 import React,{PureComponent} from 'react';
 import {connect} from 'react-redux';
-import {InteractionManager, View} from 'react-native';
+import {InteractionManager, View, ActivityIndicator, Text, StyleSheet} from 'react-native';
 import RefreshListView, { RefreshState } from 'react-native-refresh-list-view';
 import CommonListItem from './CommonListItem';
 import Separator from '../../../components/Separator';
 import {withNavigation} from 'react-navigation';
-import TrendingHeaderView from '../../Home/ListHeaderView';
+import CommonListHeader from './CommonListHeader';
 import NestedScrollView from 'react-native-nested-scroll-view';
 
-import action from '../../../actions/trending';
 
 type Props = {
     types: Array<string>,
     navigation: any,
+    withHeader:Boolean,
+    loadData:Function,
+    loadNextData:Function,
+    data:Array<Object>
 }
 
 type State = {
     typeIndex: number,
-    data: Array<Object>,
-    refreshState: number,
 }
 
 class CommonListScene extends PureComponent<Props,State>{
@@ -30,7 +31,9 @@ class CommonListScene extends PureComponent<Props,State>{
     }
     componentDidMount() {
         InteractionManager.runAfterInteractions(() => {
-            this.props.init();
+            this.props.loadData();
+            if(this.props.withHeader)
+                this.props.loadToppingNews(3);
         })
     }
 
@@ -52,19 +55,29 @@ class CommonListScene extends PureComponent<Props,State>{
     }
     renderHeader = () => {
         return (
-            <TrendingHeaderView
-                titles={this.props.types}
-                selectedIndex={this.state.typeIndex}
-                onSelected={(index) => {
-                    if (index != this.state.typeIndex) {
-                        this.setState({ typeIndex: index })
-                        // this.requestData()
-                    }
-                }}
-                onMoreIconClicked={()=>{
-                    this.props.navigation.navigate('SubscribedTags')
-                }}
-            />
+            <View>
+                {
+                    this.props.withHeader?
+                        <CommonListHeader
+                            titles={this.props.news}
+                            selectedIndex={this.state.typeIndex}
+                            onSelected={(index) => {
+                                if (index != this.state.typeIndex) {
+                                    this.setState({ typeIndex: index })
+                                }
+                            }}
+                            onMoreIconClicked={()=>{this.props.loadToppingNews(8)}}
+                        />:null
+                }
+                {
+                    this.props.refreshState === 1?
+                        <View style={styles.footerContainer} >
+                            <ActivityIndicator size="small" color="#888888" />
+                            <Text style={[styles.footerText, {marginLeft: 7}]}>数据加载中...</Text>
+                        </View>:null
+                }
+
+            </View>
         )
     }
     renderScroll(props) {
@@ -74,35 +87,36 @@ class CommonListScene extends PureComponent<Props,State>{
     }
 
     render() {
+        const {withHeader} = this.props;
         return (
             <RefreshListView
                 data={this.props.data}
-                ListHeaderComponent={this.renderHeader}
+                ListHeaderComponent={this.renderHeader.bind(this.props.news)}
                 ItemSeparatorComponent={this.renderSeparator}
                 renderItem={this.renderCell}
                 keyExtractor={(item, index) => index.toString()}
                 refreshState={this.props.refreshState}
-                onHeaderRefresh={this.props.requestFirstPage}
-                onFooterRefresh={this.props.requestNextPage}
+                // onHeaderRefresh={this.props.requestFirstPage}
+                onFooterRefresh={this.props.loadNextData}
                 renderScrollComponent={this.renderScroll}
             />
         )
     }
 }
 
-CommonListScene = connect(state=>{
-    const {data,refreshState} = state['trending'];
-    return {data,refreshState};
-},dispatch=>({
-    init(){
-        dispatch(action.loadData());
+const styles = StyleSheet.create({
+    footerContainer: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 10,
+        height: 44,
     },
-    requestFirstPage(){
-        dispatch(action.loadFirstPage());
-    },
-    requestNextPage(){
-        dispatch(action.loadNextPage());
+    footerText: {
+        fontSize: 14,
+        color: '#555555'
     }
-}))(CommonListScene);
+});
 
 export default withNavigation(CommonListScene);
