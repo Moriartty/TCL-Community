@@ -1,5 +1,5 @@
 
-import React, { PureComponent } from 'react'
+import React, { PureComponent,Fragment } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity,FlatList } from 'react-native'
 import { Heading2, Heading3, Paragraph } from '../../../components/Text'
 import { screen, system } from '../../../utils'
@@ -9,17 +9,20 @@ import RefreshListView from 'react-native-refresh-list-view';
 import Separator from '../../../components/Separator';
 
 type Props = {
-    titles: Array<string>,
-    selectedIndex: number,
-    onSelected: Function,
+    news: Array<string>,
+    onMoreIconClicked:Function,
+    openState:Boolean
 }
 
 
 class CommonListHeader extends PureComponent<Props> {
     static defaultProps = {
-        onSelected: () => { },
         onMoreIconClicked:()=>{}
     }
+    constructor(props){
+        super(props);
+    }
+
     _renderItem = (rowData:any) => {
         const item = rowData.item;
         return (
@@ -39,28 +42,40 @@ class CommonListHeader extends PureComponent<Props> {
             <Separator style={{height:5}}/>
         )
     }
+
     render() {
-        // console.log('title',this.props.titles);
-        return (
-            <View style={styles.container}>
-                <FlatList
-                    data={this.props.titles}
-                    keyExtractor={(item, index) => index.toString()}
-                    // ItemSeparatorComponent={this.renderSeparator}
-                    style={{marginRight:10}}
-                    renderItem={this._renderItem}
-                    showsHorizontalScrollIndicator = {false}
-                />
-                <TouchableOpacity
-                    style={styles.moreItem}
-                    onPress={this.props.onMoreIconClicked}
-                >
-                    <ActionIcon name={'ios-arrow-dropdown'} size={15} color={'#f5222d'}/>
-                    <Text style={{color:'#f5222d',fontSize:12}}>点击加载更多</Text>
-                </TouchableOpacity>
-                <Separator style={{height:5}}/>
-            </View>
-        )
+        const {news,onMoreIconClicked,openState} = this.props;
+        if(news&&news.length)
+            return (
+                <View style={styles.container}>
+                    <FlatList
+                        data={news}
+                        keyExtractor={(item, index) => index.toString()}
+                        style={{marginRight:10}}
+                        renderItem={this._renderItem}
+                    />
+                    <TouchableOpacity
+                        style={styles.moreItem}
+                        onPress={onMoreIconClicked}
+                    >
+                        {
+                          openState?
+                                    <Fragment>
+                                        <ActionIcon name={'ios-arrow-dropup'} size={15} color={'#f5222d'}/>
+                                        <Text style={{color:'#f5222d',fontSize:12}}>收起</Text>
+                                    </Fragment>
+                                    :
+                                    <Fragment>
+                                        <ActionIcon name={'ios-arrow-dropdown'} size={15} color={'#f5222d'}/>
+                                        <Text style={{color:'#f5222d',fontSize:12}}>点击加载更多</Text>
+                                    </Fragment>
+                        }
+                    </TouchableOpacity>
+                    <Separator style={{height:5}}/>
+                </View>
+            )
+        else
+            return null;
     }
 }
 

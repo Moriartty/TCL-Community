@@ -26,7 +26,8 @@ class CommonListScene extends PureComponent<Props,State>{
     constructor(props: Object) {
         super(props);
         this.state = {
-            typeIndex: 'tutorials'
+            typeIndex: 'tutorials',
+            headerOpenState:false,
         }
     }
     componentDidMount() {
@@ -53,20 +54,26 @@ class CommonListScene extends PureComponent<Props,State>{
             <Separator style={{height:5}}/>
         )
     }
-    renderHeader = () => {
+    renderHeader = (news) => {
         return (
             <View>
                 {
                     this.props.withHeader?
                         <CommonListHeader
-                            titles={this.props.news}
+                            openState={this.state.headerOpenState}
+                            news={news}
                             selectedIndex={this.state.typeIndex}
                             onSelected={(index) => {
                                 if (index != this.state.typeIndex) {
                                     this.setState({ typeIndex: index })
                                 }
                             }}
-                            onMoreIconClicked={()=>{this.props.loadToppingNews(8)}}
+                            onMoreIconClicked={()=>{
+                                const newOpenState = !this.state.headerOpenState;
+                                this.setState({headerOpenState:newOpenState});
+                                const count = newOpenState?8:3;
+                                this.props.loadToppingNews(count);
+                            }}
                         />:null
                 }
                 {
@@ -87,17 +94,17 @@ class CommonListScene extends PureComponent<Props,State>{
     }
 
     render() {
-        const {withHeader} = this.props;
+        const {data,refreshState,loadNextData} = this.props;
         return (
             <RefreshListView
-                data={this.props.data}
-                ListHeaderComponent={this.renderHeader.bind(this.props.news)}
+                data={data}
+                ListHeaderComponent={this.renderHeader.bind(this,this.props.news)}
                 ItemSeparatorComponent={this.renderSeparator}
                 renderItem={this.renderCell}
                 keyExtractor={(item, index) => index.toString()}
-                refreshState={this.props.refreshState}
+                refreshState={refreshState}
                 // onHeaderRefresh={this.props.requestFirstPage}
-                onFooterRefresh={this.props.loadNextData}
+                onFooterRefresh={loadNextData}
                 renderScrollComponent={this.renderScroll}
             />
         )

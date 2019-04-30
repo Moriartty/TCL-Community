@@ -25,9 +25,6 @@ class TopicDetailPage extends PureComponent<Props>{
 
     constructor(props){
         super(props);
-        this.state = {
-            curScene:<CommonListScene/>
-        }
     }
 
     getScene = (key,props) => {
