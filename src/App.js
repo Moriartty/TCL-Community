@@ -17,7 +17,10 @@ import Tab from './pages/MainScreen';
 import {colors} from './config';
 import DetailsPage from "./pages/DetailsPage";
 import Rewards from './pages/Rewards';
+// let TopicDetailPage = Platform.OS==='ios'?
+    // require('./pages/Plate/TopicDetailPage/index_ios'):require('./pages/Plate/TopicDetailPage/index_android');
 import TopicDetailPage from "./pages/Plate/TopicDetailPage";
+import SubscribedTags from './pages/SubscribedTags';
 
 function getCurrentRouteName(navigationState: any) {
     if (!navigationState) {
@@ -73,8 +76,8 @@ const AppNavigator = createStackNavigator(
         Tab: { screen: Tab },
         DetailsPage: { screen: DetailsPage },
         Rewards:{screen:Rewards},
-        TopicDetailPage:{screen:TopicDetailPage}
-
+        TopicDetailPage:{screen:TopicDetailPage},
+        SubscribedTags:{screen:SubscribedTags}
         // GroupPurchase: { screen: GroupPurchaseScene },
     },
     {

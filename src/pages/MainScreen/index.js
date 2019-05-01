@@ -10,6 +10,7 @@ import {colors} from "../../config";
 import Home from "../Home";
 import MyTCL from "../MyTCL";
 import Release from '../Release';
+import {screen} from '../../utils';
 
 const Tab = createBottomTabNavigator(
     {
@@ -25,7 +26,28 @@ const Tab = createBottomTabNavigator(
                 const { routeName } = navigation.state;
                 let IconComponent = Ionicons;
                 let iconName;
-                let size = 25,color = tintColor;
+                let size = 30,color = tintColor,style;
+                // if(routeName==='Release'){
+                //     return (
+                //         <View style={{
+                //             width:50,
+                //             height:50,
+                //             marginTop:-25,
+                //             borderRadius:50,
+                //             borderColor:'#8c8c8c',
+                //             borderWidth:screen.onePixel,
+                //             justifyContent:'center',
+                //             alignItems:'center',
+                //             backgroundColor:colors.blue
+                //         }}>
+                //             <IconComponent
+                //                 name={`ios-add${focused ? '' : ''}`}
+                //                 size={50}
+                //                 color={'white'}
+                //             />
+                //         </View>
+                //     )
+                // }
                 switch(routeName){
                     case 'Community':
                         iconName = `ios-home${focused ? '' : ''}`;
@@ -38,8 +60,11 @@ const Tab = createBottomTabNavigator(
                         break;
                     case 'Release':
                         iconName = `ios-add-circle${focused ? '' : ''}`;
-                        size = 50;
+                        size = 60;
                         color = colors.blue;
+                        style = {
+                            marginTop:-25,
+                        };
                         break;
                     case 'Plate':
                         iconName = `ios-flag${focused ? '' : ''}`;
@@ -48,7 +73,7 @@ const Tab = createBottomTabNavigator(
                         iconName = `ios-person${focused ? '' : ''}`;
                         break;
                 }
-                return <IconComponent name={iconName} size={size} color={color} />;
+                return <IconComponent name={iconName} size={size} color={color} style={style} />;
             },
             tabBarLabel:({ focused, horizontal, tintColor }) => {
                 const { routeName } = navigation.state;
@@ -72,7 +97,7 @@ const Tab = createBottomTabNavigator(
         tabBarOptions: {
             activeTintColor: colors.primary,
             inactiveTintColor: colors.gray,
-            style: { backgroundColor: '#ffffff' },
+            style: { backgroundColor: '#ffffff'},
         },
     }
 );

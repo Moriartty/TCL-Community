@@ -5,9 +5,8 @@ import RefreshListView, { RefreshState } from 'react-native-refresh-list-view';
 import TrendingListItem from './TrendingListItem';
 import Separator from '../../components/Separator';
 import {withNavigation} from 'react-navigation';
-import TrendingHeaderView from './TrendingHeaderView';
-import NestedScrollView from 'react-native-nested-scroll-view';
 
+import TrendingHeaderView from '../Home/ListHeaderView';
 
 import action from '../../actions/trending';
 
@@ -56,6 +55,9 @@ class TrendingListScene extends PureComponent<Props,State>{
                         this.setState({ typeIndex: index })
                         // this.requestData()
                     }
+                }}
+                onMoreIconClicked={()=>{
+                    this.props.navigation.navigate('SubscribedTags')
                 }}
             />
         )

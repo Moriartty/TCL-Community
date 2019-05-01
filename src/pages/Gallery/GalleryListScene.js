@@ -2,13 +2,12 @@ import React,{PureComponent} from 'react';
 import {connect} from 'react-redux';
 import {View} from 'react-native';
 import RefreshListView, { RefreshState } from 'react-native-refresh-list-view';
-import TrendingListItem from './TrendingListItem';
+import GalleryListItem from './GalleryListItem';
 import Separator from '../../components/Separator';
 import {withNavigation} from 'react-navigation';
 import TrendingHeaderView from '../Home/ListHeaderView';
-import NestedScrollView from 'react-native-nested-scroll-view';
 
-import action from '../../actions/trending';
+import action from '../../actions/gallery';
 
 type Props = {
     types: Array<string>,
@@ -21,7 +20,7 @@ type State = {
     refreshState: number,
 }
 
-class TrendingListScene extends PureComponent<Props,State>{
+class GalleryListScene extends PureComponent<Props,State>{
     constructor(props: Object) {
         super(props);
         this.state = {
@@ -31,7 +30,7 @@ class TrendingListScene extends PureComponent<Props,State>{
 
     renderCell = (rowData: any) => {
         return (
-            <TrendingListItem
+            <GalleryListItem
                 info={rowData.item}
                 onPress={() => {
                     this.props.navigation.navigate('DetailsPage', { info: rowData.item })
@@ -42,7 +41,7 @@ class TrendingListScene extends PureComponent<Props,State>{
 
     renderSeparator = () => {
         return (
-            <Separator style={{height:5}}/>
+            <Separator style={{height:10}}/>
         )
     }
     renderHeader = () => {
@@ -62,11 +61,6 @@ class TrendingListScene extends PureComponent<Props,State>{
             />
         )
     }
-    renderScroll(props) {
-        return (
-            <NestedScrollView {...props} />
-        )
-    }
 
     render() {
         return (
@@ -79,14 +73,14 @@ class TrendingListScene extends PureComponent<Props,State>{
                 refreshState={this.props.refreshState}
                 onHeaderRefresh={this.props.requestFirstPage}
                 onFooterRefresh={this.props.requestNextPage}
-                renderScrollComponent={this.renderScroll}
+                numColumns={2}
             />
         )
     }
 }
 
-TrendingListScene = connect(state=>{
-    const {data,refreshState} = state['trending'];
+GalleryListScene = connect(state=>{
+    const {data,refreshState} = state['gallery'];
     return {data,refreshState};
 },dispatch=>({
     requestFirstPage(){
@@ -95,6 +89,6 @@ TrendingListScene = connect(state=>{
     requestNextPage(){
         dispatch(action.loadNextPage());
     }
-}))(TrendingListScene);
+}))(GalleryListScene);
 
-export default withNavigation(TrendingListScene);
+export default withNavigation(GalleryListScene);

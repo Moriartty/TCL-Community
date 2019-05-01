@@ -33,7 +33,7 @@ class Home extends PureComponent<Props>{
     //     })
     // }
     render() {
-        let titles = ['Trending', 'Forum', 'Gallery'];
+        let titles = ['Trending', 'Forum','Gallery'];
         let types = [
             ['tutorials', 'Unboxing', 'T1 pro', 'App Recommends','moriarty'],
             ['tutorials', 'Unboxing', 'T1 pro', 'App Recommends'],
