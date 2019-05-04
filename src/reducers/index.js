@@ -5,6 +5,7 @@ import trending from './trending';
 import explore from './explore';
 import plate from './plate';
 import gallery from './gallery';
+import rewards from './rewards';
 
 export default combineReducers({
     app,
@@ -12,5 +13,6 @@ export default combineReducers({
     trending,
     explore,
     plate,
-    gallery
+    gallery,
+    rewards
 })

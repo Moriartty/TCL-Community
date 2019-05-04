@@ -4,8 +4,9 @@ import { View, Text, StyleSheet, StatusBar, Image, TouchableOpacity, ScrollView,
 
 import { Heading2, Heading3, Paragraph } from '../../components/Text'
 import { screen, system } from '../../utils'
-// import { DetailCell, NavigationItem, SpacingView } from '../../components';
+import {  NavigationItem, SpacingView } from '../../components';
 import {colors} from '../../config';
+import ExImage from '../../components/ExImage';
 
 type Props = {
 
@@ -16,55 +17,39 @@ type State = {
 }
 
 class MyTCL extends PureComponent<Props, State> {
-    render(){
-        return (
-            <View></View>
-        )
+
+    static navigationOptions = ({ navigation }: any) => ({
+        headerRight: (
+            <View style={{ flexDirection: 'row' }}>
+
+            </View>
+        ),
+        headerStyle: {
+            backgroundColor: colors.blue,
+            elevation: 0,
+            borderBottomWidth: 0,
+        },
+    })
+
+    state: {
+        isRefreshing: boolean
     }
 
-    // static navigationOptions = ({ navigation }: any) => ({
-    //     headerRight: (
-    //         <View style={{ flexDirection: 'row' }}>
-    //             <NavigationItem
-    //                 icon={require('../../img/mine/icon_navigation_item_set_white.png')}
-    //                 onPress={() => {
-    //
-    //                 }}
-    //             />
-    //             <NavigationItem
-    //                 icon={require('../../img/mine/icon_navigation_item_message_white.png')}
-    //                 onPress={() => {
-    //
-    //                 }}
-    //             />
-    //         </View>
-    //     ),
-    //     headerStyle: {
-    //         backgroundColor: colors.primary,
-    //         elevation: 0,
-    //         borderBottomWidth: 0,
-    //     },
-    // })
-    //
-    // state: {
-    //     isRefreshing: boolean
-    // }
-    //
-    // constructor(props: Object) {
-    //     super(props)
-    //
-    //     this.state = {
-    //         isRefreshing: false
-    //     }
-    // }
-    //
-    // onHeaderRefresh() {
-    //     this.setState({ isRefreshing: true })
-    //
-    //     setTimeout(() => {
-    //         this.setState({ isRefreshing: false })
-    //     }, 2000)
-    // }
+    constructor(props: Object) {
+        super(props)
+
+        this.state = {
+            isRefreshing: false
+        }
+    }
+
+    onHeaderRefresh() {
+        this.setState({ isRefreshing: true })
+
+        setTimeout(() => {
+            this.setState({ isRefreshing: false })
+        }, 2000)
+    }
     //
     // renderCells() {
     //     let cells = []
@@ -86,40 +71,40 @@ class MyTCL extends PureComponent<Props, State> {
     //     )
     // }
     //
-    // renderHeader() {
-    //     return (
-    //         <View style={styles.header}>
-    //             <Image style={styles.avatar} source={require('../../img/mine/avatar.png')} />
-    //             <View>
-    //                 <View style={{ flexDirection: 'row', alignItems: 'center', }}>
-    //                     <Heading2 style={{ color: 'white' }}>素敌</Heading2>
-    //                     <Image style={{ marginLeft: 4 }} source={require('../../img/mine/beauty_technician_v15.png')} />
-    //                 </View>
-    //                 <Paragraph style={{ color: 'white', marginTop: 4 }}>个人信息 ></Paragraph>
-    //             </View>
-    //         </View>
-    //     )
-    // }
-    //
-    // render() {
-    //     return (
-    //         <View style={{ flex: 1, backgroundColor: colors.paper }}>
-    //             <View style={{ position: 'absolute', width: screen.width, height: screen.height / 2, backgroundColor: colors.primary }} />
-    //             <ScrollView
-    //                 refreshControl={
-    //                     <RefreshControl
-    //                         refreshing={this.state.isRefreshing}
-    //                         onRefresh={() => this.onHeaderRefresh()}
-    //                         tintColor='gray'
-    //                     />
-    //                 }>
-    //                 {this.renderHeader()}
-    //                 <SpacingView />
-    //                 {this.renderCells()}
-    //             </ScrollView>
-    //         </View>
-    //     )
-    // }
+    renderHeader() {
+        return (
+            <View style={styles.header}>
+                <ExImage uri={'https://avatars0.githubusercontent.com/u/15435074?s=460&v=4'} style={styles.avatar}/>
+                {/*<Image style={styles.avatar} source={require('../../img/mine/avatar.png')} />*/}
+                <View>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', }}>
+                        <Heading2 style={{ color: 'white' }}>素敌</Heading2>
+                    </View>
+                    <Paragraph style={{ color: 'white', marginTop: 4 }}>个人信息 ></Paragraph>
+                </View>
+            </View>
+        )
+    }
+
+    render() {
+        return (
+            <View style={{ flex: 1, backgroundColor: colors.paper,width:'100%',height:'100%' }}>
+                <View style={{ position: 'absolute', width: screen.width, height: screen.height / 2, backgroundColor: colors.blue }} />
+                <ScrollView
+                    refreshControl={
+                        <RefreshControl
+                            refreshing={this.state.isRefreshing}
+                            onRefresh={() => this.onHeaderRefresh()}
+                            tintColor='gray'
+                        />
+                    }>
+                    {this.renderHeader()}
+                    <SpacingView />
+                    {/*{this.renderCells()}*/}
+                </ScrollView>
+            </View>
+        )
+    }
     //
     // getDataList() {
     //     return (
@@ -154,7 +139,7 @@ const styles = StyleSheet.create({
         height: 27,
     },
     header: {
-        backgroundColor: colors.primary,
+        backgroundColor: colors.blue,
         paddingBottom: 20,
         flexDirection: 'row',
         alignItems: 'center',

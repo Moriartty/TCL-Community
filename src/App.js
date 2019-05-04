@@ -14,13 +14,14 @@ import { createStackNavigator, createBottomTabNavigator, createAppContainer, Tab
 
 import Tab from './pages/MainScreen';
 
-import {colors} from './config';
+import {colors, theme} from './config';
 import DetailsPage from "./pages/DetailsPage";
 import Rewards from './pages/Rewards';
 // let TopicDetailPage = Platform.OS==='ios'?
     // require('./pages/Plate/TopicDetailPage/index_ios'):require('./pages/Plate/TopicDetailPage/index_android');
 import TopicDetailPage from "./pages/Plate/TopicDetailPage";
 import SubscribedTags from './pages/SubscribedTags';
+import {screen} from "./utils";
 
 function getCurrentRouteName(navigationState: any) {
     if (!navigationState) {
@@ -83,6 +84,13 @@ const AppNavigator = createStackNavigator(
     {
         // headerMode:'none',
         defaultNavigationOptions: {
+            headerStyle:{
+                borderBottomWidth:screen.onePixel,
+                borderBottomColor:colors.gray2,
+                shadowOpacity:0,
+                elevation: 0,
+                height:theme.toolbarHeight
+            },
             headerBackTitle: null,
             headerTintColor: '#333333',
             showIcon: true,

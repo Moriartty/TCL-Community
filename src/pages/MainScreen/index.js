@@ -6,7 +6,7 @@ import {Heading3} from "../../components/Text";
 import Message from "../Message";
 import Explore from "../Explore";
 import Plate from '../Plate';
-import {colors} from "../../config";
+import {colors, theme} from "../../config";
 import Home from "../Home";
 import MyTCL from "../MyTCL";
 import Release from '../Release';
@@ -19,7 +19,7 @@ const Tab = createBottomTabNavigator(
         Release:{screen:createStackNavigator({Release:Release})},
         // Message:Message,
         Plate:{screen:createStackNavigator({Plate:Plate})},
-        MyTCL:MyTCL
+        MyTCL:{screen:createStackNavigator({MyTCL:MyTCL})}
     },{
         defaultNavigationOptions: ({ navigation }) => ({
             tabBarIcon: ({ focused, horizontal, tintColor }) => {
@@ -80,7 +80,8 @@ const Tab = createBottomTabNavigator(
                 if(routeName!=='Release'){
                     return <Text style={{color:tintColor,fontSize:12,textAlign:'center'}}>{routeName}</Text>
                 }
-            }
+            },
+
         }),
         tabBarOptions: {
             labelStyle: {

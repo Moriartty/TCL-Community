@@ -21,10 +21,10 @@ class TopicDetailPage extends PureComponent<Props>{
         return {
             // headerMode:'none',
             headerTransparent:true,
-            // headerStyle:{
-            //     paddingTop:StatusBar.currentHeight,
-            //     height:theme.toolbarHeight,
-            // }
+            headerStyle:{
+                // paddingTop:StatusBar.currentHeight,
+                // height:theme.toolbarHeight,
+            }
         }
     }
 
