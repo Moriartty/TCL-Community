@@ -1,11 +1,12 @@
 import React,{PureComponent} from 'react';
 import {View,Text,Image,ToolbarAndroid,StyleSheet,StatusBar,Button,ImageBackground,Platform} from 'react-native';
 import ExImage from '../../../components/ExImage';
-import {colors} from "../../../config";
+import {colors,theme} from "../../../config";
 
 import {connect} from 'react-redux';
 import ScrollableTabView, { DefaultTabBar } from 'react-native-scrollable-tab-view';
 import {screen} from '../../../utils';
+import {SafeAreaView} from 'react-navigation';
 
 import CommonListScene from './CommonListScene';
 import {Heading3,Heading4, Paragraph} from "../../../components/Text";
@@ -18,8 +19,12 @@ import action from '../../../actions/plate';
 class TopicDetailPage extends PureComponent<Props>{
     static navigationOptions = ({navigation}) => {
         return {
-            headerMode:'none',
-            headerTransparent:true
+            // headerMode:'none',
+            headerTransparent:true,
+            // headerStyle:{
+            //     paddingTop:StatusBar.currentHeight,
+            //     height:theme.toolbarHeight,
+            // }
         }
     }
 
@@ -60,6 +65,7 @@ class TopicDetailPage extends PureComponent<Props>{
     }
 
     render(){
+        // StatusBar.setHidden(true);
         const {platform,navigation,refreshState} = this.props;
         let titles = ['热帖', '最新', '精华'];
         let types = [
@@ -116,7 +122,11 @@ class TopicDetailPage extends PureComponent<Props>{
 
 const styles = StyleSheet.create({
     tabBarUnderline: {
-        backgroundColor: colors.blue
+        backgroundColor: colors.blue,
+        height:4,
+        width:screen.width/3-60,
+        marginLeft:30,
+        marginRight:30,
     },
     tabBarText: {
         fontSize: 14,

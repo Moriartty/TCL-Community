@@ -1,6 +1,6 @@
-import {View,Text,Alert,Image,TouchableOpacity,StyleSheet} from 'react-native';
+import {View,Text,Alert,Image,TouchableOpacity,StyleSheet,StatusBar} from 'react-native';
 import React from 'react';
-import {colors} from '../../config';
+import {colors,theme} from '../../config';
 import {Heading3} from "../../components/Text";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import ExImage from '../../components/ExImage';
@@ -44,7 +44,11 @@ class Explore extends React.PureComponent<Props>{
                 shadowOpacity:0,
                 elevation: 0
             },
-            headerTintColor:colors["headerTintColor"]
+            headerTintColor:colors["headerTintColor"],
+            headerStyle:{
+                    // paddingTop: StatusBar.currentHeight,
+                    height:theme.toolbarHeight
+            }
         }
     };
     handleNavClick = () => {

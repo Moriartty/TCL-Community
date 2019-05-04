@@ -2,6 +2,8 @@ import React,{PureComponent} from 'react';
 import {connect} from 'react-redux';
 import {View} from 'react-native';
 import RefreshListView, { RefreshState } from 'react-native-refresh-list-view';
+import NestedScrollView from 'react-native-nested-scroll-view';
+
 import TrendingListItem from './TrendingListItem';
 import Separator from '../../components/Separator';
 import {withNavigation} from 'react-navigation';
@@ -79,7 +81,7 @@ class TrendingListScene extends PureComponent<Props,State>{
                 refreshState={this.props.refreshState}
                 onHeaderRefresh={this.props.requestFirstPage}
                 onFooterRefresh={this.props.requestNextPage}
-                renderScrollComponent={this.renderScroll}
+                // renderScrollComponent={this.renderScroll}
             />
         )
     }

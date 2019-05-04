@@ -4,6 +4,7 @@ export default {
     border: '#f5f5f5',
     paper: '#f3f3f3',
     gray: '#f5f5f5',
+    gray2:'#bfbfbf',
     blue:'#1890ff',
 
     headerBackground:'white',

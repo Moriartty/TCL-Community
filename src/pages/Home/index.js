@@ -42,7 +42,7 @@ class Home extends PureComponent<Props>{
 
 
         return (
-            <SafeAreaView>
+            <SafeAreaView >
                 <View style={{height:'100%'}}>
                     <ScrollableTabView
                         style={styles.container}

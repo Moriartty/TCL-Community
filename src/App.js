@@ -44,7 +44,7 @@ class App extends Component<Props> {
 
     render() {
         // StatusBar.setTranslucent(true);
-        StatusBar.setBackgroundColor('transparent');
+        StatusBar.setBackgroundColor(colors.primary);
         return (
             <AppContainer
                 onNavigationStateChange={

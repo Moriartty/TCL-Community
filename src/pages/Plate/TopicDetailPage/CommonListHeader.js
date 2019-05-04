@@ -30,7 +30,7 @@ class CommonListHeader extends PureComponent<Props> {
                 activeOpacity={1}
                 style={[{ backgroundColor:  'white' }, styles.item]}
                 onPress={() => this.props.onSelected(i)}>
-                <ActionIcon name={'ios-notifications'} size={20} color={'#f5222d'}/>
+                <ActionIcon name={'ios-notifications'} size={20} color={colors.blue}/>
                 <Paragraph style={{ color: 'black',fontSize:14 }}>
                     {item.title}
                 </Paragraph>
@@ -55,19 +55,20 @@ class CommonListHeader extends PureComponent<Props> {
                         renderItem={this._renderItem}
                     />
                     <TouchableOpacity
+                        activeOpacity={1}
                         style={styles.moreItem}
                         onPress={onMoreIconClicked}
                     >
                         {
                           openState?
                                     <Fragment>
-                                        <ActionIcon name={'ios-arrow-dropup'} size={15} color={'#f5222d'}/>
-                                        <Text style={{color:'#f5222d',fontSize:12}}>收起</Text>
+                                        <ActionIcon name={'ios-arrow-dropup'} size={15} color={colors.blue}/>
+                                        <Text style={{color:colors.blue,fontSize:12}}>收起</Text>
                                     </Fragment>
                                     :
                                     <Fragment>
-                                        <ActionIcon name={'ios-arrow-dropdown'} size={15} color={'#f5222d'}/>
-                                        <Text style={{color:'#f5222d',fontSize:12}}>点击加载更多</Text>
+                                        <ActionIcon name={'ios-arrow-dropdown'} size={15} color={colors.blue}/>
+                                        <Text style={{color:colors.blue,fontSize:12}}>点击加载更多</Text>
                                     </Fragment>
                         }
                     </TouchableOpacity>
