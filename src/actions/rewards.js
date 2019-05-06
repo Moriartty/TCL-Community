@@ -13,7 +13,7 @@ const urls = [
 ];
 
 function randomGetPics(){
-    const count = parseInt(Math.random()*5);
+    const count = 1;
     let imgUrls = [];
     for(let i=0;i<count;i++){
         imgUrls.push(urls[Math.floor(Math.random()*8)])
@@ -30,7 +30,7 @@ actions.loadAvailableRewards = () => dispatch => {
         }
         dispatch({type:'REWARDS_AVAILABLE_LIST_DATA_LOAD',data:mockData});
         dispatch({type:'REWARDS_LIST_LOADING',refreshState:RefreshState.Idle});
-    },1000);
+    },3000);
 };
 actions.loadFirstPage = () => (dispatch,getState) => {
     dispatch({type:'REWARDS_LIST_LOADING',refreshState:RefreshState.HeaderRefreshing});
@@ -44,7 +44,7 @@ actions.loadFirstPage = () => (dispatch,getState) => {
         }
         dispatch({type:'REWARDS_AVAILABLE_LIST_DATA_LOAD',data:temp.concat(preData)});
         dispatch({type:'REWARDS_LIST_LOADING',refreshState:RefreshState.Idle});
-    },1000);
+    },3000);
 };
 
 actions.loadNextPage = () => (dispatch,getState) => {
@@ -58,7 +58,7 @@ actions.loadNextPage = () => (dispatch,getState) => {
         }
         dispatch({type:'REWARDS_AVAILABLE_LIST_DATA_LOAD',data:preData.concat(temp)});
         dispatch({type:'REWARDS_LIST_LOADING',refreshState:RefreshState.Idle});
-    },1000);
+    },3000);
 };
 
 export default actions;

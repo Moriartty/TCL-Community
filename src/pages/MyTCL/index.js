@@ -1,12 +1,16 @@
 
 import React, { PureComponent } from 'react'
-import { View, Text, StyleSheet, StatusBar, Image, TouchableOpacity, ScrollView, RefreshControl } from 'react-native'
-
+import {
+    View, Text, StyleSheet, StatusBar, Image, TouchableOpacity, ScrollView, RefreshControl,
+    InteractionManager
+} from 'react-native'
 import { Heading2, Heading3, Paragraph } from '../../components/Text'
 import { screen, system } from '../../utils'
 import {  NavigationItem, SpacingView } from '../../components';
 import {colors} from '../../config';
 import ExImage from '../../components/ExImage';
+import ActionIcon from "../../components/ActionIcon";
+import Separator from '../../components/Separator'
 
 type Props = {
 
@@ -17,19 +21,34 @@ type State = {
 }
 
 class MyTCL extends PureComponent<Props, State> {
+    static navigationOptions = ({navigation})=>{
+        return {
+            // title:navigation.getParam('title',null),
+            headerRight:
+                <TouchableOpacity onPress={navigation.getParam('handleSettingClick',null)} activeOpacity={1} style={{marginRight:10}}>
+                    <ActionIcon name={'ios-settings'} size={25} color={'white'}/>
+                </TouchableOpacity>,
+            headerStyle:{
+                backgroundColor:colors.blue,
+                //将android和ios标题栏的阴影和分割线去除
+                borderBottomWidth:0,
+                shadowOpacity:0,
+                elevation: 0,
+                height:45
+            },
+            headerTintColor:colors["headerTintColor"]
+        }
+    };
 
-    static navigationOptions = ({ navigation }: any) => ({
-        headerRight: (
-            <View style={{ flexDirection: 'row' }}>
+    componentDidMount() {
+        InteractionManager.runAfterInteractions(() => {
+            this.props.navigation.setParams({'handleSettingClick':this.handleSettingClick});
+        })
+    }
 
-            </View>
-        ),
-        headerStyle: {
-            backgroundColor: colors.blue,
-            elevation: 0,
-            borderBottomWidth: 0,
-        },
-    })
+    handleSettingClick = () => {
+        this.props.navigation.navigate('Settings');
+    }
 
     state: {
         isRefreshing: boolean
@@ -50,37 +69,76 @@ class MyTCL extends PureComponent<Props, State> {
             this.setState({ isRefreshing: false })
         }, 2000)
     }
-    //
-    // renderCells() {
-    //     let cells = []
-    //     let dataList = this.getDataList()
-    //     for (let i = 0; i < dataList.length; i++) {
-    //         let sublist = dataList[i]
-    //         for (let j = 0; j < sublist.length; j++) {
-    //             let data = sublist[j]
-    //             let cell = <DetailCell image={data.image} title={data.title} subtitle={data.subtitle} key={data.title} />
-    //             cells.push(cell)
-    //         }
-    //         cells.push(<SpacingView key={i} />)
-    //     }
-    //
-    //     return (
-    //         <View style={{ flex: 1 }}>
-    //             {cells}
-    //         </View>
-    //     )
-    // }
-    //
+
+    renderCell = (title) => {
+        return (
+            <TouchableOpacity>
+                <View style={{flexDirection:'row',padding:15,backgroundColor:colors.primary,justifyContent:'space-between'}}>
+                    <Text style={{fontSize:16,color:'black'}}>{title}</Text>
+                    <ActionIcon name={'ios-arrow-forward'} size={18}/>
+                </View>
+                <Separator />
+            </TouchableOpacity>
+        )
+    }
+
+    renderCells = () => {
+        let cells = []
+        let dataList = this.getDataList()
+        for (let i = 0; i < dataList.length; i++) {
+            let sublist = dataList[i]
+            for (let j = 0; j < sublist.length; j++) {
+                let data = sublist[j]
+                let cell = this.renderCell(data.title);
+                cells.push(cell)
+            }
+            // cells.push(<SpacingView key={i} />)
+        }
+
+        return (
+            <View style={{ flex: 1 }}>
+                {cells}
+            </View>
+        )
+    }
+
+    renderDeviceList = () => {
+        return (
+            <View style={{padding:15,backgroundColor:colors.primary}}>
+                <View style={{flexDirection:'row',justifyContent:'space-between'}}>
+                    <Text style={{color:'black'}}>My Devices</Text>
+                    <ActionIcon name={'ios-add'} size={20} color={'black'}/>
+                </View>
+            </View>
+        )
+    }
+
     renderHeader() {
         return (
             <View style={styles.header}>
-                <ExImage uri={'https://avatars0.githubusercontent.com/u/15435074?s=460&v=4'} style={styles.avatar}/>
-                {/*<Image style={styles.avatar} source={require('../../img/mine/avatar.png')} />*/}
-                <View>
-                    <View style={{ flexDirection: 'row', alignItems: 'center', }}>
-                        <Heading2 style={{ color: 'white' }}>素敌</Heading2>
+                <View style={{flexDirection:'row',marginBottom:10}}>
+                    <ExImage uri={'https://avatars0.githubusercontent.com/u/15435074?s=460&v=4'} style={styles.avatar}/>
+                    {/*<Image style={styles.avatar} source={require('../../img/mine/avatar.png')} />*/}
+                    <View>
+                        <View style={{ flexDirection: 'row', alignItems: 'center', }}>
+                            <Heading2 style={{ color: 'white' }}>Moriarty</Heading2>
+                        </View>
+                        <Paragraph style={{ color: 'white', marginTop: 4 }}>300 points</Paragraph>
                     </View>
-                    <Paragraph style={{ color: 'white', marginTop: 4 }}>个人信息 ></Paragraph>
+                </View>
+                <View style={{flexDirection:'row'}}>
+                    <View style={styles.dataUnit}>
+                        <Text style={styles.dataUnit_num}>216</Text>
+                        <Text style={styles.dataUnit_text}>Favorites</Text>
+                    </View>
+                    <View style={styles.dataUnit}>
+                        <Text style={styles.dataUnit_num}>8</Text>
+                        <Text style={styles.dataUnit_text}>Posts</Text>
+                    </View>
+                    <View style={styles.dataUnit}>
+                        <Text style={styles.dataUnit_num}>203</Text>
+                        <Text style={styles.dataUnit_text}>Likes</Text>
+                    </View>
                 </View>
             </View>
         )
@@ -89,7 +147,7 @@ class MyTCL extends PureComponent<Props, State> {
     render() {
         return (
             <View style={{ flex: 1, backgroundColor: colors.paper,width:'100%',height:'100%' }}>
-                <View style={{ position: 'absolute', width: screen.width, height: screen.height / 2, backgroundColor: colors.blue }} />
+                {/*<View style={{ position: 'absolute', width: screen.width, height: screen.height / 2, backgroundColor: colors.blue }} />*/}
                 <ScrollView
                     refreshControl={
                         <RefreshControl
@@ -99,36 +157,26 @@ class MyTCL extends PureComponent<Props, State> {
                         />
                     }>
                     {this.renderHeader()}
+                    {this.renderDeviceList()}
                     <SpacingView />
-                    {/*{this.renderCells()}*/}
+                    {this.renderCells()}
                 </ScrollView>
             </View>
         )
     }
-    //
-    // getDataList() {
-    //     return (
-    //         [
-    //             [
-    //                 { title: '我的钱包', subtitle: '办信用卡', image: require('../../img/mine/icon_mine_wallet.png') },
-    //                 { title: '余额', subtitle: '￥95872385', image: require('../../img/mine/icon_mine_balance.png') },
-    //                 { title: '抵用券', subtitle: '63', image: require('../../img/mine/icon_mine_voucher.png') },
-    //                 { title: '会员卡', subtitle: '2', image: require('../../img/mine/icon_mine_membercard.png') }
-    //             ],
-    //             [
-    //                 { title: '好友去哪', image: require('../../img/mine/icon_mine_friends.png') },
-    //                 { title: '我的评价', image: require('../../img/mine/icon_mine_comment.png') },
-    //                 { title: '我的收藏', image: require('../../img/mine/icon_mine_collection.png') },
-    //                 { title: '会员中心', subtitle: 'v15', image: require('../../img/mine/icon_mine_membercenter.png') },
-    //                 { title: '积分商城', subtitle: '好礼已上线', image: require('../../img/mine/icon_mine_member.png') }
-    //             ],
-    //             [
-    //                 { title: '客服中心', image: require('../../img/mine/icon_mine_customerService.png') },
-    //                 { title: '关于美团', subtitle: '我要合作', image: require('../../img/mine/icon_mine_aboutmeituan.png') }
-    //             ]
-    //         ]
-    //     )
-    // }
+
+    getDataList() {
+        return (
+            [
+                [
+                    { title: 'Devices Info' },
+                    { title: 'Feedback'},
+                    { title: 'FAQ'},
+                    { title: 'Customer Support'}
+                ]
+            ]
+        )
+    }
 
 }
 
@@ -141,9 +189,11 @@ const styles = StyleSheet.create({
     header: {
         backgroundColor: colors.blue,
         paddingBottom: 20,
-        flexDirection: 'row',
-        alignItems: 'center',
-        margin: 10,
+        // flexDirection: 'row',
+        // alignItems: 'center',
+        padding: 10,
+        paddingLeft:15,
+        paddingRight:15
     },
     avatar: {
         width: 50,
@@ -151,7 +201,19 @@ const styles = StyleSheet.create({
         marginRight: 10,
         borderRadius: 25,
         borderWidth: 2,
-        borderColor: '#51D3C6'
+        borderColor: 'white'
+    },
+    dataUnit:{
+        width:80
+    },
+    dataUnit_num:{
+        fontSize:20,
+        fontWeight:'bold',
+        color:'white'
+    },
+    dataUnit_text:{
+        fontSize:12,
+        color:'white'
     }
 })
 

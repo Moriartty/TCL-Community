@@ -1,4 +1,4 @@
-import {View,Text,Alert,Image,TouchableOpacity,StyleSheet,StatusBar} from 'react-native';
+import {View,Text,Alert,Image,TouchableOpacity,StyleSheet,StatusBar,ScrollView} from 'react-native';
 import React from 'react';
 import {colors,theme} from '../../config';
 import {Heading3} from "../../components/Text";
@@ -68,7 +68,7 @@ class Explore extends React.PureComponent<Props>{
 
     render(){
         return (
-            <View>
+            <ScrollView>
                 <Carousel
                     delay={3000}   //自动切换的延迟 （毫秒）
                     style={styles.carousel}  //轮播组件的样式
@@ -102,7 +102,7 @@ class Explore extends React.PureComponent<Props>{
                 </Carousel>
                 <NewsList/>
                 <ActivitiesList/>
-            </View>
+            </ScrollView>
         )
     }
 }

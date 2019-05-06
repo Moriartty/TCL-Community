@@ -22,6 +22,7 @@ import Rewards from './pages/Rewards';
 import TopicDetailPage from "./pages/Plate/TopicDetailPage";
 import SubscribedTags from './pages/SubscribedTags';
 import {screen} from "./utils";
+import Settings from "./pages/Settings";
 
 function getCurrentRouteName(navigationState: any) {
     if (!navigationState) {
@@ -44,6 +45,7 @@ class App extends Component<Props> {
     }
 
     render() {
+        const {platform} = this.props;
         // StatusBar.setTranslucent(true);
         StatusBar.setBackgroundColor(colors.primary);
         return (
@@ -55,10 +57,12 @@ class App extends Component<Props> {
                         if (previousScene !== currentScene) {
                             if (lightContentScenes.indexOf(currentScene) >= 0) {
                                 StatusBar.setBarStyle('light-content');
+                                platform==='android'&&StatusBar.setBackgroundColor(colors.blue);
                                 // this.props.platform==='android'?StatusBar.setBackgroundColor(colors.blue):'';
                                 // StatusBar.setHidden(true)
                             } else {
                                 StatusBar.setBarStyle('dark-content');
+                                platform==='android'&&StatusBar.setBackgroundColor(colors.primary);
                                 // this.props.platform==='android'?StatusBar.setBackgroundColor(colors.primary):'';
                                 // StatusBar.setHidden(false)
                             }
@@ -78,7 +82,8 @@ const AppNavigator = createStackNavigator(
         DetailsPage: { screen: DetailsPage },
         Rewards:{screen:Rewards},
         TopicDetailPage:{screen:TopicDetailPage},
-        SubscribedTags:{screen:SubscribedTags}
+        SubscribedTags:{screen:SubscribedTags},
+        Settings:{screen:Settings}
         // GroupPurchase: { screen: GroupPurchaseScene },
     },
     {
