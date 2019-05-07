@@ -33,7 +33,7 @@ class GalleryListScene extends PureComponent<Props,State>{
             <GalleryListItem
                 info={rowData.item}
                 onPress={() => {
-                    this.props.navigation.navigate('DetailsPage', { info: rowData.item })
+                    // this.props.navigation.navigate('DetailsPage', { info: rowData.item })
                 }}
             />
         )
