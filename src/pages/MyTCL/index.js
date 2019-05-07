@@ -72,7 +72,7 @@ class MyTCL extends PureComponent<Props, State> {
 
     renderCell = (title) => {
         return (
-            <TouchableOpacity>
+            <TouchableOpacity key={title}>
                 <View style={{flexDirection:'row',padding:15,backgroundColor:colors.primary,justifyContent:'space-between'}}>
                     <Text style={{fontSize:16,color:'black'}}>{title}</Text>
                     <ActionIcon name={'ios-arrow-forward'} size={18}/>

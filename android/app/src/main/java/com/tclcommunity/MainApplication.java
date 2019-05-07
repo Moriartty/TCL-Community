@@ -3,6 +3,8 @@ package com.tclcommunity;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.imagepicker.ImagePickerPackage;
+import com.github.alinz.reactnativewebviewbridge.WebViewBridgePackage;
 import com.rncollapsingtoolbar.RNCollapsingToolbarPackage;
 import com.rnnestedscrollview.RNNestedScrollViewPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
@@ -28,6 +30,8 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new ImagePickerPackage(),
+            new WebViewBridgePackage(),
             new RNCollapsingToolbarPackage(),
             new RNNestedScrollViewPackage(),
             new VectorIconsPackage(),

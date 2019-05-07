@@ -23,6 +23,7 @@ import TopicDetailPage from "./pages/Plate/TopicDetailPage";
 import SubscribedTags from './pages/SubscribedTags';
 import {screen} from "./utils";
 import Settings from "./pages/Settings";
+import Release from "./pages/Release";
 
 function getCurrentRouteName(navigationState: any) {
     if (!navigationState) {
@@ -83,7 +84,8 @@ const AppNavigator = createStackNavigator(
         Rewards:{screen:Rewards},
         TopicDetailPage:{screen:TopicDetailPage},
         SubscribedTags:{screen:SubscribedTags},
-        Settings:{screen:Settings}
+        Settings:{screen:Settings},
+        Release:{screen:Release}
         // GroupPurchase: { screen: GroupPurchaseScene },
     },
     {

@@ -1,7 +1,9 @@
 import React, { PureComponent } from 'react';
 import {connect} from 'react-redux';
 import { View, Text, Button,StyleSheet, ScrollView, TouchableOpacity, ListView, Image, StatusBar, FlatList,SafeAreaView,InteractionManager } from 'react-native'
-import ScrollableTabView, { DefaultTabBar } from 'react-native-scrollable-tab-view'
+import ScrollableTabView, { DefaultTabBar } from 'react-native-scrollable-tab-view';
+import ActionButton from 'react-native-action-button';
+import ActionIcon from '../../components/ActionIcon';
 import action from '../../actions/home';
 // import {SafeAreaView} from 'react-navigation';
 // import { Heading2, Heading3, Paragraph } from '../../components/Text'
@@ -62,6 +64,15 @@ class Home extends PureComponent<Props>{
                             })
                         ))}
                     </ScrollableTabView>
+                    <ActionButton
+                        buttonColor={colors.blue}
+                        onPress={() => { this.props.navigation.navigate('Release')}}
+                        renderIcon={() => (
+                            <View style={{alignItems:'center'}}>
+                                <ActionIcon name="md-create" color={'white'} size={25} style={{marginLeft:4}}/>
+                            </View>
+                        )}
+                    />
                 </View>
             </SafeAreaView>
 

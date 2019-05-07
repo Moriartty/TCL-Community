@@ -16,7 +16,7 @@ const Tab = createBottomTabNavigator(
     {
         Explore:{screen:createStackNavigator({Explore:Explore})},
         Community:{screen:Home},
-        Release:{screen:createStackNavigator({Release:Release})},
+        // Release:{screen:Release},
         // Message:Message,
         Plate:{screen:createStackNavigator({Plate:Plate})},
         MyTCL:{screen:createStackNavigator({MyTCL:MyTCL})}
@@ -27,27 +27,7 @@ const Tab = createBottomTabNavigator(
                 let IconComponent = Ionicons;
                 let iconName;
                 let size = 30,color = tintColor,style;
-                // if(routeName==='Release'){
-                //     return (
-                //         <View style={{
-                //             width:50,
-                //             height:50,
-                //             marginTop:-25,
-                //             borderRadius:50,
-                //             borderColor:'#8c8c8c',
-                //             borderWidth:screen.onePixel,
-                //             justifyContent:'center',
-                //             alignItems:'center',
-                //             backgroundColor:colors.blue
-                //         }}>
-                //             <IconComponent
-                //                 name={`ios-add${focused ? '' : ''}`}
-                //                 size={50}
-                //                 color={'white'}
-                //             />
-                //         </View>
-                //     )
-                // }
+
                 switch(routeName){
                     case 'Community':
                         iconName = `ios-home${focused ? '' : ''}`;

@@ -5,6 +5,8 @@ import {colors,theme} from "../../../config";
 
 import {connect} from 'react-redux';
 import ScrollableTabView, { DefaultTabBar } from 'react-native-scrollable-tab-view';
+import ActionButton from 'react-native-action-button';
+import ActionIcon from '../../../components/ActionIcon'
 import {screen} from '../../../utils';
 import {SafeAreaView} from 'react-navigation';
 
@@ -115,6 +117,15 @@ class TopicDetailPage extends PureComponent<Props>{
                             ))}
                         </ScrollableTabView>
                 }
+                <ActionButton
+                    buttonColor={colors.blue}
+                    onPress={() => { this.props.navigation.navigate('Release')}}
+                    renderIcon={() => (
+                        <View style={{alignItems:'center'}}>
+                            <ActionIcon name="md-create" color={'white'} size={25} style={{marginLeft:4}}/>
+                        </View>
+                    )}
+                />
             </View>
         )
     }
