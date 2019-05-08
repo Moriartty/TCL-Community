@@ -1,15 +1,17 @@
+/**
+ * createdBy Moriarty
+ * @flow
+ */
+//node_modules
 import React, { PureComponent } from 'react'
 import {
     View, Text, StyleSheet, StatusBar, Image, TouchableOpacity, ScrollView, RefreshControl,
     InteractionManager
 } from 'react-native'
-import { Heading2, Heading3, Paragraph } from '../../components/Text'
-import { screen, system } from '../../utils'
-import {  NavigationItem, SpacingView } from '../../components';
+//配置
 import {colors} from '../../config';
-import ExImage from '../../components/ExImage';
-import ActionIcon from "../../components/ActionIcon";
-import Separator from '../../components/Separator'
+//components
+import {ExImage,ActionIcon,Separator} from '../../components';
 
 class Setting extends PureComponent<Props>{
     static navigationOptions = ({navigation})=>{
@@ -137,6 +139,6 @@ const styles = StyleSheet.create({
         justifyContent:'center',
         alignItems:'center',
     }
-})
+});
 
 export default Setting;

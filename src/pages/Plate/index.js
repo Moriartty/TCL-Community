@@ -7,7 +7,7 @@ import action from '../../actions/plate';
 import {screen} from '../../utils';
 
 class Plate extends PureComponent<Props>{
-    static navigationOptions = ({navigation,navigationOptions})=>{
+    static navigationOptions = ({navigation})=>{
         return {
             title:'Plate',
             headerTintColor:colors["headerTintColor"],

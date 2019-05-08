@@ -1,48 +1,68 @@
+/**
+ * createdBy Moriarty
+ * @flow
+ */
+//node_modules
 import React,{PureComponent} from 'react';
-import {View,Text,Image,ToolbarAndroid,StyleSheet,StatusBar,Button,ImageBackground,Platform} from 'react-native';
-import ExImage from '../../../components/ExImage';
-import {colors,theme} from "../../../config";
-
+import {View,Text,Image,ToolbarAndroid,StyleSheet,Platform} from 'react-native';
 import {connect} from 'react-redux';
 import ScrollableTabView, { DefaultTabBar } from 'react-native-scrollable-tab-view';
 import ActionButton from 'react-native-action-button';
-import ActionIcon from '../../../components/ActionIcon'
+//配置
+import {colors,theme} from "../../../config";
 import {screen} from '../../../utils';
-import {SafeAreaView} from 'react-navigation';
-
+//components
+import {ActionIcon} from '../../../components'
+//pages
 import CommonListScene from './CommonListScene';
-import {Heading3,Heading4, Paragraph} from "../../../components/Text";
-import AppBar_Android from './AppBar_Android';
-// const AppBar_Android = Platform.OS==='ios'?null:require('./AppBar_Android');
-
+const AppBar_Android = Platform.OS==='ios'?'':require('./AppBar_Android');
+//actions
 import action from '../../../actions/plate';
 
+type Props = {
+    navigation:Object,
+    platform:string,
+    refreshState:number,
+    hottestListData:Array<Object>,
+    newestListData:Array<Object>,
+    essenceListData:Array<Object>,
+    toppingNews:Array<Object>,
+    _loadHottestData:Function,
+    _loadHottestNextPage:Function,
+    _loadNewestData:Function,
+    _loadNewestNextPage:Function,
+    _loadEssenceData:Function,
+    _loadEssenceNextPage:Function,
+    _loadToppingNews:Function
+}
 
 class TopicDetailPage extends PureComponent<Props>{
     static navigationOptions = ({navigation}) => {
         return {
-            // headerMode:'none',
             headerTransparent:true,
             headerStyle:{
                 // paddingTop:StatusBar.currentHeight,
                 // height:theme.toolbarHeight,
             }
         }
-    }
+    };
 
     constructor(props){
         super(props);
     }
 
-    getScene = (key,props) => {
-        const {_loadHottestData,_loadHottestNextPage,
-            _loadNewestData,_loadNewestNextPage,
-            _loadEssenceData,_loadEssenceNextPage,
-            _loadToppingNews,toppingNews,
-            hottestListData,newestListData,essenceListData} = this.props;
-        const compMap = {
-            '热帖':<CommonListScene
-                {...props}
+
+    render(){
+        // StatusBar.setHidden(true);
+        const {platform,navigation,refreshState,_loadHottestData,_loadHottestNextPage,
+            _loadNewestData,_loadNewestNextPage, _loadEssenceData,_loadEssenceNextPage,
+            _loadToppingNews,toppingNews, hottestListData,newestListData,essenceListData} = this.props;
+
+        let pages = [
+            <CommonListScene
+                tabLabel={'热帖'}
+                navigation={navigation}
+                refreshState={refreshState}
                 withHeader={true}
                 loadData={_loadHottestData}
                 loadNextData={_loadHottestNextPage}
@@ -50,28 +70,22 @@ class TopicDetailPage extends PureComponent<Props>{
                 data={hottestListData}
                 news={toppingNews}
             />,
-            '最新':<CommonListScene
-                {...props}
+            <CommonListScene
+                tabLabel={'最新'}
+                navigation={navigation}
+                refreshState={refreshState}
                 loadData={_loadNewestData}
                 loadNextData={_loadNewestNextPage}
                 data={newestListData}
             />,
-            '精华':<CommonListScene
-                {...props}
+            <CommonListScene
+                tabLabel={'精华'}
+                navigation={navigation}
+                refreshState={refreshState}
                 loadData={_loadEssenceData}
                 loadNextData={_loadEssenceNextPage}
                 data={essenceListData}
             />
-        }
-        return compMap[key];
-    }
-
-    render(){
-        // StatusBar.setHidden(true);
-        const {platform,navigation,refreshState} = this.props;
-        let titles = ['热帖', '最新', '精华'];
-        let types = [
-            ['tutorials', 'Unboxing', 'T1 pro', 'App Recommends','moriarty'],
         ];
         return (
             <View style={{width:'100%',height:'100%'}}>
@@ -86,15 +100,7 @@ class TopicDetailPage extends PureComponent<Props>{
                                 tabBarTextStyle={styles.tabBarText}
                                 tabBarUnderlineStyle={styles.tabBarUnderline}
                             >
-                                {titles.map((title, i) => (
-                                    this.getScene(title,{
-                                        tabLabel:titles[i],
-                                        key:i,
-                                        types:types[i],
-                                        navigation:navigation,
-                                        refreshState:refreshState
-                                    })
-                                ))}
+                                {React.Children.map(pages,(o)=>o)}
                             </ScrollableTabView>
                         </AppBar_Android>
                         :
@@ -106,15 +112,7 @@ class TopicDetailPage extends PureComponent<Props>{
                             tabBarTextStyle={styles.tabBarText}
                             tabBarUnderlineStyle={styles.tabBarUnderline}
                         >
-                            {titles.map((title, i) => (
-                                this.getScene(title,{
-                                    tabLabel:titles[i],
-                                    key:i,
-                                    types:types[i],
-                                    navigation:navigation,
-                                    refreshState:refreshState
-                                })
-                            ))}
+                            {React.Children.map(pages,(o)=>o)}
                         </ScrollableTabView>
                 }
                 <ActionButton

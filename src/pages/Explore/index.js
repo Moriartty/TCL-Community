@@ -1,22 +1,30 @@
-import {View,Text,Alert,Image,TouchableOpacity,StyleSheet,StatusBar,ScrollView} from 'react-native';
-import React from 'react';
-import {colors,theme} from '../../config';
-import {Heading3} from "../../components/Text";
-import Ionicons from "react-native-vector-icons/Ionicons";
-import ExImage from '../../components/ExImage';
-
+/**
+ * createdBy Moriarty
+ * @flow
+ */
+//node_modules依赖
+import {View, Text, Alert, Image, TouchableOpacity, StyleSheet, ScrollView, InteractionManager} from 'react-native';
+import React,{PureComponent} from 'react';
 import Carousel from 'react-native-looped-carousel';
-import NewsList from './NewsList';
-import ActivitiesList from './ActivitiesList';
+import {connect} from 'react-redux';
+//内部配置依赖
+import {colors,theme} from '../../config';
+//components
+import {Heading3} from "../../components/Text";
+import {ActionIcon,ExImage} from '../../components';
+//pages
+import CommonList from './CommonList';
+//actions
+import action from '../../actions/explore';
 
 const imgUrls = [
     'https://cdn.pixabay.com/photo/2019/03/03/09/07/flowers-4031397__340.jpg',
     'https://cdn.pixabay.com/photo/2018/03/11/14/09/eggs-3216879__340.jpg',
     'https://cdn.pixabay.com/photo/2015/03/30/14/35/love-699480__340.jpg',
     'https://cdn.pixabay.com/photo/2017/02/11/17/07/god-2058084__340.jpg'
-]
+];
 
-class Explore extends React.PureComponent<Props>{
+class Explore extends PureComponent<Props>{
     // static router = Tab.router;
     static navigationOptions = ({navigation})=>{
         return {
@@ -33,7 +41,7 @@ class Explore extends React.PureComponent<Props>{
             headerRight:
                 <TouchableOpacity onPress={navigation.getParam('handleRewardClick',null)}>
                     <View style={styles.headerRight}>
-                        <Ionicons name={'ios-gift'} size={20} color={colors.blue} />
+                        <ActionIcon name={'ios-gift'} size={20} color={colors.blue} />
                         <Heading3 style={{color:colors.blue,marginLeft:5}}>300</Heading3>
                     </View>
                 </TouchableOpacity>,
@@ -51,14 +59,8 @@ class Explore extends React.PureComponent<Props>{
             }
         }
     };
-    handleNavClick = () => {
-        this.props.navigation.navigate('Rewards');
-    };
-    handleRewardClick = () => {
-        this.props.navigation.navigate('Rewards');
-    };
+
     componentWillMount() {
-        // this.props.init();
         this.props.navigation.setParams({
             handleNavClick:this.handleNavClick,
             handleRewardClick:this.handleRewardClick,
@@ -66,7 +68,31 @@ class Explore extends React.PureComponent<Props>{
         })
     }
 
+    componentDidMount() {
+        InteractionManager.runAfterInteractions(() => {
+            this.props.init();
+        })
+    }
+
+    handleNavClick = () => {
+        this.props.navigation.navigate('Rewards');
+    };
+    handleRewardClick = () => {
+        this.props.navigation.navigate('Rewards');
+    };
+
+    handleTopBarClick = (target) => {
+        console.log('target:',target);
+        target&&this.props.navigation.navigate(target);
+    };
+    handleItemClick = (target,id) => {
+        console.log('target:',target,'  id:',id);
+        //传递将目标页面和资源标识
+        target&&this.props.navigation.navigate(target,{id:id});
+    };
+
     render(){
+        const {newsList,activitiesList} = this.props;
         return (
             <ScrollView>
                 <Carousel
@@ -100,8 +126,16 @@ class Explore extends React.PureComponent<Props>{
                         )
                     })}
                 </Carousel>
-                <NewsList/>
-                <ActivitiesList/>
+                <CommonList
+                    list={newsList}
+                    topBarAction={this.handleTopBarClick.bind(this,'NewsDetail')}
+                    itemClickAction={this.handleItemClick.bind(this,'NewsDetail')}
+                />
+                <CommonList
+                    list={activitiesList}
+                    topBarAction={this.handleTopBarClick.bind(this,'ActivitiesDetail')}
+                    itemClickAction={this.handleItemClick.bind(this,'ActivitiesDetail')}
+                />
             </ScrollView>
         )
     }
@@ -134,6 +168,14 @@ const styles = StyleSheet.create({
     }
 });
 
-
+Explore = connect(state=>{
+    const {newsList,activitiesList} = state['explore'];
+    return {newsList,activitiesList};
+},dispatch=>({
+    init(){
+        dispatch(action.loadNewsData());
+        dispatch(action.loadActivitiesData());
+    }
+}))(Explore);
 
 export default Explore;

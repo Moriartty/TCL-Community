@@ -1,29 +1,27 @@
 /**
- * Sample React Native App
- * https://github.com/facebook/react-native
+ * createdBy Moriarty
  *
  * @format
  * @flow
  */
-
+//node_modules依赖
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {Alert, Platform, StyleSheet, Text, View,TouchableOpacity,Image} from 'react-native';
 import { StatusBar } from 'react-native';
-import { createStackNavigator, createBottomTabNavigator, createAppContainer, TabBarBottom } from 'react-navigation';
-
-import Tab from './pages/MainScreen';
-
+import { createStackNavigator, createAppContainer, TabBarBottom } from 'react-navigation';
+//内部配置依赖
 import {colors, theme} from './config';
+import {screen} from "./utils";
+//pages
+import Tab from './pages/MainScreen';
 import DetailsPage from "./pages/DetailsPage";
 import Rewards from './pages/Rewards';
-// let TopicDetailPage = Platform.OS==='ios'?
-    // require('./pages/Plate/TopicDetailPage/index_ios'):require('./pages/Plate/TopicDetailPage/index_android');
 import TopicDetailPage from "./pages/Plate/TopicDetailPage";
 import SubscribedTags from './pages/SubscribedTags';
-import {screen} from "./utils";
 import Settings from "./pages/Settings";
 import Release from "./pages/Release";
+import NewsDetail from './pages/NewsDetail';
+import ActivitiesDetail from './pages/ActivitiesDetail';
 
 function getCurrentRouteName(navigationState: any) {
     if (!navigationState) {
@@ -35,14 +33,17 @@ function getCurrentRouteName(navigationState: any) {
     }
     return route.routeName
 }
+
 const lightContentScenes = ['MyTCL'];
 
-type Props = {};
+type Props = {
+    platform:string
+};
+
 class App extends Component<Props> {
     constructor(props) {
         super(props);
         StatusBar.setBarStyle('dark-content');
-        // props.platform==='android'? StatusBar.setBackgroundColor(colors.primary):'';
     }
 
     render() {
@@ -59,13 +60,9 @@ class App extends Component<Props> {
                             if (lightContentScenes.indexOf(currentScene) >= 0) {
                                 StatusBar.setBarStyle('light-content');
                                 platform==='android'&&StatusBar.setBackgroundColor(colors.blue);
-                                // this.props.platform==='android'?StatusBar.setBackgroundColor(colors.blue):'';
-                                // StatusBar.setHidden(true)
                             } else {
                                 StatusBar.setBarStyle('dark-content');
                                 platform==='android'&&StatusBar.setBackgroundColor(colors.primary);
-                                // this.props.platform==='android'?StatusBar.setBackgroundColor(colors.primary):'';
-                                // StatusBar.setHidden(false)
                             }
                         }
                     }
@@ -85,8 +82,9 @@ const AppNavigator = createStackNavigator(
         TopicDetailPage:{screen:TopicDetailPage},
         SubscribedTags:{screen:SubscribedTags},
         Settings:{screen:Settings},
-        Release:{screen:Release}
-        // GroupPurchase: { screen: GroupPurchaseScene },
+        Release:{screen:Release},
+        NewsDetail:{screen:NewsDetail},
+        ActivitiesDetail:{screen:ActivitiesDetail}
     },
     {
         // headerMode:'none',

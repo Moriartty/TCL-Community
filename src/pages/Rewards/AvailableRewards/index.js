@@ -1,7 +1,14 @@
+/**
+ * createdBy Moriarty
+ * @flow
+ */
+//node_modules
 import React,{PureComponent} from 'react';
 import {View, FlatList, InteractionManager} from 'react-native';
-import RewardsListScene from './RewardsListScene';
 import {connect} from 'react-redux';
+//pages
+import RewardsListScene from './RewardsListScene';
+//actions
 import action from '../../../actions/rewards';
 
 class AvailableRewards extends PureComponent<Props>{

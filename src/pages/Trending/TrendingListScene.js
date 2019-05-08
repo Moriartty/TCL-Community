@@ -1,26 +1,31 @@
+/**
+ * createdBy Moriarty
+ * @flow
+ */
+//node_modules
 import React,{PureComponent} from 'react';
 import {connect} from 'react-redux';
 import {View} from 'react-native';
 import RefreshListView, { RefreshState } from 'react-native-refresh-list-view';
-import NestedScrollView from 'react-native-nested-scroll-view';
-
-import TrendingListItem from './TrendingListItem';
-import Separator from '../../components/Separator';
 import {withNavigation} from 'react-navigation';
+//components
+import {Separator} from '../../components';
 
+//pages
+import TrendingListItem from './TrendingListItem';
 import TrendingHeaderView from '../Home/ListHeaderView';
-
+//actions
 import action from '../../actions/trending';
 
 type Props = {
     types: Array<string>,
     navigation: any,
+    data:Array<Object>,
+    refreshState:Number
 }
 
 type State = {
     typeIndex: number,
-    data: Array<Object>,
-    refreshState: number,
 }
 
 class TrendingListScene extends PureComponent<Props,State>{
@@ -40,13 +45,14 @@ class TrendingListScene extends PureComponent<Props,State>{
                 }}
             />
         )
-    }
+    };
 
     renderSeparator = () => {
         return (
             <Separator style={{height:5}}/>
         )
-    }
+    };
+
     renderHeader = () => {
         return (
             <TrendingHeaderView
@@ -63,12 +69,7 @@ class TrendingListScene extends PureComponent<Props,State>{
                 }}
             />
         )
-    }
-    renderScroll(props) {
-        return (
-            <NestedScrollView {...props} />
-        )
-    }
+    };
 
     render() {
         return (
@@ -81,7 +82,6 @@ class TrendingListScene extends PureComponent<Props,State>{
                 refreshState={this.props.refreshState}
                 onHeaderRefresh={this.props.requestFirstPage}
                 onFooterRefresh={this.props.requestNextPage}
-                // renderScrollComponent={this.renderScroll}
             />
         )
     }

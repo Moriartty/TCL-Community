@@ -1,23 +1,31 @@
+/**
+ * createdBy Moriarty
+ * @flow
+ */
+//node_modules
 import React,{PureComponent} from 'react';
 import {connect} from 'react-redux';
 import {View} from 'react-native';
 import RefreshListView, { RefreshState } from 'react-native-refresh-list-view';
-
-import RewardsListItem from './RewardsListItem';
-import Separator from '../../../components/Separator';
 import {withNavigation} from 'react-navigation';
-
+//components
+import {Separator} from '../../../components';
+//pages
+import RewardsListItem from './RewardsListItem';
+//actions
 import action from '../../../actions/rewards';
 
 type Props = {
     types: Array<string>,
     navigation: any,
+    data: Array<Object>,
+    refreshState: number,
+    requestNextPage:Function,
+    requestFirstPage:Function
 }
 
 type State = {
-    typeIndex: number,
-    data: Array<Object>,
-    refreshState: number,
+    typeIndex: string,
 }
 
 class RewardsListScene extends PureComponent<Props,State>{

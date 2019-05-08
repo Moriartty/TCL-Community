@@ -1,16 +1,19 @@
-
+/**
+ * createdBy Moriarty
+ * @flow
+ */
+//node_modules
 import React, { PureComponent } from 'react'
 import {
     View, Text, StyleSheet, StatusBar, Image, TouchableOpacity, ScrollView, RefreshControl,
     InteractionManager
 } from 'react-native'
-import { Heading2, Heading3, Paragraph } from '../../components/Text'
+//components
+import { Heading2, Heading3, Paragraph } from '../../components/Text';
+import {  NavigationItem, SpacingView,ExImage,ActionIcon,Separator } from '../../components';
+//配置
 import { screen, system } from '../../utils'
-import {  NavigationItem, SpacingView } from '../../components';
 import {colors} from '../../config';
-import ExImage from '../../components/ExImage';
-import ActionIcon from "../../components/ActionIcon";
-import Separator from '../../components/Separator'
 
 type Props = {
 
@@ -40,10 +43,11 @@ class MyTCL extends PureComponent<Props, State> {
         }
     };
 
-    componentDidMount() {
-        InteractionManager.runAfterInteractions(() => {
-            this.props.navigation.setParams({'handleSettingClick':this.handleSettingClick});
-        })
+    componentWillMount() {
+        this.props.navigation.setParams({'handleSettingClick':this.handleSettingClick});
+        // InteractionManager.runAfterInteractions(() => {
+        //     this.props.navigation.setParams({'handleSettingClick':this.handleSettingClick});
+        // })
     }
 
     handleSettingClick = () => {
@@ -80,10 +84,10 @@ class MyTCL extends PureComponent<Props, State> {
                 <Separator />
             </TouchableOpacity>
         )
-    }
+    };
 
     renderCells = () => {
-        let cells = []
+        let cells = [];
         let dataList = this.getDataList()
         for (let i = 0; i < dataList.length; i++) {
             let sublist = dataList[i]
@@ -215,7 +219,7 @@ const styles = StyleSheet.create({
         fontSize:12,
         color:'white'
     }
-})
+});
 
 
 export default MyTCL

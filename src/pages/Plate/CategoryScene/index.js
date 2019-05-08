@@ -1,12 +1,26 @@
+/**
+ * createdBy Moriarty
+ * @flow
+ */
+//node_modules
 import React,{PureComponent} from 'react';
 import {View,FlatList,StyleSheet,TouchableOpacity,Text} from 'react-native';
 import {connect} from 'react-redux';
-import {colors} from "../../../config";
-import {Heading2, Paragraph} from "../../../components/Text";
-import {screen} from "../../../utils";
-import Separator from '../../../components/Separator';
-import ExImage from '../../../components/ExImage';
 import {withNavigation} from 'react-navigation';
+//配置
+import {colors} from "../../../config";
+import {screen} from "../../../utils";
+//components
+import {Heading2, Paragraph} from "../../../components/Text";
+import {Separator,ExImage} from '../../../components';
+
+type Props = {
+    categoryList:Array<Object>
+}
+type State = {
+    selected:any,
+    childs:Array<Object>
+}
 
 function getChilds(list,selected){
     return list.find(o=>{
@@ -14,13 +28,17 @@ function getChilds(list,selected){
     }).childs
 }
 
-class CategoryScene extends PureComponent<Props>{
+class CategoryScene extends PureComponent<Props,State>{
     constructor(props){
         super(props);
         this.state = {
             selected:0,
             childs:[]
         }
+    }
+    componentDidUpdate() {
+        if(this.props.categoryList.length>0)
+            this.setState({childs:getChilds(this.props.categoryList,this.state.selected)});
     }
     _renderParentItem = (rowData:any) => {
         const item = rowData.item;
@@ -39,7 +57,7 @@ class CategoryScene extends PureComponent<Props>{
                 </Paragraph>
             </TouchableOpacity>
         )
-    }
+    };
     _renderChildItem = (rowData:any) => {
         const item = rowData.item;
         return (
@@ -58,25 +76,22 @@ class CategoryScene extends PureComponent<Props>{
                 <Text style={styles.attentionIcon}>关注</Text>
             </TouchableOpacity>
         )
-    }
+    };
     handleParentSelect = (item) => {
         this.setState({
             selected:item.id,
             childs:getChilds(this.props.categoryList,item.id)
         });
-    }
+    };
     renderSeparator = (color) => {
         return (
             <Separator style={{backgroundColor:color,height:1}}/>
         )
-    }
+    };
     reHref = (item) => {
         this.props.navigation.navigate('TopicDetailPage',{title:item.title});
-    }
-    componentDidUpdate() {
-        if(this.props.categoryList.length>0)
-            this.setState({childs:getChilds(this.props.categoryList,this.state.selected)});
-    }
+    };
+
     render(){
         return (
             <View style={styles.plateContainer}>

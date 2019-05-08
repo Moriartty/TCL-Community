@@ -19,6 +19,7 @@
 ; Ignore metro
 .*/node_modules/metro/.*
 
+
 [include]
 
 [libs]
@@ -66,4 +67,4 @@ suppress_comment=\\(.\\|\n\\)*\\$FlowFixedInNextDeploy
 suppress_comment=\\(.\\|\n\\)*\\$FlowExpectedError
 
 [version]
-^0.92.0
+^0.97.0

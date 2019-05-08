@@ -1,13 +1,27 @@
+/**
+ * createdBy Moriarty
+ * @flow
+ */
+//node_modules依赖
 import {View, Text, InteractionManager,StyleSheet} from 'react-native';
-import React from 'react';
-import ExImage from '../../components/ExImage';
-import GalleryListScene from './GalleryListScene';
-import {screen} from '../../utils';
+import React,{PureComponent} from 'react';
 import {connect} from 'react-redux';
+//components
+import {ExImage} from '../../components';
+//pages
+import GalleryListScene from './GalleryListScene';
+//config
+import {screen} from '../../utils';
+
 import action from '../../actions/gallery';
 
+type Props = {
+    tabLabel:string,
+    types:Array<string>,
+    navigation:Object
+}
 
-class Gallery extends React.PureComponent<Props>{
+class Gallery extends PureComponent<Props>{
     componentDidMount() {
         InteractionManager.runAfterInteractions(() => {
             this.props.init();
@@ -29,7 +43,7 @@ const styles = StyleSheet.create({
         height:'100%',
         paddingTop:0,
     }
-})
+});
 
 Gallery = connect(state=>{
     const {data} = state['gallery'];

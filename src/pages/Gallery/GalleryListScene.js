@@ -1,12 +1,19 @@
+/**
+ * createdBy Moriarty
+ * @flow
+ */
+//node_modules
 import React,{PureComponent} from 'react';
 import {connect} from 'react-redux';
 import {View} from 'react-native';
 import RefreshListView, { RefreshState } from 'react-native-refresh-list-view';
-import GalleryListItem from './GalleryListItem';
-import Separator from '../../components/Separator';
 import {withNavigation} from 'react-navigation';
-import TrendingHeaderView from '../Home/ListHeaderView';
-
+//pages
+import GalleryListItem from './GalleryListItem';
+import GalleryHeaderView from '../Home/ListHeaderView';
+//components
+import Separator from '../../components/Separator';
+//actions
 import action from '../../actions/gallery';
 
 type Props = {
@@ -37,16 +44,16 @@ class GalleryListScene extends PureComponent<Props,State>{
                 }}
             />
         )
-    }
+    };
 
     renderSeparator = () => {
         return (
             <Separator style={{height:10}}/>
         )
-    }
+    };
     renderHeader = () => {
         return (
-            <TrendingHeaderView
+            <GalleryHeaderView
                 titles={this.props.types}
                 selectedIndex={this.state.typeIndex}
                 onSelected={(index) => {
@@ -60,7 +67,7 @@ class GalleryListScene extends PureComponent<Props,State>{
                 }}
             />
         )
-    }
+    };
 
     render() {
         return (

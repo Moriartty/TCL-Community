@@ -1,23 +1,22 @@
+/**
+ * createdBy Moriarty
+ * @flow
+ */
+//node_modules
 import {View,Text,StyleSheet} from 'react-native';
 import React,{PureComponent} from 'react';
 import {SafeAreaView} from 'react-navigation';
-import ScrollableTabView, { DefaultTabBar } from 'react-native-scrollable-tab-view'
+import ScrollableTabView, { DefaultTabBar } from 'react-native-scrollable-tab-view';
+//components
 import {Heading3} from "../../components/Text";
-import Ionicons from "react-native-vector-icons/Ionicons";
-
+import {ActionIcon} from '../../components';
+//pages
 import AvailableRewards from './AvailableRewards';
 import MyRewards from './MyRewards';
+//配置
 import {colors} from "../../config";
 import {screen} from "../../utils";
 
-
-function getScene(key,props) {
-    const compMap = {
-        AvailableRewards:<AvailableRewards {...props}/>,
-        MyRewards:<MyRewards {...props}/>,
-    }
-    return compMap[key];
-}
 
 class Rewards extends PureComponent<Props>{
     static navigationOptions = ({navigation}) => {
@@ -25,13 +24,13 @@ class Rewards extends PureComponent<Props>{
             title:'Rewards',
             headerRight:
                     <View style={styles.headerRight}>
-                        <Ionicons name={'ios-gift'} size={20} color={colors.blue} />
+                        <ActionIcon name={'ios-gift'} size={20} color={colors.blue} />
                         <Heading3 style={{color:colors.blue,marginLeft:5}}>300</Heading3>
                     </View>
         }
     }
     render(){
-        let titles = ['AvailableRewards', 'MyRewards'];
+
         return (
             <SafeAreaView >
                 <View style={{height:'100%'}}>
@@ -44,14 +43,14 @@ class Rewards extends PureComponent<Props>{
                         tabBarUnderlineStyle={styles.tabBarUnderline}
                         // renderTabBar={() => <DefaultTabBar style={styles.tabBar}/>}
                     >
-                        {titles.map((title, i) => (
-                            getScene(title,{
-                                tabLabel:titles[i],
-                                key:i,
-                                // types:types[i],
-                                navigation:this.props.navigation
-                            })
-                        ))}
+                        <AvailableRewards
+                            tabLabel={'AvailableRewards'}
+                            navigation={this.props.navigation}
+                        />
+                        <MyRewards
+                            tabLabel={'MyRewards'}
+                            navigation={this.props.navigation}
+                        />
                     </ScrollableTabView>
                 </View>
             </SafeAreaView>
@@ -79,6 +78,6 @@ const styles = StyleSheet.create({
     tabBarUnderline: {
         backgroundColor: colors.blue
     },
-})
+});
 
 export default Rewards;

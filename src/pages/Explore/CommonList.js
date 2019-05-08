@@ -1,42 +1,53 @@
+/**
+ * createdBy Moriarty
+ * @flow
+ */
+//node_modules依赖
 import React,{PureComponent} from 'react';
-import {FlatList, View, StyleSheet, InteractionManager,Image} from 'react-native';
-import {connect} from 'react-redux';
+import {FlatList, View, StyleSheet, InteractionManager,TouchableOpacity} from 'react-native';
+//components
 import {Heading3} from "../../components/Text";
-import action from '../../actions/explore';
-import Ionicons from "react-native-vector-icons/Ionicons";
-import ExImage from '../../components/ExImage';
+import {ActionIcon,ExImage} from '../../components';
 
-class ActivitiesList extends PureComponent<Props>{
+type Props = {
+    list:Array<Object>,
+    topBarAction:Function,
+    itemClickAction:Function
+}
+
+class CommonList extends PureComponent<Props>{
     constructor(props){
         super(props);
     }
 
-    componentDidMount() {
-        InteractionManager.runAfterInteractions(() => {
-            this.props.init();
-        })
-    }
     _renderItem = (rowData: any) => {
         return (
-            <View style={styles.activitiesItem}>
+            <TouchableOpacity
+                style={styles.exploreListItem}
+                activeOpacity={1}
+                onPress={this.props.itemClickAction.bind(this,rowData.item.id)}
+            >
                 <ExImage uri={rowData.item.imgUrl} style={styles.pic}/>
                 <Heading3>{rowData.item.title}</Heading3>
-            </View>
+            </TouchableOpacity>
         )
     };
     render(){
-        const {activitiesList} = this.props;
+        const {list,topBarAction} = this.props;
         return (
-            <View style={styles.activitiesContainer}>
-                <View style={styles.activitiesHeader}>
+            <View style={styles.exploreListContainer}>
+                <TouchableOpacity
+                    style={styles.exploreListHeader}
+                    activeOpacity={1}
+                    onPress={topBarAction}
+                >
                     <Heading3 style={{fontWeight:'bold',marginBottom:5}}>Activities</Heading3>
-                    <Ionicons name={'ios-arrow-forward'} size={20}/>
-                </View>
+                    <ActionIcon name={'ios-arrow-forward'} size={20}/>
+                </TouchableOpacity>
                 <View style={{height:150,width:'100%'}}>
                     <FlatList
                         horizontal={true}
-                        data={activitiesList}
-                        // extraData={this.state}
+                        data={list}
                         keyExtractor={(item, index) => index.toString()}
                         renderItem={this._renderItem}
                         showsHorizontalScrollIndicator = {false}
@@ -48,13 +59,13 @@ class ActivitiesList extends PureComponent<Props>{
 }
 
 const styles = StyleSheet.create({
-    activitiesContainer:{
+    exploreListContainer:{
         width:'100%',
         paddingTop:10,
         paddingBottom:10,
         paddingLeft:10
     },
-    activitiesHeader:{
+    exploreListHeader:{
         // flex:1,
         flexDirection:'row',
         justifyContent:'space-between',
@@ -63,7 +74,7 @@ const styles = StyleSheet.create({
         width: '100%',
         paddingRight:10
     },
-    activitiesItem:{
+    exploreListItem:{
         width:150,
         // height:250,
     },
@@ -72,16 +83,7 @@ const styles = StyleSheet.create({
         height:120,
         borderRadius:15
     }
-})
+});
 
-ActivitiesList = connect(state=>{
-    const {activitiesList} = state['explore'];
-    return {activitiesList};
-},dispatch=>({
-    init(){
-        // dispatch(action.loadactivitiesData());
-        dispatch(action.loadActivitiesData());
-    }
-}))(ActivitiesList)
 
-export default ActivitiesList;
+export default CommonList;

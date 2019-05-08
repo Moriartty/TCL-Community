@@ -1,3 +1,8 @@
+/**
+ * createdBy Moriarty
+ * @flow
+ */
+//node_modules
 import React,{PureComponent} from 'react';
 import {View,ImageBackground, Text,ToolbarAndroid,StyleSheet,StatusBar} from 'react-native';
 import {
@@ -7,13 +12,18 @@ import {
     CollapsingParallax,
 } from 'react-native-collapsing-toolbar'
 import NestedScrollView from 'react-native-nested-scroll-view';
+//components
 import {Heading4,Paragraph} from "../../../components/Text";
-import Separator from '../../../components/Separator';
-import ExImage from '../../../components/ExImage';
+import {Separator,ExImage} from '../../../components';
+//配置
 import {screen} from "../../../utils";
 import {colors,theme} from "../../../config";
 
 const appBarHeight = 330;
+
+type Props = {
+    navigation:Object
+}
 
 class AppBar_Android extends PureComponent<Props>{
     render(){
@@ -96,4 +106,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default AppBar_Android;
+module.exports =  AppBar_Android;

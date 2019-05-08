@@ -1,12 +1,19 @@
+/**
+ * createdBy Moriarty
+ * @flow
+ */
+//node_modules
 import React,{PureComponent} from 'react';
 import {connect} from 'react-redux';
 import {InteractionManager, View, ActivityIndicator, Text, StyleSheet} from 'react-native';
 import RefreshListView, { RefreshState } from 'react-native-refresh-list-view';
-import CommonListItem from './CommonListItem';
-import Separator from '../../../components/Separator';
 import {withNavigation} from 'react-navigation';
-import CommonListHeader from './CommonListHeader';
 import NestedScrollView from 'react-native-nested-scroll-view';
+//components
+import {Separator} from '../../../components';
+//pages
+import CommonListItem from './CommonListItem';
+import CommonListHeader from './CommonListHeader';
 
 
 type Props = {
@@ -15,11 +22,15 @@ type Props = {
     withHeader:Boolean,
     loadData:Function,
     loadNextData:Function,
-    data:Array<Object>
+    data:Array<Object>,
+    news:any,
+    refreshState:number,
+    loadToppingNews:Function
 }
 
 type State = {
     typeIndex: number,
+    headerOpenState:Boolean
 }
 
 class CommonListScene extends PureComponent<Props,State>{
@@ -86,7 +97,7 @@ class CommonListScene extends PureComponent<Props,State>{
 
             </View>
         )
-    }
+    };
     renderScroll(props) {
         return (
             <NestedScrollView {...props} />
@@ -103,7 +114,7 @@ class CommonListScene extends PureComponent<Props,State>{
                 renderItem={this.renderCell}
                 keyExtractor={(item, index) => index.toString()}
                 refreshState={refreshState}
-                // onHeaderRefresh={this.props.requestFirstPage}
+                onHeaderRefresh={()=>{}}
                 onFooterRefresh={loadNextData}
                 renderScrollComponent={this.renderScroll}
             />

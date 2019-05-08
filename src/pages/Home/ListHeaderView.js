@@ -1,11 +1,17 @@
-
-import React, { PureComponent } from 'react'
-import { View, Text, StyleSheet, TouchableOpacity,FlatList } from 'react-native'
-import { Heading2, Heading3, Paragraph } from '../../components/Text'
+/**
+ * createdBy Moriarty
+ * @flow
+ */
+//node_modules
+import React, { PureComponent } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity,FlatList } from 'react-native';
+//components
+import { Heading2, Heading3, Paragraph } from '../../components/Text';
+import {ActionIcon} from '../../components';
+//配置
 import { screen, system } from '../../utils'
 import { colors } from '../../config';
-import ActionIcon from '../../components/ActionIcon';
-import RefreshListView from 'react-native-refresh-list-view';
+
 
 type Props = {
     titles: Array<string>,
@@ -18,7 +24,7 @@ class ListHeaderView extends PureComponent<Props> {
     static defaultProps = {
         onSelected: () => { },
         onMoreIconClicked:()=>{}
-    }
+    };
     _renderItem = (rowData:any) => {
         const item = rowData.item;
         return (
@@ -92,7 +98,7 @@ const styles = StyleSheet.create({
         justifyContent:'center',
         alignItems:'center'
     }
-})
+});
 
 
 export default ListHeaderView

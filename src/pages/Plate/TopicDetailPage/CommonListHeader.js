@@ -1,17 +1,22 @@
-
+/**
+ * createdBy Moriarty
+ * @flow
+ */
+//node_modules
 import React, { PureComponent,Fragment } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity,FlatList } from 'react-native'
-import { Heading2, Heading3, Paragraph } from '../../../components/Text'
+//components
+import { Heading2, Heading3, Paragraph } from '../../../components/Text';
+import {ActionIcon,Separator} from '../../../components';
+//配置
 import { screen, system } from '../../../utils'
 import { colors } from '../../../config';
-import ActionIcon from '../../../components/ActionIcon';
-import RefreshListView from 'react-native-refresh-list-view';
-import Separator from '../../../components/Separator';
 
 type Props = {
     news: Array<string>,
     onMoreIconClicked:Function,
-    openState:Boolean
+    openState:Boolean,
+    onSelected:Function
 }
 
 
@@ -29,19 +34,19 @@ class CommonListHeader extends PureComponent<Props> {
             <TouchableOpacity
                 activeOpacity={1}
                 style={[{ backgroundColor:  'white' }, styles.item]}
-                onPress={() => this.props.onSelected(i)}>
+                onPress={() => this.props.onSelected(item.id)}>
                 <ActionIcon name={'ios-notifications'} size={20} color={colors.blue}/>
                 <Paragraph style={{ color: 'black',fontSize:14 }}>
                     {item.title}
                 </Paragraph>
             </TouchableOpacity>
         )
-    }
+    };
     renderSeparator = () => {
         return (
             <Separator style={{height:5}}/>
         )
-    }
+    };
 
     render() {
         const {news,onMoreIconClicked,openState} = this.props;
@@ -74,7 +79,7 @@ class CommonListHeader extends PureComponent<Props> {
                     </TouchableOpacity>
                     <Separator style={{height:5}}/>
                 </View>
-            )
+            );
         else
             return null;
     }
@@ -102,7 +107,7 @@ const styles = StyleSheet.create({
         backgroundColor:'#fff',
         flexDirection:'row'
     }
-})
+});
 
 
 export default CommonListHeader

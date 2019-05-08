@@ -1,28 +1,24 @@
+/**
+ * createdBy Moriarty
+ * @flow
+ */
+//node_modules
 import React, { PureComponent } from 'react';
 import {connect} from 'react-redux';
 import { View, Text, Button,StyleSheet, ScrollView, TouchableOpacity, ListView, Image, StatusBar, FlatList,SafeAreaView,InteractionManager } from 'react-native'
 import ScrollableTabView, { DefaultTabBar } from 'react-native-scrollable-tab-view';
 import ActionButton from 'react-native-action-button';
-import ActionIcon from '../../components/ActionIcon';
+//components
+import {ActionIcon} from '../../components';
+//action
 import action from '../../actions/home';
-// import {SafeAreaView} from 'react-navigation';
-// import { Heading2, Heading3, Paragraph } from '../../components/Text'
-// import { NavigationItem, SpacingView } from '../../components';
+//配置
 import {colors} from '../../config';
 import {screen} from '../../utils';
-
+//pages
 import Trending from '../Trending';
 import Forum from '../Forum';
 import Gallery from '../Gallery';
-
-function getScene(key,props) {
-    const compMap = {
-        Trending:<Trending {...props}/>,
-        Forum:<Forum {...props}/>,
-        Gallery:<Gallery {...props}/>
-    }
-    return compMap[key];
-}
 
 class Home extends PureComponent<Props>{
 
@@ -35,13 +31,6 @@ class Home extends PureComponent<Props>{
     //     })
     // }
     render() {
-        let titles = ['Trending', 'Forum','Gallery'];
-        let types = [
-            ['tutorials', 'Unboxing', 'T1 pro', 'App Recommends','moriarty'],
-            ['tutorials', 'Unboxing', 'T1 pro', 'App Recommends'],
-            ['tutorials', 'Unboxing', 'T1 pro', 'App Recommends']
-        ];
-
 
         return (
             <SafeAreaView >
@@ -55,14 +44,21 @@ class Home extends PureComponent<Props>{
                         tabBarUnderlineStyle={styles.tabBarUnderline}
                         // renderTabBar={() => <DefaultTabBar style={styles.tabBar}/>}
                     >
-                        {titles.map((title, i) => (
-                            getScene(title,{
-                                tabLabel:titles[i],
-                                key:i,
-                                types:types[i],
-                                navigation:this.props.navigation
-                            })
-                        ))}
+                        <Trending
+                            tabLabel={'Trending'}
+                            types={['tutorials', 'Unboxing', 'T1 pro', 'App Recommends','moriarty']}
+                            navigation={this.props.navigation}
+                        />
+                        <Forum
+                            tabLabel={'Forum'}
+                            types={['tutorials', 'Unboxing', 'T1 pro', 'App Recommends','moriarty']}
+                            navigation={this.props.navigation}
+                        />
+                        <Gallery
+                            tabLabel={'Gallery'}
+                            types={['tutorials', 'Unboxing', 'T1 pro', 'App Recommends','moriarty']}
+                            navigation={this.props.navigation}
+                        />
                     </ScrollableTabView>
                     <ActionButton
                         buttonColor={colors.blue}
@@ -107,15 +103,8 @@ const styles = StyleSheet.create({
     tabBarUnderline: {
         backgroundColor: colors.blue
     },
-})
+});
 
-// const styles = StyleSheet.create({
-//     homeContainer:{
-//         width:'100%',
-//         height:'100%',
-//         paddingTop:0,
-//     }
-// });
 
 Home = connect(state=>{
     const {data} = state['home'];

@@ -1,19 +1,23 @@
-
+/**
+ * createdBy Moriarty
+ * @flow
+ */
+//node_modules
 import React, { PureComponent } from 'react'
 import { View, Text, StyleSheet, Image, TouchableOpacity,FlatList } from 'react-native'
-
+//components
 import {Heading2, Heading3,Heading4} from '../../../components/Text';
+import {ActionIcon,ExImage} from '../../../components';
+//配置
 import { screen, system } from '../../../utils';
 import {colors} from '../../../config';
-import Ionicons from "react-native-vector-icons/Ionicons";
-import ActionIcon from '../../../components/ActionIcon';
-import ExImage from '../../../components/ExImage';
 
 
 type Props = {
     onPress: Function,
     icon: any,
     title: string,
+    info:Array<Object>
 }
 
 function itemWithMultiImg(info){

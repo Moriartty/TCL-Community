@@ -1,11 +1,21 @@
+/**
+ * createdBy Moriarty
+ * @flow
+ */
+//node_modules
 import React, { PureComponent } from 'react';
 import {connect} from 'react-redux';
-import { View, Text, Button,StyleSheet, ScrollView, TouchableOpacity, ListView, Image, StatusBar, FlatList,SafeAreaView,InteractionManager } from 'react-native'
+import { View, Text, Button,StyleSheet,InteractionManager } from 'react-native';
+//pages
 import TrendingListScene from './TrendingListScene';
+//actions
 import action from '../../actions/trending';
-// import { Heading2, Heading3, Paragraph } from '../../components/Text'
-// import { NavigationItem, SpacingView } from '../../components';
-// import {colors} from '../../config';
+
+type Props = {
+    tabLabel:string,
+    types:Array<string>,
+    navigation:Object
+}
 
 class Trending extends PureComponent<Props>{
     componentDidMount() {
