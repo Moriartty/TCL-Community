@@ -6,6 +6,7 @@ import explore from './explore';
 import plate from './plate';
 import gallery from './gallery';
 import rewards from './rewards';
+import login from './login';
 
 export default combineReducers({
     app,
@@ -14,5 +15,6 @@ export default combineReducers({
     explore,
     plate,
     gallery,
-    rewards
+    rewards,
+    login
 })

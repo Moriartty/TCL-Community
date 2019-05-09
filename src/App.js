@@ -9,6 +9,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import { StatusBar } from 'react-native';
 import { createStackNavigator, createAppContainer, TabBarBottom } from 'react-navigation';
+import SplashScreen from 'react-native-splash-screen';
 //内部配置依赖
 import {colors, theme} from './config';
 import {screen} from "./utils";
@@ -22,6 +23,7 @@ import Settings from "./pages/Settings";
 import Release from "./pages/Release";
 import NewsDetail from './pages/NewsDetail';
 import ActivitiesDetail from './pages/ActivitiesDetail';
+import Login from './pages/Login';
 
 function getCurrentRouteName(navigationState: any) {
     if (!navigationState) {
@@ -44,6 +46,10 @@ class App extends Component<Props> {
     constructor(props) {
         super(props);
         StatusBar.setBarStyle('dark-content');
+    }
+
+    componentDidMount() {
+        SplashScreen.hide();
     }
 
     render() {
@@ -76,6 +82,7 @@ class App extends Component<Props> {
 
 const AppNavigator = createStackNavigator(
     {
+        Login:{screen:Login},
         Tab: { screen: Tab },
         DetailsPage: { screen: DetailsPage },
         Rewards:{screen:Rewards},

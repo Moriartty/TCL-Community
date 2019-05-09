@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest",
-    "build":"cd android&&./gradlew assembleRelease"
+    "build": "cd android&&./gradlew assembleRelease"
   },
   "dependencies": {
     "prop-types": "^15.6.2",
@@ -19,6 +19,8 @@
     "react-native-nested-scroll-view": "^8.0.0",
     "react-native-refresh-list-view": "^1.0.10",
     "react-native-scrollable-tab-view": "^0.10.0",
+    "react-native-splash-screen": "^3.2.0",
+    "react-native-storage": "^1.0.1",
     "react-native-vector-icons": "^6.3.0",
     "react-native-webview-bridge": "^0.40.1",
     "react-native-zss-rich-text-editor": "^1.1.0",

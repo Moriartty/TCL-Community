@@ -3,6 +3,7 @@ package com.tclcommunity;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import org.devio.rn.splashscreen.SplashScreenReactPackage;
 import com.imagepicker.ImagePickerPackage;
 import com.github.alinz.reactnativewebviewbridge.WebViewBridgePackage;
 import com.rncollapsingtoolbar.RNCollapsingToolbarPackage;
@@ -13,6 +14,7 @@ import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
+
 
 
 import java.util.Arrays;
@@ -30,6 +32,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new SplashScreenReactPackage(),
             new ImagePickerPackage(),
             new WebViewBridgePackage(),
             new RNCollapsingToolbarPackage(),

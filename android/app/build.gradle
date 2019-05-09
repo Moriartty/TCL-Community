@@ -151,6 +151,7 @@ android {
 }
 
 dependencies {
+    implementation project(':react-native-splash-screen')
     implementation project(':react-native-image-picker')
     implementation project(':react-native-webview-bridge')
     implementation project(':react-native-collapsing-toolbar')

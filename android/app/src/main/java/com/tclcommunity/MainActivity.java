@@ -6,6 +6,10 @@ import com.facebook.react.ReactActivityDelegate;
 import com.facebook.react.ReactRootView;
 import com.swmansion.gesturehandler.react.RNGestureHandlerEnabledRootView;
 
+import android.os.Bundle;
+import org.devio.rn.splashscreen.SplashScreen;
+
+
 public class MainActivity extends ReactActivity {
 
     /**
@@ -16,6 +20,13 @@ public class MainActivity extends ReactActivity {
     protected String getMainComponentName() {
         return "TCLCommunity";
     }
+    @Override
+    protected void onCreate(Bundle saveInstanceState){
+    //加true设置为全屏
+        SplashScreen.show(this,true);
+        super.onCreate(saveInstanceState);
+    }
+
     @Override
     protected ReactActivityDelegate createReactActivityDelegate() {
         return new ReactActivityDelegate(this, getMainComponentName()) {

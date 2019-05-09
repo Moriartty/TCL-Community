@@ -7,11 +7,20 @@ import React, { PureComponent } from 'react'
 import {
     View, Text, StyleSheet, StatusBar, Image, TouchableOpacity, ScrollView, RefreshControl,
     InteractionManager
-} from 'react-native'
+} from 'react-native';
+import {connect} from 'react-redux';
+import {NavigationActions, StackActions} from "react-navigation";
 //配置
 import {colors} from '../../config';
 //components
 import {ExImage,ActionIcon,Separator} from '../../components';
+//action
+import loginAction from '../../actions/login';
+
+const resetAction = StackActions.reset({
+    index: 0,
+    actions: [NavigationActions.navigate({ routeName: 'Login' })],
+});
 
 class Setting extends PureComponent<Props>{
     static navigationOptions = ({navigation})=>{
@@ -82,13 +91,17 @@ class Setting extends PureComponent<Props>{
                 >
                     {this.renderCell()}
                     <View style={{alignItems:'center',marginBottom:40}}>
-                        <TouchableOpacity style={styles.logout}>
+                        <TouchableOpacity style={styles.logout} onPress={this.handleLogout}>
                             <Text style={{color:'black'}}>Logout</Text>
                         </TouchableOpacity>
                     </View>
                 </ScrollView>
             </View>
         )
+    }
+
+    handleLogout = () => {
+        this.props.logout(this.props.navigation.dispatch.bind(this,resetAction));
     }
 
     getDataList = () => {
@@ -140,5 +153,11 @@ const styles = StyleSheet.create({
         alignItems:'center',
     }
 });
+
+Setting = connect(null,dispatch=>({
+    logout(cb){
+        dispatch(loginAction.logout(cb));
+    }
+}))(Setting);
 
 export default Setting;
