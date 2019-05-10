@@ -17,20 +17,13 @@ import {colors, theme} from "../../config";
 import {screen} from "../../utils";
 //pages
 import LoginScene from './LoginScene';
+import SplashScreen from "react-native-splash-screen";
 
 
 type Props = {
 
 }
 
-async function test(cb){
-    const token = await global.storage.load({
-        key:'token'
-    });
-    console.log('token',token);
-    if(token)
-        cb();
-}
 
 
 class Login extends React.Component<Props,State>{
@@ -60,18 +53,9 @@ class Login extends React.Component<Props,State>{
 
     }
 
-    componentWillMount() {
-        global.storage.load({
-            key:'token'
-        }).then(token=>{
-            token&&this.props.navigation.navigate.bind(this,'Tab');
-        }).catch(err=>{
-            console.log(err);
-        });
-    }
-
     componentDidMount() {
         InteractionManager.runAfterInteractions(() => {
+            SplashScreen.hide();
             this.props.init();
         })
     }

@@ -32,8 +32,11 @@ class LoginScene extends React.Component<State>{
 
     handleLogin = () => {
         const {account,pwd} = this.state;
-        //登录成功后，进入主页面并重置路由，保证应用退出后不会再返回登录页
-        this.props.login(account,pwd,this.props.navigation.dispatch.bind(this,resetAction));
+        //登录成功后，进入主页面并重置路由，保证应用退出后不会再返回登录页,这里不进入loading页，直接进入App
+        // this.props.login(account,pwd,this.props.navigation.dispatch.bind(this,resetAction));
+        // this.props.login(account,pwd,this.props.navigation.navigate.bind(this,'AuthLoading'));
+        this.props.login(account,pwd,this.props.navigation.navigate.bind(this,'App'));
+
     };
 
 

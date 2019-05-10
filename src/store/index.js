@@ -9,6 +9,8 @@ import {createLogger} from 'redux-logger';
 const logger = createLogger();
 import RootReducer from '../reducers';
 
+global.storage = require('../utils/storage');
+
 const store = createStore(RootReducer,applyMiddleware(thunk,logger));
 
 class Root extends React.Component{
@@ -18,6 +20,9 @@ class Root extends React.Component{
         //     store:null
         // }
     }
+    // componentWillMount() {
+    //     global.storage._load('token',(token)=>{token&&this.props.navigation.navigate('Tab');})
+    // }
     componentDidMount() {
         // this.setState({store:configureStore()})
     }

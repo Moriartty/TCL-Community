@@ -9,7 +9,7 @@ import {
     InteractionManager
 } from 'react-native';
 import {connect} from 'react-redux';
-import {NavigationActions, StackActions} from "react-navigation";
+import {NavigationActions, StackActions,SwitchActions} from "react-navigation";
 //配置
 import {colors} from '../../config';
 //components
@@ -19,7 +19,7 @@ import loginAction from '../../actions/login';
 
 const resetAction = StackActions.reset({
     index: 0,
-    actions: [NavigationActions.navigate({ routeName: 'Login' })],
+    actions: [NavigationActions.navigate({ routeName: 'AuthLoading' })],
 });
 
 class Setting extends PureComponent<Props>{
@@ -101,7 +101,9 @@ class Setting extends PureComponent<Props>{
     }
 
     handleLogout = () => {
-        this.props.logout(this.props.navigation.dispatch.bind(this,resetAction));
+        // this.props.logout(this.props.navigation.dispatch.bind(this,SwitchActions.jumpTo({ routeName:'AuthLoading' })));
+        this.props.logout(this.props.navigation.navigate.bind(this,'AuthLoading',{isLogout:true}))
+        // this.props.logout(this.props.navigation.dispatch.bind(this,resetAction));
     }
 
     getDataList = () => {

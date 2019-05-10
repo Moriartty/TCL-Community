@@ -8,7 +8,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import { StatusBar } from 'react-native';
-import { createStackNavigator, createAppContainer, TabBarBottom } from 'react-navigation';
+import { createStackNavigator, createAppContainer, TabBarBottom,createSwitchNavigator } from 'react-navigation';
 import SplashScreen from 'react-native-splash-screen';
 //内部配置依赖
 import {colors, theme} from './config';
@@ -24,6 +24,7 @@ import Release from "./pages/Release";
 import NewsDetail from './pages/NewsDetail';
 import ActivitiesDetail from './pages/ActivitiesDetail';
 import Login from './pages/Login';
+import AuthLoadingScreen from './pages/Login/AuthLoadingScreen';
 
 function getCurrentRouteName(navigationState: any) {
     if (!navigationState) {
@@ -82,8 +83,7 @@ class App extends Component<Props> {
 
 const AppNavigator = createStackNavigator(
     {
-        Login:{screen:Login},
-        Tab: { screen: Tab },
+        Tab1: { screen: Tab },
         DetailsPage: { screen: DetailsPage },
         Rewards:{screen:Rewards},
         TopicDetailPage:{screen:TopicDetailPage},
@@ -92,6 +92,27 @@ const AppNavigator = createStackNavigator(
         Release:{screen:Release},
         NewsDetail:{screen:NewsDetail},
         ActivitiesDetail:{screen:ActivitiesDetail}
+    },
+    {
+        // initialRouteName:'Rewards',
+        // headerMode:'none',
+        defaultNavigationOptions: {
+            headerStyle:{
+                borderBottomWidth:screen.onePixel,
+                borderBottomColor:colors.gray2,
+                shadowOpacity:0,
+                elevation: 0,
+                height:theme.toolbarHeight
+            },
+            headerBackTitle: null,
+            headerTintColor: '#333333',
+            showIcon: true,
+        },
+    }
+);
+const AuthNavigator = createStackNavigator(
+    {
+        Login:{screen:Login},
     },
     {
         // headerMode:'none',
@@ -111,7 +132,16 @@ const AppNavigator = createStackNavigator(
 );
 
 
-const AppContainer = createAppContainer(AppNavigator);
+const AppContainer = createAppContainer(createSwitchNavigator(
+    {
+        AuthLoading: AuthLoadingScreen,
+        App: AppNavigator,
+        Auth: AuthNavigator,
+    },
+    {
+        initialRouteName: 'AuthLoading',
+    }
+));
 
 App = connect(state=>{
     const {platform} = state['app'];
