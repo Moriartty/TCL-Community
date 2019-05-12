@@ -10,6 +10,15 @@ const logger = createLogger();
 import RootReducer from '../reducers';
 
 global.storage = require('../utils/storage');
+if (!__DEV__) {
+    global.console = {
+        info: () => {},
+        log: () => {},
+        warn: () => {},
+        debug: () => {},
+        error: () => {},
+    };
+}
 
 const store = createStore(RootReducer,applyMiddleware(thunk,logger));
 
