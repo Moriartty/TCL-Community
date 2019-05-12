@@ -27,7 +27,7 @@ class AuthLoadingScreen extends React.Component {
             <View style={{width:'100%',height:'100%'}}>
                 {/*<ActivityIndicator />*/}
                 {/*<StatusBar barStyle="default" />*/}
-                <Image source={require('../../img/launch_screen.png')} style={{width:'100%',height:'100%'}}/>
+                {/*<Image source={require('../../img/launch_screen.png')} style={{width:'100%',height:'100%'}}/>*/}
             </View>
         );
     }

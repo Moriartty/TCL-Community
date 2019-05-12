@@ -13,7 +13,7 @@ import Separator from './Separator';
 import SpacingView from './SpacingView';
 import TabBarItem from './TabBarItem';
 import WebScene from './WebScene';
-import LoadingModal from './LoadingModal';
+import ExModal from './ExModal';
 
 
 export {
@@ -26,7 +26,7 @@ export {
     SpacingView,
     TabBarItem,
     WebScene,
-    LoadingModal
+    ExModal
 }
 
 

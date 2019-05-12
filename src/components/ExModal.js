@@ -4,10 +4,10 @@ import {View,Modal, ProgressBarAndroid,Text,StyleSheet} from 'react-native';
 import {screen} from '../utils';
 import {colors} from '../config';
 
-class LoadingModal extends PureComponent<Props>{
+class ExModal extends PureComponent<Props>{
 
     render(){
-        const {modalVisible,loadingState,title} = this.props;
+        const {modalVisible,children} = this.props;
         return (
             <Modal
                 animationType="fade"
@@ -18,10 +18,7 @@ class LoadingModal extends PureComponent<Props>{
                 }}
             >
                 <View style={styles.modalContainer}>
-                    <View style={styles.modalContent}>
-                        <ProgressBarAndroid  color={colors.blue} styleAttr='Inverse'/>
-                        <Text>{title}</Text>
-                    </View>
+                    {children}
                 </View>
             </Modal>
         )
@@ -36,16 +33,7 @@ const styles = StyleSheet.create({
         alignItems:'center',
         justifyContent:'center'
     },
-    modalContent:{
-        backgroundColor:'white',
-        height:150,
-        width:screen.width*2/3,
-        borderRadius:10,
-        padding:20,
-        justifyContent:'center',
-        alignItems:'center'
 
-    }
 });
 
-export default LoadingModal;
+export default ExModal;

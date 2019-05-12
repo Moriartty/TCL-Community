@@ -8,6 +8,7 @@ import {connect} from 'react-redux';
 import { View, Text, Button,StyleSheet, ScrollView, TouchableOpacity, ListView, Image, StatusBar, FlatList,SafeAreaView,InteractionManager } from 'react-native'
 import ScrollableTabView, { DefaultTabBar } from 'react-native-scrollable-tab-view';
 import ActionButton from 'react-native-action-button';
+
 //components
 import {ActionIcon} from '../../components';
 //action
@@ -19,6 +20,7 @@ import {screen} from '../../utils';
 import Trending from '../Trending';
 import Forum from '../Forum';
 import Gallery from '../Gallery';
+
 
 class Home extends PureComponent<Props>{
 
@@ -60,15 +62,15 @@ class Home extends PureComponent<Props>{
                             navigation={this.props.navigation}
                         />
                     </ScrollableTabView>
-                    <ActionButton
-                        buttonColor={colors.blue}
-                        onPress={() => { this.props.navigation.navigate('Release')}}
-                        renderIcon={() => (
-                            <View style={{alignItems:'center'}}>
-                                <ActionIcon name="md-create" color={'white'} size={25} style={{marginLeft:4}}/>
-                            </View>
-                        )}
-                    />
+                        <ActionButton
+                            buttonColor={colors.blue}
+                            onPress={() => { this.props.navigation.navigate('Release')}}
+                            renderIcon={() => (
+                                <View style={{alignItems:'center'}}>
+                                    <ActionIcon name="md-create" color={'white'} size={25} style={{marginLeft:4}}/>
+                                </View>
+                            )}
+                        />
                 </View>
             </SafeAreaView>
 

@@ -1,7 +1,8 @@
 import React from 'react';
-import {View, TouchableOpacity, Text, InteractionManager,StyleSheet,Image,TextInput,StatusBar} from 'react-native';
+import {View, TouchableOpacity, Text, InteractionManager,StyleSheet,Image,TextInput,ScrollView} from 'react-native';
 import {connect} from 'react-redux';
 import {NavigationActions, StackActions, withNavigation} from 'react-navigation';
+import {BoxShadow} from 'react-native-shadow';
 //components
 import {ExImage,CustomButton,ActionIcon} from '../../components';
 //action
@@ -49,6 +50,7 @@ class LoginScene extends React.Component<State>{
                         <Text style={styles.topText}>Welcome to TCL Community</Text>
                     </View>
                     <View style={styles.content2}>
+                        <BoxShadow setting={textInputShadow}>
                         <TextInput
                             allowFontScaling={true}
                             style={styles.textInput}
@@ -56,6 +58,8 @@ class LoginScene extends React.Component<State>{
                             onChangeText={(account) => this.setState({account})}
                             value={this.state.account}
                         />
+                        </BoxShadow>
+                        <BoxShadow setting={textInputShadow}>
                         <TextInput
                             allowFontScaling={true}
                             style={styles.textInput}
@@ -63,6 +67,7 @@ class LoginScene extends React.Component<State>{
                             onChangeText={(pwd) => this.setState({pwd})}
                             value={this.state.pwd}
                         />
+                        </BoxShadow>
                         <TouchableOpacity
                             activeOpacity={1}
                             style={{
@@ -74,13 +79,30 @@ class LoginScene extends React.Component<State>{
                         >
                             <Text style={{fontSize:12}}>Forget Password?</Text>
                         </TouchableOpacity>
+                        <BoxShadow setting={loginBtnShadow}>
                         <CustomButton title={'LOGIN'} style={styles.loginButton} titleStyle={{color:'black'}} onPress={this.handleLogin}/>
+                        </BoxShadow>
                     </View>
+                    {/*<View style={styles.content3}>*/}
+                        {/*<Text style={{color:'black',fontSize:14}}>Or Login With</Text>*/}
+                        {/*<View style={{flexDirection:'row',justifyContent:'space-between',width:200}}>*/}
+                            {/*<ActionIcon name={'logo-facebook'} size={45}/>*/}
+                            {/*<ActionIcon name={'logo-twitter'} size={45}/>*/}
+                            {/*<ActionIcon name={'logo-google'} size={45}/>*/}
+                        {/*</View>*/}
+                    {/*</View>*/}
+                    {/*<View style={styles.content4}>*/}
+                        {/*<TouchableOpacity*/}
+
+                        {/*>*/}
+                            {/*<Text style={{color:colors.blue}}>Not a member? SIGN UP</Text>*/}
+                        {/*</TouchableOpacity>*/}
+                    {/*</View>*/}
                 </View>
                 <View style={{height:'40%',justifyContent:'flex-end'}}>
                     <View style={styles.content3}>
                         <Text style={{color:'black',fontSize:14}}>Or Login With</Text>
-                        <View style={{flexDirection:'row',justifyContent:'space-around',width:'60%'}}>
+                        <View style={{flexDirection:'row',justifyContent:'space-between',width:200}}>
                             <ActionIcon name={'logo-facebook'} size={45}/>
                             <ActionIcon name={'logo-twitter'} size={45}/>
                             <ActionIcon name={'logo-google'} size={45}/>
@@ -90,7 +112,7 @@ class LoginScene extends React.Component<State>{
                         <TouchableOpacity
 
                         >
-                            <Text>Not a member? SIGN UP</Text>
+                            <Text style={{color:colors.blue}}>Not a member? SIGN UP</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -99,12 +121,37 @@ class LoginScene extends React.Component<State>{
     }
 }
 
+
+const textInputShadow = {
+    height: 45,
+    width:screen.width-60,
+    color:"#bfbfbf",
+    border:2,
+    radius:10,
+    opacity:0.3,
+    x:0,
+    y:0,
+    style:{marginVertical:5}
+};
+
+const loginBtnShadow = {
+    height: 40,
+    width:100,
+    color:"#bfbfbf",
+    border:2,
+    radius:20,
+    opacity:0.3,
+    x:0,
+    y:0,
+    style:{marginVertical:5}
+}
+
 const styles = StyleSheet.create({
     loginContainer:{
         width:'100%',
         height:'100%',
         alignItems:'center',
-        padding:30
+        padding:30,
     },
     content1:{
         alignItems:'center',
@@ -112,12 +159,13 @@ const styles = StyleSheet.create({
     },
     content2:{
         alignItems:'center',
+        // marginBottom:200
     },
     content3:{
         alignItems:'center',
         width:'100%',
-        height:100,
-        justifyContent:"space-around",
+        height:80,
+        justifyContent:"space-between",
         marginBottom:50
     },
     content4:{
@@ -137,18 +185,22 @@ const styles = StyleSheet.create({
         height: 45,
         width:screen.width-60,
         borderColor: colors.gray2,
-        borderWidth: 1,
+        // borderWidth: 1,
         borderRadius:10,
         marginBottom:10,
-        paddingLeft:10
+        paddingLeft:10,
+        backgroundColor:'white'
     },
     loginButton:{
         width:100,
-        padding:10,
-        paddingLeft:20,
-        paddingRight:20,
-        borderRadius:30,
-        borderWidth:screen.onePixel,
+        height:40,
+        // padding:10,
+        textAlign:'center',
+        // paddingLeft:20,
+        // paddingRight:20,
+        borderRadius:20,
+        // borderWidth:screen.onePixel,
+        backgroundColor:'white',
         borderColor:colors.gray2
     }
 });

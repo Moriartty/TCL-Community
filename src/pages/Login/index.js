@@ -3,12 +3,11 @@
  */
 //node_modules
 import React from 'react';
-import {View, TouchableOpacity, Text, InteractionManager,StyleSheet,Image,TextInput,StatusBar} from 'react-native';
+import {View, TouchableOpacity, Text, InteractionManager,StyleSheet,Image,TextInput,ProgressBarAndroid} from 'react-native';
 import {connect} from 'react-redux';
 
-
 //components
-import {LoadingModal} from '../../components';
+import {ExModal} from '../../components';
 
 //action
 import action from '../../actions/login';
@@ -31,7 +30,7 @@ class Login extends React.Component<Props,State>{
         return {
             headerRight:
                 <TouchableOpacity
-                    onPress={()=>navigation.navigate('Tab')}
+                    onPress={()=>navigation.navigate('App')}
                     style={{paddingRight:10}}
                 >
                     <Text>Take a Tour</Text>
@@ -60,15 +59,33 @@ class Login extends React.Component<Props,State>{
         })
     }
     render(){
-        const {loadingState,modalVisible} = this.props;
+        const {modalVisible} = this.props;
         return (
-            <React.Fragment>
-                <LoadingModal loadingState={loadingState} modalVisible={modalVisible} title={'登录中...'}/>
+            <View style={{width:'100%',height:'100%'}}>
+                <ExModal modalVisible={modalVisible}>
+                    <View style={styles.modalContent}>
+                        <ProgressBarAndroid  color={colors.blue} styleAttr='Inverse'/>
+                        <Text>登录中...</Text>
+                    </View>
+                </ExModal>
                 <LoginScene/>
-            </React.Fragment>
+            </View>
         )
     }
 }
+
+const styles = StyleSheet.create({
+    modalContent:{
+        backgroundColor:'white',
+        height:150,
+        width:screen.width*2/3,
+        borderRadius:10,
+        padding:20,
+        justifyContent:'center',
+        alignItems:'center'
+
+    }
+})
 
 
 
