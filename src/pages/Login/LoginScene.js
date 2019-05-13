@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {NavigationActions, StackActions, withNavigation} from 'react-navigation';
 import {BoxShadow} from 'react-native-shadow';
 //components
-import {ExImage,CustomButton,ActionIcon} from '../../components';
+import {ExImage,CustomButton,ActionIcon,ExInput} from '../../components';
 //action
 import action from '../../actions/login';
 //配置
@@ -50,24 +50,20 @@ class LoginScene extends React.Component<State>{
                         <Text style={styles.topText}>Welcome to TCL Community</Text>
                     </View>
                     <View style={styles.content2}>
-                        <BoxShadow setting={textInputShadow}>
-                        <TextInput
-                            allowFontScaling={true}
-                            style={styles.textInput}
+                        <ExInput
+                            width={screen.width-60}
+                            height={45}
                             placeholder={'EMAIL OR PHONE'}
-                            onChangeText={(account) => this.setState({account})}
-                            value={this.state.account}
+                            _onChangeText={(account) => this.setState({account})}
+                            val={this.state.account}
                         />
-                        </BoxShadow>
-                        <BoxShadow setting={textInputShadow}>
-                        <TextInput
-                            allowFontScaling={true}
-                            style={styles.textInput}
+                        <ExInput
+                            width={screen.width-60}
+                            height={45}
                             placeholder={'PASSWORD'}
-                            onChangeText={(pwd) => this.setState({pwd})}
-                            value={this.state.pwd}
+                            _onChangeText={(pwd) => this.setState({pwd})}
+                            val={this.state.pwd}
                         />
-                        </BoxShadow>
                         <TouchableOpacity
                             activeOpacity={1}
                             style={{
@@ -110,7 +106,7 @@ class LoginScene extends React.Component<State>{
                     </View>
                     <View style={styles.content4}>
                         <TouchableOpacity
-
+                            onPress={()=>this.props.navigation.navigate('SignUp')}
                         >
                             <Text style={{color:colors.blue}}>Not a member? SIGN UP</Text>
                         </TouchableOpacity>
@@ -121,18 +117,6 @@ class LoginScene extends React.Component<State>{
     }
 }
 
-
-const textInputShadow = {
-    height: 45,
-    width:screen.width-60,
-    color:"#bfbfbf",
-    border:2,
-    radius:10,
-    opacity:0.3,
-    x:0,
-    y:0,
-    style:{marginVertical:5}
-};
 
 const loginBtnShadow = {
     height: 40,

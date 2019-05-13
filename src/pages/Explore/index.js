@@ -6,6 +6,7 @@
 import {View, Text, Alert, Image, TouchableOpacity, StyleSheet, ScrollView, InteractionManager} from 'react-native';
 import React,{PureComponent} from 'react';
 import Carousel from 'react-native-looped-carousel';
+// import Carousel from 'react-native-snap-carousel';
 import {connect} from 'react-redux';
 //内部配置依赖
 import {colors,theme} from '../../config';
@@ -54,8 +55,10 @@ class Explore extends PureComponent<Props>{
             },
             headerTintColor:colors["headerTintColor"],
             headerStyle:{
-                    // paddingTop: StatusBar.currentHeight,
-                    height:theme.toolbarHeight
+                shadowOpacity:0,
+                elevation: 0,
+                // paddingTop: StatusBar.currentHeight,
+                height:theme.toolbarHeight
             }
         }
     };
@@ -75,7 +78,7 @@ class Explore extends PureComponent<Props>{
     }
 
     handleNavClick = () => {
-        this.props.navigation.navigate('Rewards');
+        this.props.navigation.navigate('MyTCL');
     };
     handleRewardClick = () => {
         this.props.navigation.navigate('Rewards');

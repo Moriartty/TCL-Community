@@ -14,6 +14,7 @@ import SpacingView from './SpacingView';
 import TabBarItem from './TabBarItem';
 import WebScene from './WebScene';
 import ExModal from './ExModal';
+import ExInput from './ExInput';
 
 
 export {
@@ -26,7 +27,8 @@ export {
     SpacingView,
     TabBarItem,
     WebScene,
-    ExModal
+    ExModal,
+    ExInput
 }
 
 

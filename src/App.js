@@ -25,6 +25,7 @@ import NewsDetail from './pages/NewsDetail';
 import ActivitiesDetail from './pages/ActivitiesDetail';
 import Login from './pages/Login';
 import AuthLoadingScreen from './pages/Login/AuthLoadingScreen';
+import SignUp from "./pages/SignUp";
 
 function getCurrentRouteName(navigationState: any) {
     if (!navigationState) {
@@ -113,6 +114,7 @@ const AppNavigator = createStackNavigator(
 const AuthNavigator = createStackNavigator(
     {
         Login:{screen:Login},
+        SignUp:{screen:SignUp}
     },
     {
         // headerMode:'none',
