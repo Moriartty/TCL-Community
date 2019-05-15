@@ -151,8 +151,8 @@ TopicDetailPage = connect(state=>{
     _loadToppingNews(count) {
         dispatch(action.loadToppingNews(count));
     },
-    _loadHottestData(){
-        dispatch(action.loadHottestData());
+    _loadHottestData(opt){
+        dispatch(action.loadHottestData(opt));
     },
     _loadHottestNextPage(){
         dispatch(action.loadHottestNextPage());

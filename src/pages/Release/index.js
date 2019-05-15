@@ -1,16 +1,25 @@
 import React,{PureComponent} from 'react';
-import {View, Text, StyleSheet, Platform, TouchableOpacity, InteractionManager,Alert} from 'react-native';
-import {RichTextEditor,RichTextToolbar} from 'react-native-zss-rich-text-editor';
-import ImagePicker from 'react-native-image-picker';
+import {
+    View, Text, StyleSheet, Platform, TouchableOpacity, InteractionManager, Alert,
+    ToastAndroid,ProgressBarAndroid
+} from 'react-native';
+import {connect} from 'react-redux';
+//pages
+import Editor from './Editor';
+//components
+import {ActionIcon,ExModal} from '../../components';
+//配置
 import {colors} from '../../config';
-import ActionIcon from '../../components/ActionIcon';
+//actions
+import plateAction from '../../actions/plate';
+import {screen} from "../../utils";
 
-class Release extends PureComponent<Props>{
+class Release extends React.Component<Props>{
     static navigationOptions = ({navigation}) => {
         return {
             headerRight:
                 <TouchableOpacity onPress={navigation.getParam('handleSubmit',null)} activeOpacity={1} style={{marginRight:15}}>
-                    <ActionIcon name={'ios-paper-plane'} size={25} color={colors.gray2}/>
+                    <ActionIcon name={'ios-paper-plane'} size={25} color={'black'}/>
                 </TouchableOpacity>,
             headerLeft:
                 <TouchableOpacity onPress={navigation.getParam('handleCancel',null)} activeOpacity={1} style={{marginLeft:20}}>
@@ -21,8 +30,9 @@ class Release extends PureComponent<Props>{
 
     constructor(props) {
         super(props);
-        this.getTitle = this.getTitle.bind(this);
-        this.getContent = this.getContent.bind(this);
+        this.state = {
+            modalVisible:false,
+        }
     }
 
     componentDidMount() {
@@ -32,96 +42,35 @@ class Release extends PureComponent<Props>{
     }
 
     handleSubmit = () => {
-        Promise.all([this.getTitle(),this.getContent()]).then((vals)=>{
-            console.log(vals)
-        })
-    }
+        this.editor.handleSubmit();
+        // this.setState({modalVisible:true},()=>{ this.editor.handleSubmit();})
+    };
 
     handleCancel = () => {
         Alert.alert('确定要退出编辑吗？','记录将不会被保存！', [
             {text: '取消', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
             {text: '确定', onPress: () =>  this.props.navigation.goBack()},
         ],);
-    }
+    };
+
+    onRef = (ref) => {
+        this.editor = ref;
+    };
 
     render() {
         return (
             <View style={styles.container}>
-                <RichTextEditor
-                    ref={(r)=>this.richtext = r}
-                    style={styles.richText}
-                    initialTitleHTML={'Title!!'}
-                    initialContentHTML={'Hello <b>World</b> <p>this is a new paragraph</p> <p>this is another new paragraph</p>'}
-                    editorInitializedCallback={() => this.onEditorInitialized()}
-                />
-                <RichTextToolbar
-                    getEditor={() => this.richtext}
-                    onPressAddImage={this.addImage}
-                    selectedButtonStyle={{backgroundColor:colors.blue, color:'white'}}
-                />
-                {Platform.OS === 'ios' && <KeyboardSpacer/>}
+                <ExModal modalVisible={this.state.modalVisible}>
+                    <View style={styles.modalContent}>
+                        <ProgressBarAndroid  color={colors.blue} styleAttr='Inverse'/>
+                        <Text>发布中...</Text>
+                    </View>
+                </ExModal>
+                <Editor onRef={this.onRef} navigation={this.props.navigation} handleModalVisible={(val)=>this.setState({'modalVisible':val})}/>
             </View>
         );
     }
-    addImage = () => {
-        let options = {
-            includeBase64: true,
-            width: 300,
-            height: 400,
-            cropping: true
-        };
-        ImagePicker.showImagePicker(options, (response) => {
-            console.log('Response = ', response);
 
-            if (response.didCancel) {
-                console.log('User cancelled photo picker');
-            }
-            else if (response.error) {
-                console.log('ImagePicker Error: ', response.error);
-            }
-            else if (response.customButton) {
-                console.log('User tapped custom button: ', response.customButton);
-            }
-            else {
-                // let source = { uri: response.uri };
-
-                // You can also display the image using data:
-                let source = { uri: 'data:image/jpeg;base64,' + response.data };
-                console.log(source)
-                // let imageSrc = `data:${image.mime};base64,${image.data}`;
-                this.richtext.insertImage({src: source.uri});
-            }
-        });
-    }
-
-    onEditorInitialized() {
-        this.setFocusHandlers();
-        this.getHTML();
-    }
-
-    async getTitle (){
-        const titleHtml = await this.richtext.getTitleHtml();
-        return titleHtml;
-    }
-
-    async getContent () {
-        const contentHtml = await this.richtext.getContentHtml();
-        return contentHtml;
-    }
-
-    setFocusHandlers = () => {
-        //解决内容后滚问题
-        // this.richtext.setEditorHeight(75);
-        // //打开后直接聚焦输入框
-        // this.richtext.focusContent(true);
-
-        this.richtext.setTitleFocusHandler(() => {
-            //alert('title focus');
-        });
-        this.richtext.setContentFocusHandler(() => {
-            //alert('content focus');
-        });
-    }
 }
 const styles = StyleSheet.create({
     container: {
@@ -130,10 +79,22 @@ const styles = StyleSheet.create({
         backgroundColor: '#ffffff',
         paddingTop: 20
     },
-    richText: {
-        alignItems:'center',
-        justifyContent: 'center',
-        backgroundColor: 'transparent',
-    },
+    modalContent:{
+        backgroundColor:'white',
+        height:150,
+        width:screen.width*2/3,
+        borderRadius:10,
+        padding:20,
+        justifyContent:'center',
+        alignItems:'center'
+
+    }
 });
+
+Release = connect(null,dispatch => ({
+    releasePlateArticle(title,content,cb){
+        dispatch(plateAction.releaseArticle(title,content,cb));
+    }
+}))(Release);
+
 export default Release;

@@ -1,4 +1,6 @@
 import {RefreshState} from "react-native-refresh-list-view";
+import {get,post} from '../utils/fetch';
+import API from '../config/api';
 
 let actions = {};
 
@@ -43,16 +45,20 @@ function randomGetPics(){
     return imgUrls;
 }
 
-actions.loadHottestData = () => dispatch => {
+actions.loadHottestData = (opt) => dispatch => {
     dispatch({type:'PLATE_LIST_LOADING',refreshState:RefreshState.HeaderRefreshing});
-    setTimeout(function(){
-        let mockData = [];
-        for(let i=0;i<10;i++){
-            mockData.push( {id: i, imageUrls: randomGetPics(), title: 'winter is coming'+i})
+    get(API.GET_ARTICLE,{},{timeout:1000*10}).then((resp)=>{
+        if(resp.error)
+            opt.error(resp);
+        else{
+            let mockData = [];
+            for(let i=0;i<10;i++){
+                mockData.push( {id: i, imageUrls: randomGetPics(), title: 'winter is coming'+i})
+            }
+            dispatch({type:'PLATE_HOTTEST_LIST_DATA_LOAD',data:mockData});
+            dispatch({type:'PLATE_LIST_LOADING',refreshState:RefreshState.Idle});
         }
-        dispatch({type:'PLATE_HOTTEST_LIST_DATA_LOAD',data:mockData});
-        dispatch({type:'PLATE_LIST_LOADING',refreshState:RefreshState.Idle});
-    },1000);
+    });
 };
 
 actions.loadHottestNextPage = () => (dispatch,getState) => {
@@ -126,6 +132,26 @@ actions.loadToppingNews = (count) => dispatch => {
         mockData.push({id:i,title:i+'陈冰今天减肥了没？'})
     }
     dispatch({type:'PLATE_TOPPING_NEWS_LOAD',data:mockData});
+};
+
+/**
+ * 发布一篇文章
+ * @param title
+ * @param content
+ * @param cb
+ * @returns {function(*)}
+ */
+actions.releaseArticle = (title,content,success,failed) => dispatch => {
+    const params = {
+            articleTitle:title,
+            content:content
+        };
+    post(API.RELEASE_ARTICLE, params).then((resp)=>{
+        resp.error? failed(resp):success(resp);
+    });
+};
+actions.uploadPics = () => dispatch => {
+
 }
 
 

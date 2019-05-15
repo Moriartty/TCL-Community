@@ -1,13 +1,38 @@
-const headers = new Headers({
+import API from '../config/api';
+const normalHeaders = new Headers({
     'Accept': 'application/json',
     'Content-Type': 'application/json'
 });
+const formHeaders = new Headers({
+    'Content-Type': 'application/x-www-form-urlencoded'
+});
 
-function get (url) {
-    return fetch(url, {
+
+var oldFetchfn = fetch; //拦截原始的fetch方法
+window.fetch = function(url, fetchOpts,opts={timeout:1000*20}){//定义新的fetch方法，封装原有的fetch方法
+    var fetchPromise = oldFetchfn(url, fetchOpts);
+    var timeoutPromise = new Promise(function(resolve, reject){
+        setTimeout(()=>{
+            reject(new Error("fetch timeout"))
+        }, opts.timeout)
+    });
+    return Promise.race([fetchPromise, timeoutPromise])
+}
+
+function getUriParams(data){
+    var params = [];
+    for(let i in data){
+        params.push(i+'='+data[i]);
+    }
+    return encodeURIComponent(params.join('&'));
+}
+
+function get (url,params,opts) {
+    return fetch(API.HOST+url, {
         method: 'GET',
-        headers: headers
-    }).then(response => {
+        headers: normalHeaders,
+        credentials: 'include'
+    },opts).then(response => {
         return handleResponse(url, response);
     }).catch(err => {
         console.error(`Request failed. Url = ${url} . Message = ${err}`);
@@ -15,12 +40,13 @@ function get (url) {
     })
 }
 
-function post (url, data) {
-    return fetch(url, {
+function post (url, params,opts) {
+    return fetch(API.HOST+url, {
         method: 'POST',
-        headers: headers,
-        body: JSON.stringify(data)
-    }).then(response => {
+        headers: formHeaders,
+        body: getUriParams(params),
+        credentials: 'include'
+    },opts).then(response => {
         return handleResponse(url, response);
     }).catch(err => {
         console.error(`Request failed. Url = ${url} . Message = ${err}`);
@@ -28,12 +54,13 @@ function post (url, data) {
     })
 }
 
-function put (url, data) {
-    return fetch(url, {
+function put (url, params,opts) {
+    return fetch(API.HOST+url, {
         method: 'PUT',
-        headers: headers,
-        body: JSON.stringify(data)
-    }).then(response => {
+        headers: normalHeaders,
+        body: JSON.stringify(params),
+        credentials: 'include'
+    },opts).then(response => {
         return handleResponse(url, response);
     }).catch(err => {
         console.error(`Request failed. Url = ${url} . Message = ${err}`);
@@ -42,9 +69,9 @@ function put (url, data) {
 }
 
 function handleResponse (url, response) {
-    if (response.status < 500) {
+    if(response.ok||response.status==301||response.status==302)
         return response.json();
-    } else {
+    else {
         console.error(`Request failed. Url = ${url} . Message = ${response.statusText}`);
         return {error: {message: 'Request failed due to server error '}};
     }

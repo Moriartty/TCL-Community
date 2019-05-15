@@ -107,6 +107,7 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
+         vectorDrawables.useSupportLibrary = true
     }
     signingConfigs {
                 release {
@@ -151,6 +152,7 @@ android {
 }
 
 dependencies {
+    implementation project(':react-native-image-crop-picker')
     implementation project(':react-native-svg')
     implementation project(':react-native-modal-translucent')
     implementation project(':react-native-splash-screen')

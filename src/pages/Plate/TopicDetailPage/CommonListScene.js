@@ -5,7 +5,7 @@
 //node_modules
 import React,{PureComponent} from 'react';
 import {connect} from 'react-redux';
-import {InteractionManager, View, ActivityIndicator, Text, StyleSheet} from 'react-native';
+import {InteractionManager, View, ActivityIndicator, Text, StyleSheet,ToastAndroid} from 'react-native';
 import RefreshListView, { RefreshState } from 'react-native-refresh-list-view';
 import {withNavigation} from 'react-navigation';
 import NestedScrollView from 'react-native-nested-scroll-view';
@@ -43,7 +43,7 @@ class CommonListScene extends PureComponent<Props,State>{
     }
     componentDidMount() {
         InteractionManager.runAfterInteractions(() => {
-            this.props.loadData();
+            this.props.loadData({error:function(resp){ToastAndroid.show('数据加载失败', ToastAndroid.SHORT)}});
             if(this.props.withHeader)
                 this.props.loadToppingNews(3);
         })

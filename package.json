@@ -17,6 +17,7 @@
     "react-native-action-button": "^2.8.5",
     "react-native-collapsing-toolbar": "^1.0.0-beta.9",
     "react-native-gesture-handler": "^1.1.0",
+    "react-native-image-crop-picker": "^0.24.0",
     "react-native-image-picker": "^0.28.1",
     "react-native-looped-carousel": "^0.1.13",
     "react-native-modal-translucent": "^3.0.1",
@@ -36,8 +37,7 @@
     "redux": "^4.0.1",
     "redux-logger": "^3.0.6",
     "redux-persist": "^5.10.0",
-    "redux-thunk": "^2.3.0",
-    "tf-utils": "^2.2.5"
+    "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
     "@babel/core": "7.4.3",

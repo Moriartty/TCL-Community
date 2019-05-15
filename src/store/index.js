@@ -10,6 +10,7 @@ const logger = createLogger();
 import RootReducer from '../reducers';
 
 global.storage = require('../utils/storage');
+//保证在生产版本中不打印Log,降低性能损害
 if (!__DEV__) {
     global.console = {
         info: () => {},
@@ -19,6 +20,8 @@ if (!__DEV__) {
         error: () => {},
     };
 }
+//可以在浏览器network面板看到网络请求,但如果get数据则需要关闭network debugger
+// GLOBAL.XMLHttpRequest = GLOBAL.originalXMLHttpRequest || GLOBAL.XMLHttpRequest;
 
 const store = createStore(RootReducer,applyMiddleware(thunk,logger));
 
