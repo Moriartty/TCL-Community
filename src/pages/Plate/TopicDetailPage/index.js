@@ -132,7 +132,7 @@ class TopicDetailPage extends PureComponent<Props>{
 const styles = StyleSheet.create({
     tabBarUnderline: {
         backgroundColor: colors.blue,
-        height:4,
+        height:2,
         width:screen.width/3-60,
         marginLeft:30,
         marginRight:30,

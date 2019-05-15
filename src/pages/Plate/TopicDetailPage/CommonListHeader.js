@@ -36,7 +36,7 @@ class CommonListHeader extends PureComponent<Props> {
                 style={[{ backgroundColor:  'white' }, styles.item]}
                 onPress={() => this.props.onSelected(item.id)}>
                 <ActionIcon name={'ios-notifications'} size={20} color={colors.blue}/>
-                <Paragraph style={{ color: 'black',fontSize:14 }}>
+                <Paragraph style={{ color: 'black',fontSize:13 }}>
                     {item.title}
                 </Paragraph>
             </TouchableOpacity>
@@ -90,6 +90,7 @@ const styles = StyleSheet.create({
     container: {
         // height:120,
         width:'100%',
+        paddingTop:5
     },
     item: {
         // width: screen.width / 3 - 10,

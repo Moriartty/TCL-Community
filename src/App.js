@@ -26,6 +26,7 @@ import ActivitiesDetail from './pages/ActivitiesDetail';
 import Login from './pages/Login';
 import AuthLoadingScreen from './pages/Login/AuthLoadingScreen';
 import SignUp from "./pages/SignUp";
+import TopicDetailInfoPage from './pages/Plate/TopicDetailInfoPage';
 
 function getCurrentRouteName(navigationState: any) {
     if (!navigationState) {
@@ -92,7 +93,8 @@ const AppNavigator = createStackNavigator(
         Settings:{screen:Settings},
         Release:{screen:Release},
         NewsDetail:{screen:NewsDetail},
-        ActivitiesDetail:{screen:ActivitiesDetail}
+        ActivitiesDetail:{screen:ActivitiesDetail},
+        TopicDetailInfoPage:{screen:TopicDetailInfoPage}
     },
     {
         // initialRouteName:'Rewards',

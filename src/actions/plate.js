@@ -37,7 +37,7 @@ const urls = [
 ];
 
 function randomGetPics(){
-    const count = parseInt(Math.random()*5);
+    const count = parseInt(Math.random()*4);
     let imgUrls = [];
     for(let i=0;i<count;i++){
         imgUrls.push(urls[Math.floor(Math.random()*8)])
@@ -48,15 +48,17 @@ function randomGetPics(){
 actions.loadHottestData = (opt) => dispatch => {
     dispatch({type:'PLATE_LIST_LOADING',refreshState:RefreshState.HeaderRefreshing});
     get(API.GET_ARTICLE,{},{timeout:1000*10}).then((resp)=>{
-        if(resp.error)
+        if(resp.error){
             opt.error(resp);
-        else{
             let mockData = [];
             for(let i=0;i<10;i++){
-                mockData.push( {id: i, imageUrls: randomGetPics(), title: 'winter is coming'+i})
+                mockData.push( {id: i, imageUrls: randomGetPics(), title: '做的劳资很烦'+i,content:'surprise mother fucker'+1})
             }
             dispatch({type:'PLATE_HOTTEST_LIST_DATA_LOAD',data:mockData});
             dispatch({type:'PLATE_LIST_LOADING',refreshState:RefreshState.Idle});
+        }
+        else{
+
         }
     });
 };
@@ -68,7 +70,7 @@ actions.loadHottestNextPage = () => (dispatch,getState) => {
         const lastId = preData[preData.length-1].id;
         let temp = [];
         for(let i=lastId+1;i<=lastId+10;i++){
-            temp.push( {id: i, imageUrls: randomGetPics(), title: 'winter is coming'+i})
+            temp.push( {id: i, imageUrls: randomGetPics(), title: 'winter is coming'+i,content:'surprise mother fucker'+1})
         }
         dispatch({type:'PLATE_HOTTEST_LIST_DATA_LOAD',data:preData.concat(temp)});
         dispatch({type:'PLATE_LIST_LOADING',refreshState:RefreshState.Idle});
@@ -80,7 +82,7 @@ actions.loadNewestData = () => dispatch => {
     setTimeout(function(){
         let mockData = [];
         for(let i=0;i<10;i++){
-            mockData.push( {id: i, imageUrls: randomGetPics(), title: 'winter is coming'+i})
+            mockData.push( {id: i, imageUrls: randomGetPics(), title: 'winter is coming'+i,content:'surprise mother fucker'+1})
         }
         dispatch({type:'PLATE_NEWEST_LIST_DATA_LOAD',data:mockData});
         dispatch({type:'PLATE_LIST_LOADING',refreshState:RefreshState.Idle});
@@ -94,7 +96,7 @@ actions.loadNewestNextPage = () => (dispatch,getState) => {
         const lastId = preData[preData.length-1].id;
         let temp = [];
         for(let i=lastId+1;i<=lastId+10;i++){
-            temp.push( {id: i, imageUrls: randomGetPics(), title: 'winter is coming'+i})
+            temp.push( {id: i, imageUrls: randomGetPics(), title: 'winter is coming'+i,content:'surprise mother fucker'+1})
         }
         dispatch({type:'PLATE_NEWEST_LIST_DATA_LOAD',data:preData.concat(temp)});
         dispatch({type:'PLATE_LIST_LOADING',refreshState:RefreshState.Idle});
@@ -105,7 +107,7 @@ actions.loadEssenceData = () => dispatch => {
     setTimeout(function(){
         let mockData = [];
         for(let i=0;i<10;i++){
-            mockData.push( {id: i, imageUrls: randomGetPics(), title: 'winter is coming'+i})
+            mockData.push( {id: i, imageUrls: randomGetPics(), title: 'winter is coming'+i,content:'surprise mother fucker'+1})
         }
         dispatch({type:'PLATE_ESSENCE_LIST_DATA_LOAD',data:mockData});
         dispatch({type:'PLATE_LIST_LOADING',refreshState:RefreshState.Idle});
@@ -119,7 +121,7 @@ actions.loadEssenceNextPage = () => (dispatch,getState) => {
         const lastId = preData[preData.length-1].id;
         let temp = [];
         for(let i=lastId+1;i<=lastId+10;i++){
-            temp.push( {id: i, imageUrls: randomGetPics(), title: 'winter is coming'+i})
+            temp.push( {id: i, imageUrls: randomGetPics(), title: 'winter is coming'+i,content:'surprise mother fucker'+1})
         }
         dispatch({type:'PLATE_ESSENCE_LIST_DATA_LOAD',data:preData.concat(temp)});
         dispatch({type:'PLATE_LIST_LOADING',refreshState:RefreshState.Idle});
@@ -132,6 +134,19 @@ actions.loadToppingNews = (count) => dispatch => {
         mockData.push({id:i,title:i+'陈冰今天减肥了没？'})
     }
     dispatch({type:'PLATE_TOPPING_NEWS_LOAD',data:mockData});
+};
+
+actions.loadTopicDetail = () => dispatch => {
+    const topicDetails = {
+        user:{
+            name:'moriarty',
+            imageUrl:'https://avatars0.githubusercontent.com/u/15435074?s=460&v=4'
+        },
+        content:{
+            title:'aaaaaa'
+        }
+    };
+    dispatch({type:'PLATE_TOPIC_DETAILS_LOAD',topicDetails});
 };
 
 /**

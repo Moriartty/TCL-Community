@@ -62,15 +62,22 @@ class Home extends PureComponent<Props>{
                             navigation={this.props.navigation}
                         />
                     </ScrollableTabView>
-                        <ActionButton
-                            buttonColor={colors.blue}
-                            onPress={() => { this.props.navigation.navigate('Release')}}
-                            renderIcon={() => (
-                                <View style={{alignItems:'center'}}>
-                                    <ActionIcon name="md-create" color={'white'} size={25} style={{marginLeft:4}}/>
-                                </View>
-                            )}
-                        />
+                    <ActionButton buttonColor={colors.blue} position='right' verticalOrientation='up'>
+                        <ActionButton.Item
+                            buttonColor='#ff4d4f'
+                            title="Trending"
+                            size={45}
+                            onPress={() => { this.props.navigation.navigate('Release',{title:'New Trending'})}}>
+                            <ActionIcon name="md-create" color={'white'} size={20} style={{marginLeft:4}}/>
+                        </ActionButton.Item>
+                        <ActionButton.Item
+                            buttonColor='#a0d911'
+                            title="Gallery"
+                            size={45}
+                            onPress={() => { this.props.navigation.navigate('Release',{title:'New Photos'})}}>
+                            <ActionIcon name="md-photos" color={'white'} size={20} style={{marginLeft:4}}/>
+                        </ActionButton.Item>
+                    </ActionButton>
                 </View>
             </SafeAreaView>
 

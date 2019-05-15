@@ -16,7 +16,7 @@ const Tab = createBottomTabNavigator(
     {
         Explore:{screen:createStackNavigator({Explore:Explore})},
         Community:{screen:Home},
-        // Release:{screen:Release},
+        // Release:null,
         // Message:Message,
         Plate:{screen:createStackNavigator({Plate:Plate})},
         MyTCL:{screen:createStackNavigator({MyTCL:MyTCL})}
@@ -60,10 +60,13 @@ const Tab = createBottomTabNavigator(
                 if(routeName!=='Release'){
                     return <Text style={{color:tintColor,fontSize:12,textAlign:'center'}}>{routeName}</Text>
                 }
-            },
+            }
 
         }),
         tabBarOptions: {
+            style:{
+
+            },
             labelStyle: {
                 fontSize: 12,
             },

@@ -24,20 +24,16 @@ function itemWithMultiImg(info){
     return (
         <React.Fragment>
             <View style={styles.multiPicContent}>
-                <Heading2>{info.title}</Heading2>
-                <FlatList
-                    horizontal={true}
-                    data={info.imageUrls}
-                    keyExtractor={(item, index) => index.toString()}
-                    renderItem={(rowData)=>{
-                        return (
-                            <View>
-                                <ExImage uri={rowData.item} style={styles.pic}/>
-                            </View>
-                        )
-                    }}
-                    showsHorizontalScrollIndicator = {false}
-                />
+                <Text style={styles.title}>{info.title}</Text>
+                <View style={{flexDirection:'row'}}>
+                    {
+                        info.imageUrls.map((o,i,arr)=>{
+                            let width = arr.length>=3?(screen.width-42)/3:(screen.width-42)/2;
+                            return i<3?<ExImage key={i} uri={o} style={[{width:width,height:width*0.618},styles.pic]} resizeMode={'cover'}/>:null
+                        })
+                    }
+                </View>
+                <Text style={styles.content}>{info.content}</Text>
             </View>
         </React.Fragment>
     )
@@ -46,9 +42,10 @@ function itemWithSingleImg(info){
     return (
         <React.Fragment>
             <View style={styles.singlePicContent}>
-                <Heading2>{info.title}</Heading2>
+                <Text style={styles.title}>{info.title}</Text>
                 <ExImage uri={info.imageUrls[0]} resizeMode='contain' style={styles.pic} />
             </View>
+            <Text style={styles.content}>{info.content}</Text>
         </React.Fragment>
     )
 }
@@ -56,7 +53,32 @@ function itemWithNoneImg(info) {
     return (
         <React.Fragment>
             <View style={styles.nonePicContent}>
-                <Heading2>{info.title}</Heading2>
+                <Text style={styles.title}>{info.title}</Text>
+                <Text style={styles.content}>{info.content}</Text>
+            </View>
+        </React.Fragment>
+    )
+}
+
+function renderItem(info){
+    return (
+        <React.Fragment>
+            <View style={styles.multiPicContent}>
+                <Text style={styles.title}>{info.title}</Text>
+                {
+                    info.imageUrls.length>0?
+                        <View style={{flexDirection:'row'}}>
+                            {
+                                info.imageUrls.map((o,i,arr)=>{
+                                    let length = arr.length>3?3:arr.length;
+                                    let width = (screen.width-30-4*length)/length;//每张图左右margin为2
+                                    return i<3?
+                                        <ExImage key={i} uri={o} style={[{width:width,height:width*0.618},styles.pic]} resizeMode={'cover'}/>:null;
+                            })
+                            }
+                        </View>:null
+                }
+                <Text style={styles.content}>{info.content}</Text>
             </View>
         </React.Fragment>
     )
@@ -71,29 +93,31 @@ class CommonListItem extends PureComponent<Props> {
                               onPress={this.props.onPress}
                               activeOpacity={1}
             >
-                {
-                    info.imageUrls.length>1?itemWithMultiImg(info):(info.imageUrls.length==1?itemWithSingleImg(info):itemWithNoneImg(info))
-                }
-
                 <View style={styles.bottomBar}>
                     <View style={styles.topBarLeft}>
                         <Image source={{uri:'https://avatars0.githubusercontent.com/u/15435074?s=460&v=4'}} style={styles.avatar}/>
                         <Heading3 style={{flex:1}}>Moriarty</Heading3>
                     </View>
-                    <View style={styles.horPosition}>
-                        <View style={styles.horPosition}>
-                            <ActionIcon name={'ios-chatbubbles'} size={20}/>
-                            <Heading4>122</Heading4>
-                        </View>
-                        <View style={styles.horPosition}>
-                            <ActionIcon name={'ios-share'} size={20}/>
-                        </View>
-                        <View style={styles.horPosition}>
-                            <ActionIcon name={'ios-heart'} size={20}/>
-                            <Heading4></Heading4>
-                        </View>
-                    </View>
+                    {/*<View style={styles.horPosition}>*/}
+                        {/*<View style={styles.horPosition}>*/}
+                            {/*<ActionIcon name={'ios-chatbubbles'} size={20}/>*/}
+                            {/*<Heading4>122</Heading4>*/}
+                        {/*</View>*/}
+                        {/*<View style={styles.horPosition}>*/}
+                            {/*<ActionIcon name={'ios-share'} size={20}/>*/}
+                        {/*</View>*/}
+                        {/*<View style={styles.horPosition}>*/}
+                            {/*<ActionIcon name={'ios-heart'} size={20}/>*/}
+                            {/*<Heading4></Heading4>*/}
+                        {/*</View>*/}
+                    {/*</View>*/}
                 </View>
+                {
+                    renderItem(info)
+                    // info.imageUrls.length>1?itemWithMultiImg(info):(info.imageUrls.length==1?itemWithSingleImg(info):itemWithNoneImg(info))
+                }
+
+
             </TouchableOpacity>
         );
     }
@@ -132,6 +156,14 @@ const styles = StyleSheet.create({
         borderRadius:15,
         marginRight:10
     },
+    title:{
+        fontSize:18,
+        color:'black',
+        marginBottom:5
+    },
+    content:{
+        fontSize:14
+    },
     nonePicContent:{
 
     },
@@ -152,11 +184,10 @@ const styles = StyleSheet.create({
         marginBottom:5
     },
     pic: {
-        width: screen.width / 3,
-        height: 0.618*screen.width / 3,
-        borderRadius:10,
+        borderRadius:5,
         marginRight:5,
-        marginBottom:5
+        // marginBottom:5,
+        margin:2
     },
     horPosition:{
         flexDirection:'row',

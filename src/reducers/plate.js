@@ -7,7 +7,8 @@ const defaultState = {
     newestListData:[],
     essenceListData:[],
     toppingNews:[],
-    refreshState:RefreshState.Idle
+    refreshState:RefreshState.Idle,
+    topicDetails:{}
 };
 
 export default (state,action) => {
@@ -30,6 +31,9 @@ export default (state,action) => {
             break;
         case 'PLATE_LIST_LOADING':
             newState.refreshState = action.refreshState;
+            break;
+        case 'PLATE_TOPIC_DETAILS_LOAD':
+            newState.topicDetails = action.topicDetails;
             break;
         default:return state||defaultState;
     }

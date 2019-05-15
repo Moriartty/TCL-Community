@@ -17,6 +17,7 @@ import {screen} from "../../utils";
 class Release extends React.Component<Props>{
     static navigationOptions = ({navigation}) => {
         return {
+            title:navigation.getParam('title'),
             headerRight:
                 <TouchableOpacity onPress={navigation.getParam('handleSubmit',null)} activeOpacity={1} style={{marginRight:15}}>
                     <ActionIcon name={'ios-paper-plane'} size={25} color={'black'}/>
