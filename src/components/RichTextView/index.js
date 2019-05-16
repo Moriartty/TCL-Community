@@ -1,26 +1,16 @@
 import React, { Component } from 'react';
 import {WebView, View, Platform} from 'react-native';
 const iosPlatform = Platform.OS === 'ios'?true:false;
+//react-native的webview用不了，烦人
 import WebViewBridge from 'react-native-webview-bridge-updated';
-
-const injectScript = `
-  (function () {
-                    if (WebViewBridge) {
- 
-                      WebViewBridge.onMessage = function (message) {
-                      
-                        $('#moriarty').append(message);
-                      };
-                
-                      // WebViewBridge.send("hello from webview");
-                    }
-                  }());
-`;
 
 
 export default class App extends Component {
     constructor(props){
         super(props);
+        this.state = {
+            height:0
+        }
     }
 
     componentDidMount() {
@@ -28,12 +18,11 @@ export default class App extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if(nextProps.text!==this.props.text){
-            this.refs.richTextView.sendToBridge(nextProps.text);
-        }
+        this.refs.richTextView.sendToBridge(nextProps.text)
     }
 
     onBridgeMessage(message){
+        this.setState({height:parseInt(message)+20});
         // const { richTextView } = this.refs;
         //
         // switch (message) {
@@ -47,33 +36,36 @@ export default class App extends Component {
     }
 
     render() {
-        const {width,height,text} = this.props;
+        const {width} = this.props;
         return (
-            <View style={{width:width,height:height}}>
+
                 <WebViewBridge
                     ref={'richTextView'}
                     source={iosPlatform?require('./richTextView.html'):{uri:'file:///android_asset/richTextView.html'}}
-                    // source={{uri:'https://www.baidu.com'}}
                     style={{
-                        height: height || 400,
+                        height: this.state.height||0,
                         width:width||'100%',
                         // backgroundColor: this.props.backgroundColor || 'transparent'
                         backgroundColor:'white'
                     }}
                     onBridgeMessage={this.onBridgeMessage.bind(this)}
                     injectedJavaScript={`
-                    if (WebViewBridge) {
-
+                        if (WebViewBridge) {
                           WebViewBridge.onMessage = function (message) {
+                            $('#moriarty').html(message);
+                            var height = null;
+                            function changeHeight() {
+                              if (document.body.scrollHeight != height) {
+                                height = document.body.scrollHeight;
+                                WebViewBridge.send(height);
 
-                            $('#moriarty').append(message);
+                              }
+                            }
+                            setTimeout(changeHeight, 100);
                           };
-
-                          // WebViewBridge.send("hello from webview");
                         }
                     `}
                 />
-            </View>
         );
     }
 }

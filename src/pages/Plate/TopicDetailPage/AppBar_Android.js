@@ -36,7 +36,7 @@ class AppBar_Android extends PureComponent<Props>{
                         contentScrimColor='#ffffff'
                         expandedTitleColor={'black'}
                         expandedTitleGravity='TOP'
-                        scrimAnimationDuration={300}
+                        scrimAnimationDuration={0}
                         expandedTitleMarginStart={22}
                         expandedTitleMarginBottom={22}
                         collapsedTitleGravity={'CENTER'}

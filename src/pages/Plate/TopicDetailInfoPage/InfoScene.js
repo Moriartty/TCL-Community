@@ -4,6 +4,8 @@ import {connect} from 'react-redux';
 //components
 import {ExImage,Separator,RichTextView} from '../../../components';
 import {colors} from "../../../config";
+//配置
+import screen from "../../../utils/screen";
 
 class InfoScene extends React.Component{
     render(){
@@ -25,7 +27,7 @@ class InfoScene extends React.Component{
                     </View>
                 </View>
                 <Separator style={{backgroundColor:colors.gray2}}/>
-                <RichTextView width={500} height={1000} text={info.content?info.content.text:''}/>
+                <RichTextView width={'100%'} text={info.content?info.content.text:''}/>
             </View>
         )
     }
@@ -33,7 +35,8 @@ class InfoScene extends React.Component{
 
 const styles = StyleSheet.create({
     header:{
-        padding:10
+        padding:10,
+        paddingBottom:0
     },
     title:{
         fontSize:18,
