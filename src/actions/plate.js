@@ -52,7 +52,7 @@ actions.loadHottestData = (opt) => dispatch => {
             opt.error(resp);
             let mockData = [];
             for(let i=0;i<10;i++){
-                mockData.push( {id: i, imageUrls: randomGetPics(), title: '做的劳资很烦'+i,content:'surprise mother fucker'+1})
+                mockData.push( {id: i, imageUrls: randomGetPics(), title: '测试测试测试测试'+i,content:'surprise mother fucker'+1})
             }
             dispatch({type:'PLATE_HOTTEST_LIST_DATA_LOAD',data:mockData});
             dispatch({type:'PLATE_LIST_LOADING',refreshState:RefreshState.Idle});
@@ -143,7 +143,8 @@ actions.loadTopicDetail = () => dispatch => {
             imageUrl:'https://avatars0.githubusercontent.com/u/15435074?s=460&v=4'
         },
         content:{
-            title:'aaaaaa'
+            title:'今天是个好日子',
+            text:'半醒半睡难受<div>还想继续你到哪</div><div>记得记得你到哪就像你想你</div><div>会想你的你到哪<b>不行不行补习班</b></div><div><b>不想教学计划<i>还想继续家</i></b></div><div><ul><li><b style="font-size: 1em;"><i>不像你想你好</i></b><br></li></ul><b style="font-size: 1em;"><i>那些那些那些</i></b><br></div><div><b style="font-size: 1em;"><i>建筑机械好</i></b></div>'
         }
     };
     dispatch({type:'PLATE_TOPIC_DETAILS_LOAD',topicDetails});

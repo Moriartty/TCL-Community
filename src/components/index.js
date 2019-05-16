@@ -15,6 +15,7 @@ import TabBarItem from './TabBarItem';
 import WebScene from './WebScene';
 import ExModal from './ExModal';
 import ExInput from './ExInput';
+import RichTextView from './RichTextView';
 
 
 export {
@@ -28,7 +29,8 @@ export {
     TabBarItem,
     WebScene,
     ExModal,
-    ExInput
+    ExInput,
+    RichTextView
 }
 
 

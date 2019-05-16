@@ -8,7 +8,10 @@ const defaultState = {
     essenceListData:[],
     toppingNews:[],
     refreshState:RefreshState.Idle,
-    topicDetails:{}
+    topicDetails:{
+        user:{},
+        content:{}
+    }
 };
 
 export default (state,action) => {

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="richTextViewContainer">
+    <!--半醒半睡难受<div>还想继续你到哪</div><div>记得记得你到哪就像你想你</div><div>会想你的你到哪<b>不行不行补习班</b></div><div><b>不想教学计划<i>还想继续家</i></b></div><div><ul><li><b style="font-size: 1em;"><i>不像你想你好</i></b><br></li></ul><b style="font-size: 1em;"><i>那些那些那些</i></b><br></div><div><b style="font-size: 1em;"><i>建筑机械好</i></b></div>-->
+
+</div>
+<script>
+    window.document.getElementById('#richTextViewContainer').appendChild('moriarety');
+    window.onLoad = function(){
+        window.postMessage('kkkkkkk')
+        document.addEventListener('message',function(e){
+            console.log(e.data)
+            document.querySelector('#richTextViewContainer').appendChild(e.data);
+        })
+    }
+</script>
+
+</body>
+</html>
