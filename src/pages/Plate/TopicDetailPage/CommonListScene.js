@@ -39,20 +39,28 @@ class CommonListScene extends PureComponent<Props,State>{
         this.state = {
             typeIndex: 'tutorials',
             headerOpenState:false,
+            current:new Date().getTime()
         }
     }
+
     componentDidMount() {
         InteractionManager.runAfterInteractions(() => {
+            this.interval = setInterval(()=>this.setState({current:new Date().getTime()}),10*1000);
             this.props.loadData({error:function(resp){ToastAndroid.show('数据加载失败', ToastAndroid.SHORT)}});
             if(this.props.withHeader)
                 this.props.loadToppingNews(3);
         })
     }
 
-    renderCell = (rowData: any) => {
+    componentWillUnmount() {
+        clearInterval(this.interval);
+    }
+
+    renderCell = (current,rowData: any) => {
         return (
             <CommonListItem
                 info={rowData.item}
+                current={current}
                 onPress={() => {
                     this.props.navigation.navigate('TopicDetailInfoPage', { info: rowData.item })
                 }}
@@ -109,9 +117,10 @@ class CommonListScene extends PureComponent<Props,State>{
         return (
             <RefreshListView
                 data={data}
+                extraData={this.state}
                 ListHeaderComponent={this.renderHeader.bind(this,this.props.news)}
                 ItemSeparatorComponent={this.renderSeparator}
-                renderItem={this.renderCell}
+                renderItem={this.renderCell.bind(this,this.state.current)}
                 keyExtractor={(item, index) => index.toString()}
                 refreshState={refreshState}
                 onHeaderRefresh={()=>{}}

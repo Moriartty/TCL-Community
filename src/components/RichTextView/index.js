@@ -9,6 +9,7 @@ export default class App extends Component {
     constructor(props){
         super(props);
         this.state = {
+            prepared:false,
             height:0
         }
     }
@@ -18,21 +19,17 @@ export default class App extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        this.refs.richTextView.sendToBridge(nextProps.text)
+        this.state.prepared&&this.refs.richTextView.sendToBridge(nextProps.text);
     }
-
+    webViewPrepared = () => {
+        this.setState({prepared:true},()=>{
+            const text = this.props.text;
+            text&&this.refs.richTextView.sendToBridge(text)
+        })
+    }
     onBridgeMessage(message){
         this.setState({height:parseInt(message)+20});
-        // const { richTextView } = this.refs;
-        //
-        // switch (message) {
-        //     case "hello from webview":
-        //         richTextView.sendToBridge("hello from react-native");
-        //         break;
-        //     case "got the message inside webview":
-        //         console.log("we have got a message from webview! yeah");
-        //         break;
-        // }
+
     }
 
     render() {
@@ -48,11 +45,13 @@ export default class App extends Component {
                         // backgroundColor: this.props.backgroundColor || 'transparent'
                         backgroundColor:'white'
                     }}
+                    onLoad={this.webViewPrepared}
                     onBridgeMessage={this.onBridgeMessage.bind(this)}
                     injectedJavaScript={`
                         if (WebViewBridge) {
                           WebViewBridge.onMessage = function (message) {
-                            $('#moriarty').html(message);
+                            document.querySelector('#moriarty').innerHTML = message;
+                            // $('#moriarty').html(message);
                             var height = null;
                             function changeHeight() {
                               if (document.body.scrollHeight != height) {
@@ -61,7 +60,8 @@ export default class App extends Component {
 
                               }
                             }
-                            setTimeout(changeHeight, 100);
+                            changeHeight();
+
                           };
                         }
                     `}

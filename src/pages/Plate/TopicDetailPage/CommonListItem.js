@@ -9,7 +9,7 @@ import { View, Text, StyleSheet, Image, TouchableOpacity,FlatList } from 'react-
 import {Heading2, Heading3,Heading4} from '../../../components/Text';
 import {ActionIcon,ExImage} from '../../../components';
 //配置
-import { screen, system } from '../../../utils';
+import { screen, system,getTimeStamp } from '../../../utils';
 import {colors} from '../../../config';
 
 
@@ -20,47 +20,7 @@ type Props = {
     info:Array<Object>
 }
 
-function itemWithMultiImg(info){
-    return (
-        <React.Fragment>
-            <View style={styles.multiPicContent}>
-                <Text style={styles.title}>{info.title}</Text>
-                <View style={{flexDirection:'row'}}>
-                    {
-                        info.imageUrls.map((o,i,arr)=>{
-                            let width = arr.length>=3?(screen.width-42)/3:(screen.width-42)/2;
-                            return i<3?<ExImage key={i} uri={o} style={[{width:width,height:width*0.618},styles.pic]} resizeMode={'cover'}/>:null
-                        })
-                    }
-                </View>
-                <Text style={styles.content}>{info.content}</Text>
-            </View>
-        </React.Fragment>
-    )
-}
-function itemWithSingleImg(info){
-    return (
-        <React.Fragment>
-            <View style={styles.singlePicContent}>
-                <Text style={styles.title}>{info.title}</Text>
-                <ExImage uri={info.imageUrls[0]} resizeMode='contain' style={styles.pic} />
-            </View>
-            <Text style={styles.content}>{info.content}</Text>
-        </React.Fragment>
-    )
-}
-function itemWithNoneImg(info) {
-    return (
-        <React.Fragment>
-            <View style={styles.nonePicContent}>
-                <Text style={styles.title}>{info.title}</Text>
-                <Text style={styles.content}>{info.content}</Text>
-            </View>
-        </React.Fragment>
-    )
-}
-
-function renderItem(info){
+function renderItem(info,current){
     return (
         <React.Fragment>
             <View style={styles.multiPicContent}>
@@ -79,6 +39,14 @@ function renderItem(info){
                         </View>:null
                 }
                 <Text style={styles.content}>{info.content}</Text>
+                <View style={{flexDirection:'row',justifyContent:'space-between',marginTop:10}}>
+                    <Text style={styles.bottomText}>
+                        {
+                            getTimeStamp(current,info.happenTime)
+                        }
+                    </Text>
+                    <Text style={styles.bottomText}>39阅读 . 1评论</Text>
+                </View>
             </View>
         </React.Fragment>
     )
@@ -86,8 +54,12 @@ function renderItem(info){
 
 
 class CommonListItem extends PureComponent<Props> {
+    constructor(props){
+        super(props);
+    }
+
     render() {
-        const {info} = this.props;
+        const {info,current} = this.props;
         return (
             <TouchableOpacity style={styles.container}
                               onPress={this.props.onPress}
@@ -98,26 +70,11 @@ class CommonListItem extends PureComponent<Props> {
                         <Image source={{uri:'https://avatars0.githubusercontent.com/u/15435074?s=460&v=4'}} style={styles.avatar}/>
                         <Heading3 style={{flex:1}}>Moriarty</Heading3>
                     </View>
-                    {/*<View style={styles.horPosition}>*/}
-                        {/*<View style={styles.horPosition}>*/}
-                            {/*<ActionIcon name={'ios-chatbubbles'} size={20}/>*/}
-                            {/*<Heading4>122</Heading4>*/}
-                        {/*</View>*/}
-                        {/*<View style={styles.horPosition}>*/}
-                            {/*<ActionIcon name={'ios-share'} size={20}/>*/}
-                        {/*</View>*/}
-                        {/*<View style={styles.horPosition}>*/}
-                            {/*<ActionIcon name={'ios-heart'} size={20}/>*/}
-                            {/*<Heading4></Heading4>*/}
-                        {/*</View>*/}
-                    {/*</View>*/}
+
                 </View>
                 {
-                    renderItem(info)
-                    // info.imageUrls.length>1?itemWithMultiImg(info):(info.imageUrls.length==1?itemWithSingleImg(info):itemWithNoneImg(info))
+                    renderItem(info,current)
                 }
-
-
             </TouchableOpacity>
         );
     }
@@ -162,7 +119,7 @@ const styles = StyleSheet.create({
         marginBottom:5
     },
     content:{
-        fontSize:14
+        fontSize:14,
     },
     nonePicContent:{
 
@@ -174,6 +131,9 @@ const styles = StyleSheet.create({
         flexDirection:"row",
         justifyContent:'space-between',
         // alignItems:'center'
+    },
+    bottomText:{
+        fontSize:10
     },
     multiPicContent:{
 

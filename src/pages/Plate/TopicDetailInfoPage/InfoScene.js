@@ -28,6 +28,7 @@ class InfoScene extends React.Component{
                 </View>
                 <Separator style={{backgroundColor:colors.gray2}}/>
                 <RichTextView width={'100%'} text={info.content?info.content.text:''}/>
+                <Separator style={{height:5}}/>
             </View>
         )
     }

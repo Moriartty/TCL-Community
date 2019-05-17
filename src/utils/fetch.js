@@ -9,7 +9,7 @@ const formHeaders = new Headers({
 
 
 var oldFetchfn = fetch; //拦截原始的fetch方法
-window.fetch = function(url, fetchOpts,opts={timeout:1000*20}){//定义新的fetch方法，封装原有的fetch方法
+window.fetch = function(url, fetchOpts,opts={timeout:1000*60}){//定义新的fetch方法，封装原有的fetch方法
     var fetchPromise = oldFetchfn(url, fetchOpts);
     var timeoutPromise = new Promise(function(resolve, reject){
         setTimeout(()=>{
@@ -53,12 +53,27 @@ function post (url, params,opts) {
         return {error: {message: 'Request failed.'}};
     })
 }
+function postFile (url, params,opts) {
+    return fetch(API.HOST+url, {
+        method: 'POST',
+        // headers: new Headers({
+        //     'Content-Type': 'multipart/form-data'
+        // }),
+        body: params,
+        credentials: 'include'
+    },opts).then(response => {
+        return handleResponse(url, response);
+    }).catch(err => {
+        console.error(`Request failed. Url = ${url} . Message = ${err}`);
+        return {error: {message: 'Request failed.'}};
+    })
+}
 
 function put (url, params,opts) {
     return fetch(API.HOST+url, {
         method: 'PUT',
-        headers: normalHeaders,
-        body: JSON.stringify(params),
+        // headers: normalHeaders,
+        body: params,
         credentials: 'include'
     },opts).then(response => {
         return handleResponse(url, response);
@@ -77,4 +92,4 @@ function handleResponse (url, response) {
     }
 }
 
-export {get, post, put}
+export {get, post,postFile, put}

@@ -8,10 +8,14 @@ import { ToastAndroid } from 'react-native';
 
 //配置
 import {colors} from '../../config';
+import {dataURLtoFile,dataURLtoBlob,blobToFile} from "../../utils";
 
 //actions
 import plateAction from '../../actions/plate';
 //
+
+
+
 
 class Editor extends PureComponent<Props>{
 
@@ -89,11 +93,19 @@ class Editor extends PureComponent<Props>{
             }
             else {
                 console.log('Response = ', response);
-                // let source = { uri: response.uri };
-
-                // You can also display the image using data:
-                let source = { uri: 'data:image/jpeg;base64,' + response.data };
-                this.richtext.insertImage({src: source.uri});
+                const base64Data = 'data:'+response.type+';base64,' + response.data;
+                // //调用
+                // var blob = dataURLtoBlob(base64Data);
+                // var file = blobToFile(blob, response.fileName);
+                //调用
+                var file = dataURLtoFile('data:'+response.type+';base64,' + response.data, response.fileName);
+                this.props.uploadPic(file,(resp)=>{
+                    // let source = { uri: 'data:image/jpeg;base64,' + response.data };
+                    console.log('resp',resp);
+                    this.richtext.insertImage({src: resp.data});
+                },()=>{
+                    ToastAndroid.show('图片上传失败',ToastAndroid.SHORT);
+                })
             }
         });
     }
@@ -144,6 +156,9 @@ const styles = StyleSheet.create({
 Editor = connect(null,dispatch=>({
     releasePlateArticle(title,content,success,failed){
         dispatch(plateAction.releaseArticle(title,content,success,failed));
+    },
+    uploadPic(file,success,failed){
+        dispatch(plateAction.uploadPics(file,success,failed));
     }
 }))(Editor);
 

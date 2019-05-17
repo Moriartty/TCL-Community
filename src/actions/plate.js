@@ -1,5 +1,5 @@
 import {RefreshState} from "react-native-refresh-list-view";
-import {get,post} from '../utils/fetch';
+import {get, post, postFile, put} from '../utils/fetch';
 import API from '../config/api';
 
 let actions = {};
@@ -45,20 +45,36 @@ function randomGetPics(){
     return imgUrls;
 }
 
+function getData(i){
+    return {
+        id:i,
+        imageUrls:randomGetPics(),
+        title:'测试测试测试测试'+i,
+        content:'发斯蒂芬斯蒂芬斯蒂芬发送到发斯蒂芬是否还能发一个还是带个',
+        happenTime:new Date().getTime()
+    }
+}
+
 actions.loadHottestData = (opt) => dispatch => {
     dispatch({type:'PLATE_LIST_LOADING',refreshState:RefreshState.HeaderRefreshing});
-    get(API.GET_ARTICLE,{},{timeout:1000*10}).then((resp)=>{
+    get(API.GET_ARTICLE,{}).then((resp)=>{
         if(resp.error){
             opt.error(resp);
             let mockData = [];
             for(let i=0;i<10;i++){
-                mockData.push( {id: i, imageUrls: randomGetPics(), title: '测试测试测试测试'+i,content:'surprise mother fucker'+1})
+                mockData.push( getData(i))
             }
             dispatch({type:'PLATE_HOTTEST_LIST_DATA_LOAD',data:mockData});
             dispatch({type:'PLATE_LIST_LOADING',refreshState:RefreshState.Idle});
         }
         else{
-
+            console.log(API.GET_ARTICLE,resp.data);
+            let mockData = [];
+            for(let i=0;i<10;i++){
+                mockData.push( getData(i))
+            }
+            dispatch({type:'PLATE_HOTTEST_LIST_DATA_LOAD',data:mockData});
+            dispatch({type:'PLATE_LIST_LOADING',refreshState:RefreshState.Idle});
         }
     });
 };
@@ -70,7 +86,7 @@ actions.loadHottestNextPage = () => (dispatch,getState) => {
         const lastId = preData[preData.length-1].id;
         let temp = [];
         for(let i=lastId+1;i<=lastId+10;i++){
-            temp.push( {id: i, imageUrls: randomGetPics(), title: 'winter is coming'+i,content:'surprise mother fucker'+1})
+            temp.push( getData(i))
         }
         dispatch({type:'PLATE_HOTTEST_LIST_DATA_LOAD',data:preData.concat(temp)});
         dispatch({type:'PLATE_LIST_LOADING',refreshState:RefreshState.Idle});
@@ -82,7 +98,7 @@ actions.loadNewestData = () => dispatch => {
     setTimeout(function(){
         let mockData = [];
         for(let i=0;i<10;i++){
-            mockData.push( {id: i, imageUrls: randomGetPics(), title: 'winter is coming'+i,content:'surprise mother fucker'+1})
+            mockData.push( getData(i))
         }
         dispatch({type:'PLATE_NEWEST_LIST_DATA_LOAD',data:mockData});
         dispatch({type:'PLATE_LIST_LOADING',refreshState:RefreshState.Idle});
@@ -96,7 +112,7 @@ actions.loadNewestNextPage = () => (dispatch,getState) => {
         const lastId = preData[preData.length-1].id;
         let temp = [];
         for(let i=lastId+1;i<=lastId+10;i++){
-            temp.push( {id: i, imageUrls: randomGetPics(), title: 'winter is coming'+i,content:'surprise mother fucker'+1})
+            temp.push( getData(i))
         }
         dispatch({type:'PLATE_NEWEST_LIST_DATA_LOAD',data:preData.concat(temp)});
         dispatch({type:'PLATE_LIST_LOADING',refreshState:RefreshState.Idle});
@@ -107,7 +123,7 @@ actions.loadEssenceData = () => dispatch => {
     setTimeout(function(){
         let mockData = [];
         for(let i=0;i<10;i++){
-            mockData.push( {id: i, imageUrls: randomGetPics(), title: 'winter is coming'+i,content:'surprise mother fucker'+1})
+            mockData.push( getData(i))
         }
         dispatch({type:'PLATE_ESSENCE_LIST_DATA_LOAD',data:mockData});
         dispatch({type:'PLATE_LIST_LOADING',refreshState:RefreshState.Idle});
@@ -121,7 +137,7 @@ actions.loadEssenceNextPage = () => (dispatch,getState) => {
         const lastId = preData[preData.length-1].id;
         let temp = [];
         for(let i=lastId+1;i<=lastId+10;i++){
-            temp.push( {id: i, imageUrls: randomGetPics(), title: 'winter is coming'+i,content:'surprise mother fucker'+1})
+            temp.push( getData(i))
         }
         dispatch({type:'PLATE_ESSENCE_LIST_DATA_LOAD',data:preData.concat(temp)});
         dispatch({type:'PLATE_LIST_LOADING',refreshState:RefreshState.Idle});
@@ -166,9 +182,15 @@ actions.releaseArticle = (title,content,success,failed) => dispatch => {
         resp.error? failed(resp):success(resp);
     });
 };
-actions.uploadPics = () => dispatch => {
-
-}
+actions.uploadPics = (file,success,failed) => dispatch => {
+    console.log(file);
+    let formData = new FormData();
+    formData.append('file',file);
+    put(API.FILE_UPLOADER,formData).then((resp)=>{
+        console.log(resp);
+        resp.error?failed(resp):success(resp);
+    })
+};
 
 
 export default actions;

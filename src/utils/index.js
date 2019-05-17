@@ -31,6 +31,51 @@ export function findTargetMenu (list,targetId){
     })
 }
 
+export function getTimeStamp(current,happenTime){
+    const duration = parseInt((current-happenTime)/1000);
+    if(duration<60)
+        return duration+'秒前';
+    else if(duration>=60&&duration<60*60)
+        return parseInt(duration/60)+'分钟前';
+    else if(duration>=60*60&&duration<60*60*24)
+        return parseInt(duration/(60*60))+'小时前';
+    else
+        return parseInt(duration/(60*60*24))+'天前';
+
+}
+
+export function dataURLtoFile(dataurl, filename) {
+    var arr = dataurl.split(','),
+        mime = arr[0].match(/:(.*?);/)[1],
+        bstr = atob(arr[1]),
+        n = bstr.length,
+        u8arr = new Uint8Array(n);
+    while (n--) {
+        u8arr[n] = bstr.charCodeAt(n);
+    }
+    return new File([u8arr], filename, { type: mime });
+}
+
+export function dataURLtoBlob(dataurl) {
+    var arr = dataurl.split(','),
+        mime = arr[0].match(/:(.*?);/)[1],
+        bstr = atob(arr[1]),
+        n = bstr.length,
+        u8arr = new Uint8Array(n);
+    while (n--) {
+        u8arr[n] = bstr.charCodeAt(n);
+    }
+    return new Blob([u8arr], { type: mime });
+}
+//将blob转换为file
+export function blobToFile(theBlob, fileName){
+    theBlob.lastModifiedDate = new Date();
+    theBlob.name = fileName;
+    return theBlob;
+}
+
+
+
 const patchPostMessageFunction = () => {
     const originalPostMessage = window.postMessage;
 
