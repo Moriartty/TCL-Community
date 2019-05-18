@@ -16,6 +16,7 @@ import WebScene from './WebScene';
 import ExModal from './ExModal';
 import ExInput from './ExInput';
 import RichTextView from './RichTextView';
+import ImageZoom from './ImageZoom';
 
 
 export {
@@ -30,7 +31,8 @@ export {
     WebScene,
     ExModal,
     ExInput,
-    RichTextView
+    RichTextView,
+    ImageZoom
 }
 
 

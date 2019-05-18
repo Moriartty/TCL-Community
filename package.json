@@ -19,6 +19,7 @@
     "react-native-gesture-handler": "^1.1.0",
     "react-native-image-crop-picker": "^0.24.0",
     "react-native-image-picker": "^0.28.1",
+    "react-native-image-zoom-viewer": "^2.2.25",
     "react-native-looped-carousel": "^0.1.13",
     "react-native-modal-translucent": "^3.0.1",
     "react-native-nested-scroll-view": "^8.0.0",

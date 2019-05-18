@@ -94,7 +94,7 @@ const AppNavigator = createStackNavigator(
         Release:{screen:Release},
         NewsDetail:{screen:NewsDetail},
         ActivitiesDetail:{screen:ActivitiesDetail},
-        TopicDetailInfoPage:{screen:TopicDetailInfoPage}
+        TopicDetailInfoPage:{screen:TopicDetailInfoPage},
     },
     {
         // initialRouteName:'Rewards',

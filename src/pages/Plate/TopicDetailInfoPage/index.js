@@ -1,5 +1,5 @@
 import React,{PureComponent} from 'react';
-import {View, ScrollView, RefreshControl, ToastAndroid, InteractionManager} from 'react-native';
+import {View, ScrollView, RefreshControl, ToastAndroid, InteractionManager,ActivityIndicator} from 'react-native';
 import {connect} from 'react-redux';
 //pages
 import InfoScene from './InfoScene';
@@ -7,6 +7,7 @@ import InfoScene from './InfoScene';
 import action from '../../../actions/plate';
 import {colors} from "../../../config";
 import {screen} from "../../../utils";
+import ExModal from "../../../components/ExModal";
 
 class TopicDetailInfoPage extends React.Component{
     static navigationOptions = ({navigation})=>{
@@ -36,6 +37,7 @@ class TopicDetailInfoPage extends React.Component{
         })
     }
     render(){
+        const {topicDetails,navigation} = this.props;
         return (
             <ScrollView
                 refreshControl={
@@ -47,13 +49,20 @@ class TopicDetailInfoPage extends React.Component{
                 }
                 style={{width:'100%'}}
             >
-                <InfoScene/>
+                {
+                    topicDetails==undefined||JSON.stringify(topicDetails)==='{}'?
+                        <ActivityIndicator size="large" color={colors.gray2}/>:
+                        <InfoScene navigation={navigation}/>
+                }
             </ScrollView>
         )
     }
 }
 
-TopicDetailInfoPage = connect(null,dispatch=>({
+TopicDetailInfoPage = connect(state=>{
+    const {topicDetails} = state['plate'];
+    return {topicDetails};
+},dispatch=>({
     init(){
         dispatch(action.loadTopicDetail());
     }

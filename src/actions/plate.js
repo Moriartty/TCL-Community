@@ -153,17 +153,20 @@ actions.loadToppingNews = (count) => dispatch => {
 };
 
 actions.loadTopicDetail = () => dispatch => {
-    const topicDetails = {
-        user:{
-            name:'moriarty',
-            imageUrl:'https://avatars0.githubusercontent.com/u/15435074?s=460&v=4'
-        },
-        content:{
-            title:'今天是个好日子',
-            text:'半醒半睡难受<div>还想继续你到哪</div><div>记得记得你到哪就像你想你</div><div>会想你的你到哪<b>不行不行补习班</b></div><div><b>不想教学计划<i>还想继续家</i></b></div><div><ul><li><b style="font-size: 1em;"><i>不像你想你好</i></b><br></li></ul><b style="font-size: 1em;"><i>那些那些那些</i></b><br></div><div><b style="font-size: 1em;"><i>建筑机械好</i></b></div>'
-        }
-    };
-    dispatch({type:'PLATE_TOPIC_DETAILS_LOAD',topicDetails});
+    setTimeout(function(){
+        const topicDetails = {
+            user:{
+                name:'moriarty',
+                imageUrl:'https://avatars0.githubusercontent.com/u/15435074?s=460&v=4'
+            },
+            content:{
+                title:'今天是个好日子',
+                images:urls.map(o=>{return {url:o}}),
+                text:'半醒半睡难受<div>还想继续你到哪</div><div>记得记得你到哪就像你想你</div><div>会想你的你到哪<b>不行不行补习班</b></div><div><b>不想教学计划<i>还想继续家</i></b></div><div><ul><li><b style="font-size: 1em;"><i>不像你想你好</i></b><br></li></ul><b style="font-size: 1em;"><i>那些那些那些</i></b><br></div><div><b style="font-size: 1em;"><i>建筑机械好</i></b></div>'
+            }
+        };
+        dispatch({type:'PLATE_TOPIC_DETAILS_LOAD',topicDetails});
+    },2000);
 };
 
 /**

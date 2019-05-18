@@ -1,17 +1,28 @@
 import React from 'react';
-import {View,StyleSheet,Text} from 'react-native';
+import {View,StyleSheet,Text,TouchableOpacity} from 'react-native';
 import {connect} from 'react-redux';
 //components
-import {ExImage,Separator,RichTextView} from '../../../components';
+import {ExImage,Separator,RichTextView,ImageZoom} from '../../../components';
 import {colors} from "../../../config";
 //配置
 import screen from "../../../utils/screen";
 
 class InfoScene extends React.Component{
+    constructor(props){
+        super(props);
+        this.state = {
+            modalVisible:false
+        }
+    }
     render(){
-        const {topicDetails:info} = this.props;
+        const {topicDetails:info,navigation} = this.props;
         return (
             <View style={{width:'100%',height:'100%'}}>
+                <ImageZoom
+                    visible={this.state.modalVisible}
+                    images={info.content?info.content.images:[]}
+                    closeModal={()=>this.setState({modalVisible:false})}
+                />
                 <View style={styles.header}>
                     <Text style={styles.title}>{info.content?info.content.title:''}</Text>
                     <View style={styles.headerFlex}>
@@ -23,7 +34,9 @@ class InfoScene extends React.Component{
                             <ExImage uri={info.user?info.user.imageUrl:''} style={styles.avatar}/>
                             <Text style={{fontSize:14,color:'black'}}>{info.user?info.user.name:''}</Text>
                         </View>
-                        <Text style={styles.attentionIcon}>关注</Text>
+                        <TouchableOpacity onPress={()=>this.setState({modalVisible:true})}>
+                            <Text style={styles.attentionIcon}>关注</Text>
+                        </TouchableOpacity>
                     </View>
                 </View>
                 <Separator style={{backgroundColor:colors.gray2}}/>

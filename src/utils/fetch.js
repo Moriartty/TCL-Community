@@ -9,7 +9,7 @@ const formHeaders = new Headers({
 
 
 var oldFetchfn = fetch; //拦截原始的fetch方法
-window.fetch = function(url, fetchOpts,opts={timeout:1000*60}){//定义新的fetch方法，封装原有的fetch方法
+window.fetch = function(url, fetchOpts,opts={timeout:1000*20}){//定义新的fetch方法，封装原有的fetch方法
     var fetchPromise = oldFetchfn(url, fetchOpts);
     var timeoutPromise = new Promise(function(resolve, reject){
         setTimeout(()=>{

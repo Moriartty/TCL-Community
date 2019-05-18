@@ -7,15 +7,13 @@ import {colors} from '../config';
 class ExModal extends PureComponent<Props>{
 
     render(){
-        const {modalVisible,children} = this.props;
+        const {modalVisible,children,onRequestClose} = this.props;
         return (
             <Modal
                 animationType="fade"
                 transparent={true}
                 visible={modalVisible}
-                onRequestClose={() => {
-                    alert("Modal has been closed.");
-                }}
+                onRequestClose={onRequestClose}
             >
                 <View style={styles.modalContainer}>
                     {children}
