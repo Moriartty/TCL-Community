@@ -1,8 +1,9 @@
 import React from 'react';
-import {View,StyleSheet,Text,TouchableOpacity} from 'react-native';
+import {View,StyleSheet,Text,TouchableOpacity,Image} from 'react-native';
 import {connect} from 'react-redux';
+import HTMLView from 'react-native-htmlview';
 //components
-import {ExImage,Separator,RichTextView,ImageZoom} from '../../../components';
+import {ExImage,Separator,RichTextView,ImageZoom,Comments} from '../../../components';
 import {colors} from "../../../config";
 //配置
 import screen from "../../../utils/screen";
@@ -11,15 +12,47 @@ class InfoScene extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            modalVisible:false
+            modalVisible:false,
+            initUrl:''
         }
     }
+    _renderNode = (node, index, siblings, parent, defaultRenderer) => {
+        const attr = node.attribs;
+        switch(node.name){
+            case '':
+                return <View><Text style={{fontSize:16}}>{node.text}</Text></View>;
+            case 'img':
+                return (
+                    <TouchableOpacity
+                        key={index}
+                        activeOpacity={1}
+                        // style={{width:screen.width-40,height:100}}
+                        onPress={()=>this.setState({modalVisible:true,initUrl:attr.src})}
+                    >
+                        <ExImage
+                            uri={attr.src}
+                            style={{width:screen.width-40,height:0.618*(screen.width-40)}}
+                            resizeMode={'cover'}
+                        />
+                    </TouchableOpacity>
+                )
+        }
+    }
+    _sortByTime = () => {
+        console.log('sortByTime')
+    }
+
+    _sortByHeat = () => {
+        console.log('sortByHeat');
+    }
+
     render(){
         const {topicDetails:info,navigation} = this.props;
         return (
             <View style={{width:'100%',height:'100%'}}>
                 <ImageZoom
                     visible={this.state.modalVisible}
+                    initUrl={this.state.initUrl}
                     images={info.content?info.content.images:[]}
                     closeModal={()=>this.setState({modalVisible:false})}
                 />
@@ -40,8 +73,20 @@ class InfoScene extends React.Component{
                     </View>
                 </View>
                 <Separator style={{backgroundColor:colors.gray2}}/>
-                <RichTextView width={'100%'} text={info.content?info.content.text:''}/>
+                <View style={{width:'100%',padding:20}}>
+                    <HTMLView
+                        value={info.content?info.content.text:''}
+                        stylesheet={htmlStyles}
+                        renderNode={this._renderNode}
+                    />
+                </View>
+                {/*<RichTextView width={'100%'} text={info.content?info.content.text:''}/>*/}
                 <Separator style={{height:5}}/>
+                <Comments
+                    sortByHeat={this._sortByHeat}
+                    sortByTime={this._sortByTime}
+                    data={info.comments?info.comments:[]}
+                />
             </View>
         )
     }
@@ -82,6 +127,15 @@ const styles = StyleSheet.create({
         fontSize:12,
         textAlign:'center'
     }
+});
+const htmlStyles = StyleSheet.create({
+    div:{
+        fontSize:17
+    },
+    b:{
+        color:'black',
+        fontWeight:'bold'
+    },
 });
 
 InfoScene = connect(state=>{

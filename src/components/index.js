@@ -17,7 +17,7 @@ import ExModal from './ExModal';
 import ExInput from './ExInput';
 import RichTextView from './RichTextView';
 import ImageZoom from './ImageZoom';
-
+import Comments from './Comments';
 
 export {
     // DetailCell,
@@ -32,7 +32,8 @@ export {
     ExModal,
     ExInput,
     RichTextView,
-    ImageZoom
+    ImageZoom,
+    Comments
 }
 
 

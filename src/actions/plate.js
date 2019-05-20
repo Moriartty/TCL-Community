@@ -162,11 +162,16 @@ actions.loadTopicDetail = () => dispatch => {
             content:{
                 title:'今天是个好日子',
                 images:urls.map(o=>{return {url:o}}),
-                text:'半醒半睡难受<div>还想继续你到哪</div><div>记得记得你到哪就像你想你</div><div>会想你的你到哪<b>不行不行补习班</b></div><div><b>不想教学计划<i>还想继续家</i></b></div><div><ul><li><b style="font-size: 1em;"><i>不像你想你好</i></b><br></li></ul><b style="font-size: 1em;"><i>那些那些那些</i></b><br></div><div><b style="font-size: 1em;"><i>建筑机械好</i></b></div>'
-            }
+                text:'活出精彩接电话还想继续好<div>还想继续家家</div><img src="https://cdn.pixabay.com/photo/2019/04/15/01/00/rollers-4128215__480.jpg"/><div><b>还想继续家电话</b></div><div><i>不到九点接电话</i></div><div><i><b>好想好想检查</b></i></div><div><ul><li>就吃饭接电话</li><li><b>农村建房金凤凰</b></li><li><i>能吃就行接电话</i></li><li><i><b>继续坚持吃</b></i></li></ul><ol><li>军训</li><li><i>军服</i></li><li><b>红茶加饭酒</b></li><li><b><i>举出你吃鸡翅尖</i></b></li></ol><a href="www.baidu.com">百度</a><b><i><br></i></b></div><img src="https://cdn.pixabay.com/photo/2019/04/19/10/14/men-4139026__480.jpg"/><img src="https://cdn.pixabay.com/photo/2019/04/15/20/42/bitcoin-4130299__480.png"/><img src="https://cdn.pixabay.com/photo/2018/02/16/10/52/beverage-3157395__480.jpg"/>'
+            },
+            comments:[
+                {index:3,device:'移动端',happenTime:new Date().getTime()-312441,name:'Moriarty1',imageUrl:'https://avatars0.githubusercontent.com/u/15435074?s=460&v=4',comment:'放水电费第三方'},
+                {index:2,device:'小米 mix2',happenTime:new Date().getTime()-310000,name:'Moriarty2',imageUrl:'https://avatars0.githubusercontent.com/u/15435074?s=460&v=4',comment:'fuck'},
+                {index:1,device:'小米9',happenTime:new Date().getTime()-100000,name:'Moriarty3',imageUrl:'https://avatars0.githubusercontent.com/u/15435074?s=460&v=4',comment:'fuck'}
+            ]
         };
         dispatch({type:'PLATE_TOPIC_DETAILS_LOAD',topicDetails});
-    },2000);
+    },0);
 };
 
 /**

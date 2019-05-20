@@ -31,6 +31,7 @@ class Editor extends PureComponent<Props>{
         const {releasePlateArticle,navigation,handleModalVisible} = this.props;
         Promise.all([this.getTitle(),this.getContent()]).then((vals)=>{
             if(vals[0]&&vals[1]){
+                console.log('content',vals[1]);
                 handleModalVisible(true);
                 releasePlateArticle(vals[0],vals[1],function(resp){
                     //success

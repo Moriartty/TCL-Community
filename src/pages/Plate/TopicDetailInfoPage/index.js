@@ -36,6 +36,9 @@ class TopicDetailInfoPage extends React.Component{
             this.props.init();
         })
     }
+    onHeaderRefresh = () => {
+        this.props.init();
+    }
     render(){
         const {topicDetails,navigation} = this.props;
         return (
