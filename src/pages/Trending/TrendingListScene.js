@@ -41,6 +41,7 @@ class TrendingListScene extends PureComponent<Props,State>{
             <TrendingListItem
                 info={rowData.item}
                 onPress={() => {
+                    this.props.navigation.navigate('TopicDetailInfoPage', { info: rowData.item })
                     // this.props.navigation.navigate('DetailsPage', { info: rowData.item })
                 }}
             />

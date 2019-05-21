@@ -1,7 +1,7 @@
 import React,{PureComponent} from 'react';
 import {
     View, Text, StyleSheet, Platform, TouchableOpacity, InteractionManager, Alert,
-    ToastAndroid,ProgressBarAndroid
+    ToastAndroid,ProgressBarAndroid,BackHandler,PanResponder
 } from 'react-native';
 import {connect} from 'react-redux';
 //pages
@@ -36,10 +36,25 @@ class Release extends React.Component<Props>{
         }
     }
 
+    // componentWillMount() {
+    //     this._panResponder = PanResponder.create({
+    //         onShouldBlockNativeResponder: (evt, gestureState) => {
+    //             return true;
+    //         },
+    //     })
+    // }
+
     componentDidMount() {
         InteractionManager.runAfterInteractions(() => {
             this.props.navigation.setParams({'handleSubmit':this.handleSubmit,'handleCancel':this.handleCancel});
+            if(Platform.OS=='android')
+                BackHandler.addEventListener("hardwareBackPress", this.handleCancel);
         })
+    }
+
+    componentWillUnmount() {
+        if(Platform.OS=='android')
+            BackHandler.removeEventListener("hardwareBackPress", this.handleCancel)
     }
 
     handleSubmit = () => {
@@ -49,8 +64,8 @@ class Release extends React.Component<Props>{
 
     handleCancel = () => {
         Alert.alert('确定要退出编辑吗？','记录将不会被保存！', [
-            {text: '取消', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-            {text: '确定', onPress: () =>  this.props.navigation.goBack()},
+            {text: '取消', onPress: () => {console.log('Cancel Pressed');return false}, style: 'cancel'},
+            {text: '确定', onPress: () =>  {this.props.navigation.goBack();return true}},
         ],);
     };
 

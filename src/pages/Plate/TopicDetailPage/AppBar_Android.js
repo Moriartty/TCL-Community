@@ -19,7 +19,7 @@ import {Separator,ExImage} from '../../../components';
 import {screen} from "../../../utils";
 import {colors,theme} from "../../../config";
 
-const appBarHeight = 300;
+const appBarHeight = 330;
 
 type Props = {
     navigation:Object
