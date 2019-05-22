@@ -191,7 +191,6 @@ actions.releaseArticle = (title,content,success,failed) => dispatch => {
     });
 };
 actions.uploadPics = (file,success,failed) => dispatch => {
-    console.log(file);
     let formData = new FormData();
     formData.append('file',file);
     put(API.FILE_UPLOADER,formData).then((resp)=>{

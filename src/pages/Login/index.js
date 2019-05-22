@@ -25,7 +25,7 @@ type Props = {
 
 
 
-class Login extends React.Component<Props,State>{
+class Login extends React.Component<Props>{
     static navigationOptions = ({navigation}) => {
         return {
             headerRight:
@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
         alignItems:'center'
 
     }
-})
+});
 
 
 

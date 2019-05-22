@@ -14,14 +14,14 @@ class AuthLoadingScreen extends React.Component {
         this._bootstrapAsync();
     }
 
-    // Fetch the token from storage then navigate to our appropriate place
+    //获取token
     _bootstrapAsync = () => {
         global.storage._load(
             'accessToken',
             (token)=>{console.log('access_token',token);this.props.navigation.navigate(token ? 'App' : 'Auth');})
     };
 
-    // Render any loading content that you like here
+    //设定加载页内容
     render() {
         return (
             <View style={{width:'100%',height:'100%'}}>

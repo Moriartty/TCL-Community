@@ -10,6 +10,7 @@ import {connect} from 'react-redux';
 import { StatusBar } from 'react-native';
 import { createStackNavigator, createAppContainer, TabBarBottom,createSwitchNavigator } from 'react-navigation';
 import SplashScreen from 'react-native-splash-screen';
+
 //内部配置依赖
 import {colors, theme} from './config';
 import {screen} from "./utils";
@@ -27,6 +28,8 @@ import Login from './pages/Login';
 import AuthLoadingScreen from './pages/Login/AuthLoadingScreen';
 import SignUp from "./pages/SignUp";
 import TopicDetailInfoPage from './pages/Plate/TopicDetailInfoPage';
+
+
 
 function getCurrentRouteName(navigationState: any) {
     if (!navigationState) {
@@ -81,8 +84,6 @@ class App extends Component<Props> {
     }
 }
 
-
-
 const AppNavigator = createStackNavigator(
     {
         Tab1: { screen: Tab },
@@ -135,7 +136,7 @@ const AuthNavigator = createStackNavigator(
     }
 );
 
-
+//分为认证路由和app路由和认证加载路由，每次进入应用由认证加载路由根据token来决定进入哪个路由
 const AppContainer = createAppContainer(createSwitchNavigator(
     {
         AuthLoading: AuthLoadingScreen,

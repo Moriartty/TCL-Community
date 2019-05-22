@@ -2,15 +2,19 @@ import React,{PureComponent} from 'react';
 import {TouchableOpacity,StyleSheet,Image,View,Alert,Text} from 'react-native';
 import {createBottomTabNavigator, TabBarBottom,SafeAreaView,createStackNavigator} from "react-navigation";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import {Heading3} from "../../components/Text";
+import {ActionIcon} from '../../components';
+
+//配置
+import {screen} from '../../utils';
+import {colors, theme} from "../../config";
+//pages
 import Message from "../Message";
 import Explore from "../Explore";
 import Plate from '../Plate';
-import {colors, theme} from "../../config";
 import Home from "../Home";
 import MyTCL from "../MyTCL";
 import Release from '../Release';
-import {screen} from '../../utils';
+
 
 const Tab = createBottomTabNavigator(
     {
@@ -24,7 +28,7 @@ const Tab = createBottomTabNavigator(
         defaultNavigationOptions: ({ navigation }) => ({
             tabBarIcon: ({ focused, horizontal, tintColor }) => {
                 const { routeName } = navigation.state;
-                let IconComponent = Ionicons;
+                // let IconComponent = Ionicons;
                 let iconName;
                 let size = 30,color = tintColor,style;
 
@@ -53,7 +57,7 @@ const Tab = createBottomTabNavigator(
                         iconName = `ios-person${focused ? '' : ''}`;
                         break;
                 }
-                return <IconComponent name={iconName} size={size} color={color} style={style} />;
+                return <ActionIcon name={iconName} size={size} color={color} style={style} />;
             },
             tabBarLabel:({ focused, horizontal, tintColor }) => {
                 const { routeName } = navigation.state;

@@ -9,7 +9,6 @@ class ImageZoom extends PureComponent{
         super(props);
     }
 
-
     render() {
         const {visible,images,closeModal,initUrl} = this.props;
         const index = images.findIndex(o=>o.url===initUrl)

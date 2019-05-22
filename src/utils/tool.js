@@ -1,8 +1,4 @@
 /**
- * Copyright (c) 2017-present, Liu Jinyong
- * All rights reserved.
- *
- * https://github.com/huanxsd/MeiTuan  
  * @flow
  */
 
@@ -19,4 +15,4 @@ export function urlByAppendingParams(url: string, params: Object) {
 
   result = result.substring(0, result.length - 1);
   return result;
-} 
+}

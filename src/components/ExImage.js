@@ -27,7 +27,7 @@ class ExImage extends Component<Props>{
         return (
             <Image
                 source={{uri}}
-                style={{ height: this.state.height, width: this.state.width }}
+                style={[style,{ height: this.state.height, width: this.state.width }]}
                 defaultSource={require('../img/default.jpg')}
                 {...this.props}
             />

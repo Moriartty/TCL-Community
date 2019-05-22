@@ -52,11 +52,7 @@ class MyTCL extends PureComponent<Props, State> {
 
     handleSettingClick = () => {
         this.props.navigation.navigate('Settings');
-    }
-
-    state: {
-        isRefreshing: boolean
-    }
+    };
 
     constructor(props: Object) {
         super(props)
@@ -115,7 +111,7 @@ class MyTCL extends PureComponent<Props, State> {
                 </View>
             </View>
         )
-    }
+    };
 
     renderHeader() {
         return (

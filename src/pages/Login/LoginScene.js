@@ -79,21 +79,6 @@ class LoginScene extends React.Component<State>{
                         <CustomButton title={'LOGIN'} style={styles.loginButton} titleStyle={{color:'black'}} onPress={this.handleLogin}/>
                         </BoxShadow>
                     </View>
-                    {/*<View style={styles.content3}>*/}
-                        {/*<Text style={{color:'black',fontSize:14}}>Or Login With</Text>*/}
-                        {/*<View style={{flexDirection:'row',justifyContent:'space-between',width:200}}>*/}
-                            {/*<ActionIcon name={'logo-facebook'} size={45}/>*/}
-                            {/*<ActionIcon name={'logo-twitter'} size={45}/>*/}
-                            {/*<ActionIcon name={'logo-google'} size={45}/>*/}
-                        {/*</View>*/}
-                    {/*</View>*/}
-                    {/*<View style={styles.content4}>*/}
-                        {/*<TouchableOpacity*/}
-
-                        {/*>*/}
-                            {/*<Text style={{color:colors.blue}}>Not a member? SIGN UP</Text>*/}
-                        {/*</TouchableOpacity>*/}
-                    {/*</View>*/}
                 </View>
                 <View style={{height:'40%',justifyContent:'flex-end'}}>
                     <View style={styles.content3}>

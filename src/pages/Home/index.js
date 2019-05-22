@@ -27,11 +27,7 @@ class Home extends PureComponent<Props>{
     constructor(props){
         super(props);
     }
-    // componentDidMount() {
-    //     InteractionManager.runAfterInteractions(() => {
-    //         this.props.init();
-    //     })
-    // }
+
     render() {
 
         return (

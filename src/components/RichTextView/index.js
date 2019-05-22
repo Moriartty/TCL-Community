@@ -26,10 +26,9 @@ export default class App extends Component {
             const text = this.props.text;
             text&&this.refs.richTextView.sendToBridge(text)
         })
-    }
+    };
     onBridgeMessage(message){
         this.setState({height:parseInt(message)+20});
-
     }
 
     render() {

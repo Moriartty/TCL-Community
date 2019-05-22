@@ -1,5 +1,6 @@
 /**
  * createdBy Moriarty
+ * 详情页评论
  * @flow
  */
 //node_modules

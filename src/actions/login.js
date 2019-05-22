@@ -1,9 +1,4 @@
 
-//
-// const token = {
-//     access_token:'access_token0',
-//     refresh_token:'refresh_token0'
-// };
 const accessToken = 'access_token0';
 const refreshToken = 'refresh_token0';
 

@@ -43,7 +43,7 @@ export function getTimeStamp(current,happenTime){
         return parseInt(duration/(60*60*24))+'天前';
 
 }
-
+//base64转file
 export function dataURLtoFile(dataurl, filename) {
     var arr = dataurl.split(','),
         mime = arr[0].match(/:(.*?);/)[1],
@@ -55,7 +55,7 @@ export function dataURLtoFile(dataurl, filename) {
     }
     return new File([u8arr], filename, { type: mime });
 }
-
+//base64转blob
 export function dataURLtoBlob(dataurl) {
     var arr = dataurl.split(','),
         mime = arr[0].match(/:(.*?);/)[1],
@@ -74,8 +74,7 @@ export function blobToFile(theBlob, fileName){
     return theBlob;
 }
 
-
-
+//webview补丁
 const patchPostMessageFunction = () => {
     const originalPostMessage = window.postMessage;
 

@@ -1,4 +1,3 @@
-// import configureStore from './configureStore';
 import React from 'react';
 import {Provider} from 'react-redux';
 import App from '../App';
@@ -28,15 +27,6 @@ const store = createStore(RootReducer,applyMiddleware(thunk,logger));
 class Root extends React.Component{
     constructor(props){
         super(props);
-        // this.state = {
-        //     store:null
-        // }
-    }
-    // componentWillMount() {
-    //     global.storage._load('token',(token)=>{token&&this.props.navigation.navigate('Tab');})
-    // }
-    componentDidMount() {
-        // this.setState({store:configureStore()})
     }
 
     render(){

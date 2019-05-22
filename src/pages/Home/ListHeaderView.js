@@ -37,7 +37,7 @@ class ListHeaderView extends PureComponent<Props> {
                 </Paragraph>
             </TouchableOpacity>
         )
-    }
+    };
     render() {
         return (
             <View style={styles.container}>

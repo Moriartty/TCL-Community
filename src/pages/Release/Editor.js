@@ -2,7 +2,6 @@ import React,{PureComponent} from 'react';
 import {View, Text, StyleSheet, Platform, TouchableOpacity, InteractionManager,Alert} from 'react-native';
 import {RichTextEditor,RichTextToolbar} from 'react-native-zss-rich-text-editor';
 import ImagePicker from 'react-native-image-picker';
-// import ImagePicker from 'react-native-image-crop-picker';
 import {connect} from 'react-redux';
 import { ToastAndroid } from 'react-native';
 
@@ -75,12 +74,6 @@ class Editor extends PureComponent<Props>{
             height: 400,
             cropping: true
         };
-        //暂时不用react-native-image-crop-picker
-        // ImagePicker.openPicker({
-        //     multiple: true
-        // }).then(images => {
-        //     console.log(images);
-        // });
         ImagePicker.showImagePicker(options, (response) => {
 
             if (response.didCancel) {

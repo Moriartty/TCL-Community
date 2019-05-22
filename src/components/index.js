@@ -3,8 +3,6 @@
  * @flow
  */
 
-
-// import DetailCell from './DetailCell'
 import ActionIcon from './ActionIcon';
 import CustomButton from './Button';
 import ExImage from './ExImage';
@@ -20,7 +18,6 @@ import ImageZoom from './ImageZoom';
 import Comments from './Comments';
 
 export {
-    // DetailCell,
     ActionIcon,
     CustomButton,
     ExImage,
