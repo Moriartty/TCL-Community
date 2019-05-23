@@ -3,6 +3,7 @@ package com.tclcommunity;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
 import com.horcrux.svg.SvgPackage;
 import me.listenzz.modal.TranslucentModalReactPackage;
 import org.devio.rn.splashscreen.SplashScreenReactPackage;
@@ -34,6 +35,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new ReactNativePushNotificationPackage(),
             new SvgPackage(),
             new TranslucentModalReactPackage(),
             new SplashScreenReactPackage(),

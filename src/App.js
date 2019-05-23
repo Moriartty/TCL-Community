@@ -28,6 +28,7 @@ import Login from './pages/Login';
 import AuthLoadingScreen from './pages/Login/AuthLoadingScreen';
 import SignUp from "./pages/SignUp";
 import TopicDetailInfoPage from './pages/Plate/TopicDetailInfoPage';
+import Feedback from './pages/Feedback';
 
 
 
@@ -96,6 +97,7 @@ const AppNavigator = createStackNavigator(
         NewsDetail:{screen:NewsDetail},
         ActivitiesDetail:{screen:ActivitiesDetail},
         TopicDetailInfoPage:{screen:TopicDetailInfoPage},
+        Feedback:{screen:Feedback}
     },
     {
         // initialRouteName:'Rewards',
@@ -152,6 +154,7 @@ App = connect(state=>{
     const {platform} = state['app'];
     return {platform};
 },null)(App);
+
 
 export default App
 

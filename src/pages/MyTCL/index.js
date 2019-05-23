@@ -70,9 +70,12 @@ class MyTCL extends PureComponent<Props, State> {
         }, 2000)
     }
 
-    renderCell = (title) => {
+    renderCell = (title,pageName) => {
         return (
-            <TouchableOpacity key={title}>
+            <TouchableOpacity
+                key={title}
+                onPress={()=>{pageName&&this.props.navigation.navigate(pageName)}}
+            >
                 <View style={{flexDirection:'row',padding:15,backgroundColor:colors.primary,justifyContent:'space-between'}}>
                     <Text style={{fontSize:16,color:'black'}}>{title}</Text>
                     <ActionIcon name={'ios-arrow-forward'} size={18}/>
@@ -89,7 +92,7 @@ class MyTCL extends PureComponent<Props, State> {
             let sublist = dataList[i]
             for (let j = 0; j < sublist.length; j++) {
                 let data = sublist[j]
-                let cell = this.renderCell(data.title);
+                let cell = this.renderCell(data.title,data.pageName);
                 cells.push(cell)
             }
             // cells.push(<SpacingView key={i} />)
@@ -170,7 +173,7 @@ class MyTCL extends PureComponent<Props, State> {
             [
                 [
                     { title: 'Devices Info' },
-                    { title: 'Feedback'},
+                    { title: 'Feedback',pageName:'Feedback'},
                     { title: 'FAQ'},
                     { title: 'Customer Support'}
                 ]
